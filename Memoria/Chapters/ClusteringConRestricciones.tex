@@ -6,7 +6,7 @@ Nos situamos entonces en un nuevo escenario: es posible incorporar información 
 
 \section{Definición de las restricciones}
 
-El nuevo tipo de  información que incorporamos al clustering viene dada en forma de restricciones a nivel de instancia, esto es, especificar si dos instancias del conjunto de datos deben estar en el mismo cluster, o, por el contrario, deben estar en clusters separados.
+El nuevo tipo de  información que incorporamos al clustering viene dado en forma de restricciones a nivel de instancia, esto es, especificar si dos instancias del conjunto de datos deben estar en el mismo cluster, o, por el contrario, deben estar en clusters separados.
 
 A las restricciones que indican que dos puntos deben ser situados en el mismo cluster se las denomina Must-link, y se notan por $ML(x,y)$, donde $x$ e $y$ son dos instancias del conjunto de datos. De manera similar, a las restricciones que especifican lo contrario se las denomina Cannot-link, y se notan por $CL(x,y)$.
 
@@ -22,7 +22,7 @@ Aunque pueden parecer simples, las restricciones definidas de la anterior forma 
 	\textbf{Las restricciones de tipo CL pueden ser (encadenadas).} Sean $CC_i$ y $CC_j$ componentes conexas, conectadas mediante restricciones $ML$, y sean $x$ e $y$ dos instancias en $CC_i$ y $CC_j$ respectivamente. Entonces $CL(x,y): x \in CC_i, y \in CC_j \rightarrow CL(a,b) \forall a,b: a\in CC_i, b \in CC_j$
 \end{observacion}
 
-Un claro ejemplo de uso de las restricciones lo encontramos en casos de aplicación de clustering en los que existen restricciones en cuanto a las medidas de distancia, como sucedía en el supuesto de los datos GPS. Por ejemplo, si queremos que las instancias que forman dos clusters estén separadas por una distancia mayor o igual a $\delta$, basta con establecer restricciones de tipo ML entre todas aquellas instancias cuya distancia sea menor que $\delta$. 
+Un claro ejemplo de uso de las restricciones lo encontramos en casos de aplicación de clustering en los que existen restricciones en cuanto a las medidas de distancia, como sucedía en el supuesto de los datos GPS. Así, si queremos que las instancias que forman dos clusters estén separadas por una distancia mayor o igual a $\delta$, basta con establecer restricciones de tipo ML entre todas aquellas instancias cuya distancia sea menor que $\delta$. 
 De manera similar, si queremos que el diámetro de los clusters sea como mucho $\epsilon$, debemos establecer un conjunto de restricciones de tipo CL entre todas aquellas instancias que se encuentren a una distancia mayor que $\epsilon$. La figura \ref{fig:figure4} muestra una representación gráfica de estos dos tipos de restricciones.
 
 \begin{figure}[!h]
@@ -37,19 +37,19 @@ De manera similar, si queremos que el diámetro de los clusters sea como mucho $
 
 Mientras que el aprendizaje completamente supervisado implica conocer la etiqueta asociada a cada instancia, en el aprendizaje semisupervisado solo se dispone de un subconjunto de instancias etiquetadas. Por otra parte, en gran cantidad de dominios la información disponible se refiere a relaciones entre instancias, y no a la clase concreta a la que pertenecen las mismas. Es más, en montajes de clustering interactivo, un usuario no experto en el dominio del problema podrá, probablemente, aportar información en forma de restricciones de tipo \acf{ML} y \acf{CL}, antes que aportar información sobre a qué clase concreta pertenecen ciertas instancias.
 
-Habitualmente, las restricciones se incluyen en los problemas de clustering de dos maneras. Pueden ser empleadas para modificar la regla de asignación de instancias a cluster del método en cuestión, de forma que la solución satisfaga el máximo número de restricciones posible. Alternativamente, cabe la posibilidad de entrenar la función de distancia empleada por el método en base a las restricciones, ya sea antes o durante la aplicación del mismo. En cualquier caso, la fase incialización puede tomar en consideración las restricciones, de forma que las instancias asociadas con restricciones \acf{ML} serán situadas en el mismo cluster, y aquellas entre las que exista una restricción \acf{CL}, quedarán en clusters diferentes. Basándonos en esta distinción, identificamos dos maneras de aproximar el problema, las basadas en restricciones (\textit{constraint-based}), y las basadas en distancias (\textit{distance-based}).
+Habitualmente, las restricciones se incluyen en los problemas de clustering de dos maneras. Pueden ser empleadas para modificar la regla de asignación de instancias a clusters del método en cuestión, de forma que la solución satisfaga el máximo número de restricciones posible. Alternativamente, cabe la posibilidad de entrenar la función de distancia empleada por el método en base a las restricciones, ya sea antes o durante la aplicación del mismo. En cualquier caso, la fase incialización puede tomar en consideración las restricciones, de forma que las instancias asociadas con restricciones \acf{ML} serán situadas en el mismo cluster, y aquellas entre las que exista una restricción \acf{CL}, quedarán en clusters diferentes. Basándonos en esta distinción, identificamos dos maneras de aproximar el problema, las basadas en restricciones (\textit{constraint-based}), y las basadas en distancias (\textit{distance-based}).
 
 \subsection{Métodos basados en restricciones}
 
 En los métodos basados en restricciones, el propio método de clustering es modificado de manera que la información disponible se emplea para sesgar la búsqueda y obtener una partición de los datos apropiada.
 
-Existen dos modelos de métodos basados en restricciones: (1) aquellos que fuerzan el cumplimiento de las restricciones, e intentan encontrar la mejor asignación posible que no inflija ninguna de ellas, y (2) las que hacen una interpretación relajada de las restricciones, permitiéndose incumplir un número mínimo de ellas para optimizar la función objetivo, de esta manera surge un compromiso entre el número de restricciones incumplidas y el valor de la función objetivo. Este tipo de métodos emplean diversas técnicas para lograr obtener una partición atendiendo a las restricciones:
+Existen dos modelos de métodos basados en restricciones: (1) aquellos que fuerzan el cumplimiento de las restricciones, e intentan encontrar la mejor asignación posible que no inflija ninguna de ellas, y (2) las que hacen una interpretación relajada de las restricciones, permitiéndose incumplir un número mínimo de ellas para optimizar la función objetivo, de esta manera surge un compromiso entre el número de restricciones incumplidas y el valor de la función objetivo. Existen diversas técnicas para obtener una partición atendiendo a las restricciones:
 
 \begin{itemize}
 	
 	\item Modificar la función objetivo de manera que incluya una penalización por incumplir restricciones.
 	
-	\item Agrupar con información adicional obtenida de una distribución condicional en un espacio auxiliar.
+	\item Agrupar instancias con información adicional obtenida de una distribución condicional en un espacio auxiliar.
 	
 	\item Forzar el cumplimiento de todas las restricciones modificando la regla de asignación del método.
 	
@@ -73,7 +73,7 @@ La figura \ref{fig:figure5} muestra un conjunto de datos junto a sus restriccion
 
 En las aproximaciones basadas en distancias, se emplean métodos de clustering clásicos que hagan uso de una medida de distancia, de forma que dicha medida se modifica para que tenga en consideración las restricciones. En este contexto, satisfacer las restricciones significa que las instancias relacionadas con restricciones \acf{ML} se sitúan juntas en el espacio, y las relacionadas mediante \acf{CL} se encuentran separadas.
 
-La figura 3.5 muestra un posible agrupamiento basado en una métrica aprendida a partir de las restricciones especificadas en la figura \ref{fig:figure7} Cabe destacar que en la figura \ref{fig:figure8} el espacio en el que se encuentran los datos ha sido comprimido en el eje vertical y ensanchado en el eje horizontal para ajustarlo a la métrica de distancia aprendida.
+La figura \ref{fig:figure8} muestra un posible agrupamiento basado en una métrica aprendida a partir de las restricciones especificadas en la figura \ref{fig:figure7}. Cabe destacar que en la figura \ref{fig:figure8} el espacio en el que se encuentran los datos ha sido comprimido en el eje vertical y ensanchado en el eje horizontal para ajustarlo a la métrica de distancia aprendida.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -104,7 +104,7 @@ La figura \ref{fig:figure9} muestra un extracto del conjunto de datos de caras d
 	\caption{Caras de la base de datos de  \ac{CMU} \cite{Survey:2007}}\label{fig:figure9}
 \end{figure}
 
-El método empleado para extraer las restricciones es uno de los más populares en la literatura: establecer el número de clusters igual al número de clases en la base de datos, y generar las restricciones a partir de un subconjunto de instancias etiquetadas, esto es, si dos instancias tiene diferentes etiquetas, establecer una restriccion \acf{CL} entre ellas, en caso contrario una de tipo \acf{ML}. De esta forma, entre las imágenes mostradas en la figura \ref{fig:figure10} se establecen restricciones \acf{CL}, ya que, aunque pertenecen a la misma persona, no presentan la misma orientación.
+El método empleado para extraer las restricciones es uno de los más populares en la literatura: establecer el número de clusters de la partición resultado igual al número de clases en la base de datos, y generar las restricciones a partir de un subconjunto de instancias etiquetadas, esto es, si dos instancias tiene diferentes etiquetas, establecer una restriccion \acf{CL} entre ellas, en caso contrario una de tipo \acf{ML}. De esta forma, entre las imágenes mostradas en la figura \ref{fig:figure10} se establecen restricciones \acf{CL}, ya que, aunque pertenecen a la misma persona, no presentan la misma orientación.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -147,11 +147,11 @@ Las bases de datos de video son uno de los ejemplos en los que las restricciones
 
 En la figura \ref{fig:figure12}, la imagen (a) corresponde a restricciones extraídas del seguimiento de una persona durante un periodo de tiempo, la (b) corresponde a restricciones espaciales que asocian dos objetos localizados en el mismo fotograma, la imagen (c) corresponde a restricciones obtenidas mediante reconocimiento facial y la (d) a las proporcionadas por el usuario.
 
-Disponiendo de tantos métodos para extraer restricciones, una cuestión que cabe plantearse en este contexto es, ¿qué sucede si se establecen demasiadas restricciones? ¿Hace esto que el problema esté sobrerestringido? En epígrafes posteriores abordaremos estas cuestiones.
+Disponiendo de tantos métodos para extraer restricciones, cabe plantearse, ¿qué sucede si se establecen demasiadas restricciones? ¿Hace esto que el problema esté sobrerestringido? En epígrafes posteriores abordaremos estas cuestiones.
 
 \subsection{Aplicaciones en genética}
 
-En clustering de genes basado en microarrays, los genes viene representados por si perfil de expresión en diferentes experimentos y agrupados empleando diferentes algoritmos, en este caso algoritmos de clustering con restricciones. La  figura \ref{fig:figure13} muestra un ejemplo, en este caso las restricciones de tipo \acf{ML} se establecen entre genes en base a los datos de co-ocurrencia almacenados en la base de datos de interacciones de proteínas, que contiene información sobre qué genes (y sus proteínas asociadas) están asociados a los mismos procesos celulares.
+En clustering de genes basado en microarrays, los genes viene representados por su perfil de expresión en diferentes experimentos y agrupados empleando diferentes algoritmos, en este caso algoritmos de clustering con restricciones. La  figura \ref{fig:figure13} muestra un ejemplo, se trata de restricciones de tipo \acf{ML} se establecen entre genes en base a los datos de co-ocurrencia almacenados en la base de datos de interacciones de proteínas, que contiene información sobre qué genes (y sus proteínas asociadas) están presentes en los mismos procesos celulares.
 
 \begin{figure}[!h]
 	\centering
