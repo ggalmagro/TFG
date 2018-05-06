@@ -30,7 +30,7 @@ De manera similar, si queremos que el diámetro de los clusters sea como mucho $
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.45]{imagenes/c3/RestriccionesDeltaEpsilo.png} 
-	\caption{Restricciones de tipo delta y epsilon. \cite{Survey:2007}}\label{fig:figure4}
+	\caption[Restricciones de tipo delta y epsilon.]{Restricciones de tipo delta y epsilon. \cite{Survey:2007}}\label{fig:figure4}
 \end{figure}
 
 
@@ -63,10 +63,10 @@ La figura \ref{fig:figure5} muestra un conjunto de datos junto a sus restriccion
 \begin{figure}[bth]
 	\myfloatalign
 	{\includegraphics[width=.6\linewidth]{imagenes/c3/InputInstancesAndConst1}
-	\caption{Restricciones sobre un conjunto de datos. \cite{Survey:2007}} \label{fig:figure5}
+	\caption[Restricciones sobre un conjunto de datos.]{Restricciones sobre un conjunto de datos. \cite{Survey:2007}} \label{fig:figure5}
 	}
 	{\includegraphics[width=.6\linewidth]{imagenes/c3/ClusteringSatAll}
-	\caption{Clustering que satisface todas las restricciones. \cite{Survey:2007}} \label{fig:figure6}
+	\caption[Clustering que satisface todas las restricciones.]{Clustering que satisface todas las restricciones. \cite{Survey:2007}} \label{fig:figure6}
 	}
 \end{figure}
 
@@ -79,10 +79,10 @@ La figura \ref{fig:figure8} muestra un posible agrupamiento basado en una métri
 \begin{figure}[bth]
 	\myfloatalign
 	{\includegraphics[width=.6\linewidth]{imagenes/c3/InputInstancesAndConst2}
-	\caption{Restricciones sobre un conjunto de datos. \cite{Survey:2007}} \label{fig:figure7}
+	\caption[Restricciones sobre un conjunto de datos.]{Restricciones sobre un conjunto de datos. \cite{Survey:2007}} \label{fig:figure7}
 	}
 	{\includegraphics[width=.6\linewidth]{imagenes/c3/MetricaAprendida}
-	\caption{Clustering basado en métrica aprendida en base a las restricciones. \cite{Survey:2007}} \label{fig:figure8}
+	\caption[Clustering basado en métrica aprendida en base a las restricciones.]{Clustering basado en métrica aprendida en base a las restricciones. \cite{Survey:2007}} \label{fig:figure8}
 	}
 \end{figure}
 
@@ -104,7 +104,7 @@ La figura \ref{fig:figure9} muestra un extracto del conjunto de datos de caras d
 	{\includegraphics[width=.3\linewidth]{imagenes/c3/AnalisisImagenes/Caras3}} \quad
 	\subfloat[Caras hacia arriba.]
 	{\includegraphics[width=.3\linewidth]{imagenes/c3/AnalisisImagenes/Caras2}} \quad
-	\caption{Caras de la base de datos de  \ac{CMU}. \cite{Survey:2007}}\label{fig:figure9}
+	\caption[Caras de la base de datos de  \ac{CMU}.]{Caras de la base de datos de  \ac{CMU}. \cite{Survey:2007}}\label{fig:figure9}
 \end{figure}
 
 El método empleado para extraer las restricciones es uno de los más populares en la literatura: establecer el número de clusters de la partición resultado igual al número de clases en la base de datos, y generar las restricciones a partir de un subconjunto de instancias etiquetadas, esto es, si dos instancias tiene diferentes etiquetas, establecer una restriccion \acf{CL} entre ellas, en caso contrario una de tipo \acf{ML}. De esta forma, entre las imágenes mostradas en la figura \ref{fig:figure10} se establecen restricciones \acf{CL}, ya que, aunque pertenecen a la misma persona, no presentan la misma orientación.
@@ -113,7 +113,7 @@ El método empleado para extraer las restricciones es uno de los más populares 
 	\myfloatalign
 	{\includegraphics[width=.35\linewidth]{imagenes/c3/AnalisisImagenes/CarasDifOr1}} \quad
 	{\includegraphics[width=.35\linewidth]{imagenes/c3/AnalisisImagenes/CarasDifOr2}}
-	\caption{Restricciones de tipo \ac{CL} entre caras de la misma persona.  \cite{Survey:2007}}\label{fig:figure10}
+	\caption[Restricciones de tipo \ac{CL} entre caras de la misma persona.]{Restricciones de tipo \ac{CL} entre caras de la misma persona.  \cite{Survey:2007}}\label{fig:figure10}
 \end{figure}
 
 En la figura \ref{fig:figure11} se muestra otro conjunto de datos de imágenes sobre el que se aplican técnicas de clustering con restricciones. En este caso, la tarea es realizar reconocimiento de objetos para incorporar el método al sistema de navegación del robot Aibo \cite{DavidsonRavi:2005a}. Para ello se emplean restricciones de distancia de tipo $\delta$ y $\epsilon$ como las descritas en la figura \ref{fig:figure4}, de esta manera se consiguen clusters bien diferenciados y por tanto útiles para las tareas de búsqueda de caminos que el robot realiza durante la navegación.
@@ -126,7 +126,7 @@ En la figura \ref{fig:figure11} se muestra otro conjunto de datos de imágenes s
 	{\includegraphics[width=.3\linewidth]{imagenes/c3/AnalisisImagenes/Aibo2}} \quad
 	\subfloat[Clustering con restricciones]
 	{\includegraphics[width=.3\linewidth]{imagenes/c3/AnalisisImagenes/Aibo3}} \quad
-	\caption{Método de clustering empleado en el sistema de navegación del robot Aibo. \cite{Survey:2007}\cite{DavidsonRavi:2005a}}\label{fig:figure11}
+	\caption[Método de clustering empleado en el sistema de navegación del robot Aibo.]{Método de clustering empleado en el sistema de navegación del robot Aibo. \cite{Survey:2007}\cite{DavidsonRavi:2005a}}\label{fig:figure11}
 \end{figure}
 
 \subsection{Aplicaciones en análisis de vídeos}
@@ -145,7 +145,7 @@ Las bases de datos de video son uno de los ejemplos en los que las restricciones
 	\quad
 	\subfloat[]
 	{\includegraphics[width=.4\linewidth]{imagenes/c3/Videos/VideoD}}
-	\caption{Diferentes tipos de restricciones en datos de video. \cite{Yan:2004} \cite{Survey:2007}}\label{fig:figure12}
+	\caption[Diferentes tipos de restricciones en datos de video.]{Diferentes tipos de restricciones en datos de video. \cite{Yan:2004} \cite{Survey:2007}}\label{fig:figure12}
 \end{figure}
 
 En la figura \ref{fig:figure12}, la imagen (a) corresponde a restricciones extraídas del seguimiento de una persona durante un periodo de tiempo, la (b) corresponde a restricciones espaciales que asocian dos objetos localizados en el mismo fotograma, la imagen (c) corresponde a restricciones obtenidas mediante reconocimiento facial y la (d) a las proporcionadas por el usuario.
@@ -159,7 +159,7 @@ En clustering de genes basado en microarrays, los genes vienen representados por
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.3]{imagenes/c3/Genetica/Genes} 
-	\caption{Clustering de genes basado en microarrays. \cite{Survey:2007}}\label{fig:figure13}
+	\caption[Clustering de genes basado en microarrays.]{Clustering de genes basado en microarrays. \cite{Survey:2007}}\label{fig:figure13}
 \end{figure}
 
 \subsection{Aplicaciones en análisis de textos}
@@ -181,7 +181,7 @@ Tal y como se indicó en el inicio e este capítulo, el clustering con restricci
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.3]{imagenes/c3/GPS/Coches} 
-	\caption{Uso de información GPS. \cite{Survey:2007}}\label{fig:figure14}
+	\caption[Uso de información GPS.]{Uso de información GPS. \cite{Survey:2007}}\label{fig:figure14}
 \end{figure}
 
 
@@ -189,8 +189,8 @@ En este dominio, los clusters reales tiene forma alargada en el eje horizontal y
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.3]{imagenes/c3/GPS/Instancias} 
-	\caption{Clusters encontrados en datos GPS sin uso de restricciones. \cite{Wagstaff:2001b} \cite{Survey:2007}}\label{fig:figure15}
+	\includegraphics[scale=0.32]{imagenes/c3/GPS/Instancias} 
+	\caption[Clusters encontrados en datos GPS sin uso de restricciones.]{Clusters encontrados en datos \acs{GPS} sin uso de restricciones. \cite{Wagstaff:2001b} \cite{Survey:2007}}\label{fig:figure15}
 \end{figure}
 
 \section{Beneficios del uso de restricciones}
@@ -199,12 +199,12 @@ Encontramos dos beneficios principales en el uso de restricciones: (a) increment
 
 Dado un gran conjunto de instancias no etiquetadas $X = \{x_1 \cdots x_u\}$ y $L = \{(x_{u+1}, y_{u+1})\cdots (x_{u+l}, y_{u+l})\}$, un pequeño conjunto de instancias etiquetadas, es común escoger dos elementos de $L$ (con reemplazamiento) y establecer una restricción \acs{ML} entre ellos si pertenecen a la misma clase o, en caso contrario, una de tipo \acs{CL}. Un método apropiado para evaluar los resultados ofrecidos por un método de clustering es medir en nivel de exactitud de este a la hora de predecir las etiquetas del conjunto $X$. Esto normalmente requiere que se especifique el número de clusters deseados igual al número de clases conocidas en $X$ ($k = k*$). Para medir la exactitud se emplean métodos como el \textit{Rand index} \cite{Rand:1971}.
 
-El trabajo de Wagstaff y Cardie \cite{WagstaffCardie:2000}, en el que los autores generaban las restricciones de la manera descrita anteriormente, demostraban que, cuando se realiza un promedio de la exactitud de las predicciones obtenidas con algorimos de clustering con restricciones, variando estas últimas entre experimentos, se obtienen resultados hasta un 20\% mejoras que con las técnicas clásicas.
+El trabajo de Wagstaff y Cardie \cite{WagstaffCardie:2000}, en el que los autores generaban las restricciones de la manera descrita anteriormente, demostraban que, cuando se realiza un promedio de la exactitud de las predicciones obtenidas con algoritmos de clustering con restricciones, variando estas últimas entre experimentos, se obtienen resultados hasta un 20\% mejoras que con las técnicas clásicas.
 
 \begin{observacion}
 	
-	\textbf{El uso de restricciones, en media, incrementa la precisión.}
-	El rendimiento de un método al predecir etiquetas aumenta cuando se promedia empleando numerosos conjuntos de restricciones diferentes.\cite{Survey:2007}
+	\textbf{El uso de restricciones, en promedio, incrementa la precisión.}
+	El rendimiento de un método al predecir etiquetas aumenta cuando se promedia empleando numerosos conjuntos de restricciones diferentes. \cite{Survey:2007}
 	
 \end{observacion}
 
@@ -213,6 +213,8 @@ Esta regla, sin embargo, no es cierta en todos los casos, pues en conjuntos de d
 El otro beneficio que reportan las restricciones es la posibilidad de obtener clusters con la geometría deseada, un ejemplo ya estudiado en secciones anteriores en este documento es el de aplicar clustering a datos \acs{GPS}.
 
 \section{Problemas del uso de restricciones}
+
+
 
 
 
