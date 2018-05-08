@@ -1,1 +1,20 @@
-
+%Definiciones de español para el paquete algorithm2e
+\ifthenelse{\boolean{algocf@optonelanguage}\AND\equal{\algocf@languagechoosen}{spanish}}{%
+	\SetKwInput{KwIn}{Entrada}%
+	\SetKwInput{KwOut}{Salida}%
+	\SetKwInput{KwData}{Datos}%
+	\SetKwInput{KwResult}{Resultado}%
+	\SetKw{KwTo}{a}%
+	\SetKw{KwRet}{devolver}%
+	\SetKw{Return}{devolver}%
+	\SetKwBlock{Begin}{inicio}{fin}%
+	\SetKwRepeat{Repeat}{repetir}{hasta que}%
+	%
+	\SetKwIF{If}{ElseIf}{Else}{si}{entonces}{sin\'o, si}{en otro caso}{fin si}
+	\SetKwSwitch{Switch}{Case}{Other}{seleccionar}{hacer}{caso}{sin\'o}{fin caso}{fin seleccionar}
+	\SetKwFor{For}{per}{fai}{fine per}%
+	\SetKwFor{ForPar}{par}{hacer in paralelo}{fin para}%
+	\SetKwFor{ForEach}{para cada}{hacer}{fin para cada}
+	\SetKwFor{ForAll}{para todo}{hacer}{fin para todo}
+	\SetKwFor{While}{mientras}{hacer}{fin mientras}
+}{}%

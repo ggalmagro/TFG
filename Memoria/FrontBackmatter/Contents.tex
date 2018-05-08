@@ -9,6 +9,7 @@
 \setcounter{secnumdepth}{3} % <-- 3 numbers up to subsubsections
 \manualmark
 \markboth{\spacedlowsmallcaps{\contentsname}}{\spacedlowsmallcaps{\contentsname}}
+
 \tableofcontents
 \automark[section]{chapter}
 \renewcommand{\chaptermark}[1]{\markboth{\spacedlowsmallcaps{#1}}{\spacedlowsmallcaps{#1}}}
@@ -16,7 +17,6 @@
 %*******************************************************
 % List of Figures and of the Tables
 %*******************************************************
-\clearpage
 % \pagestyle{empty} % Uncomment this line if your lists should not have any headlines with section name and page number
 \begingroup
     \let\clearpage\relax
@@ -42,18 +42,19 @@
     \listoftables
 
     \vspace{8ex}
-    % \newpage
-
+	%\listofalgorithms
+	%\addtocontents{loa}{\def\string\figurename{Algorithm}}
+	%\vspace{8ex}
     %*******************************************************
     % List of Listings
     %*******************************************************
     %\phantomsection
-    \refstepcounter{dummy}
+    %\refstepcounter{dummy}
     %\addcontentsline{toc}{chapter}{\lstlistlistingname}
-    \pdfbookmark[1]{\lstlistlistingname}{lol}
-    \lstlistoflistings
+    %\pdfbookmark[1]{\lstlistlistingname}{lol}
+    %\lstlistoflistings
 
-    \vspace{8ex}
+    %\vspace{8ex}
 
     %*******************************************************
     % Acronyms
@@ -72,3 +73,4 @@
     \end{acronym}
 
 \endgroup
+\clearpage

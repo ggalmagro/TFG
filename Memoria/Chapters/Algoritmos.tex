@@ -1,0 +1,66 @@
+\chapter{Algoritmos de clustering con restricciones}\label{ch:Algoritmos de clustering con restricciones}
+
+Una vez introducido el problema del clustering con restricciones, pasamos a profundizar métodos para su aplicación. La siguiente sección presenta 5 algoritmos de clustering con restricciones, cuyos resultados serán expuestos más tarde, en la sección XX (referencia a la experimentación).
+
+\section{Formalización del problema}
+
+Con el problema del clustering con restricciones ya definido en la sección \ref{ch:Clustering con restricciones}, definimos la manera de notar sus elementos, de forma que sea sencillo referirse a ellos.
+
+\begin{itemize}
+	
+	\item Notaremos con $X$ al conjunto de datos de entrada.
+	
+	\item Notaremos con $R$ al conjunto de restricciones, tanto las de tipo \acs{ML} como las \acs{CL}, es decir $R = ML \cup CL$. 
+	
+	\item Notaremos con $k$ al número de clusters de la partición resultante.
+	
+\end{itemize}
+
+Cabe destacar que los elementos y parámetros particulares de cada algoritmo serán definidos en la sección correspondiente al mismo, así como que no todos los elementos expuestos anteriormente son comunes a todos los algoritmos; si bien si que los son a la mayoría.
+
+\section{COP-k-means (Constrained k-means)}
+
+El algoritmo k-medias (\textit{k-means}) es uno de los algoritmos mas básicos para aplicar clustering, así, el algoritmo COP-k-medias (\textit{COP-k-means}) es la adaptación inmediata del mismo para considerar las restricciones.
+
+El cambio más notable que supone COP-k-medias, respecto al tradicional k-medias, consiste en modificar la regla de asignación de instancias a clusters de este último para comprobar que dicha asignación no viola ninguna restricción. De esta manera, en cada iteración se intenta asignar cada instancia $x_i$ al cluster más cercano $C_j$. Esta asignación solo se llevará a cabo si no se viola ninguna restricción. Si existe otra instancia $x_{ML}$ que debe ser asignada al mismo cluster que $x_i$, pero ya ha sido asignada a otro cluster, o existe una instancia $x_{CL}$ en $C_j$ que no puede ser agrupada junto a $x_i$, entonces $x_i$ no puede ser asignado a $C_j$. El proceso continua hasta encontrar una asignación legal para $x_i$, en caso de que no se encuentre se devuelve la partición vacía como resultado. Así, el algoritmo da como resultado una partición de $X$ que cumple todas las restricciones especificadas en $R$.
+
+
+\begin{algorithm}
+	
+	\BlankLine
+	\KwIn{Conjunto de datos $X$, conjunto de restricciones $R$}
+	\KwOut{Partición $P$ del conjunto de datos $X$}
+	\BlankLine
+	\textbf{función} COP-K-means($X$, $R$) \Begin{
+		\BlankLine
+		1. Sean $C = \{c_1\cdots c_k\}$ los clusters iniciales\\
+		2. Asignar cada instancia $x_i \in X$, al centroide mas cercano $c_j$ tal que ViolaRestriccion($x_i$, $c_j$, $R$) = falso. Si no existe $c \in C t.q.$ ViolaRestriccion($x_i$, $c_j$, $R$) = falso, \KwRet $\emptyset$.\\
+		3. Para cada cluster $c_i$, actualizar su centroide realizando un promedio de todas las instancias $x_i$ asignadas a él.\\
+		4. Iterar entre (1.) y (2.) hasta converger.\\
+		5. \KwRet $C$
+		\BlankLine
+	}
+	\BlankLine
+	\KwIn{Instancia $x$, cluster $c$, conjunto de restricciones $R$}
+	\BlankLine
+	\textbf{función} ViolaRestriccion($x$, $c$, $R$) \Begin{
+		\BlankLine
+		1. Para cada $(x, x_{ML}) \in ML$, si $x_{ML} \notin R$ \KwRet \textbf{true}.\\
+		2. Para cada $(x, x_{CL}) \in CL$, si $x_{CL} \notin R$ \KwRet \textbf{true}.\\
+		3. En otro caso, \KwRet \textbf{false}.
+		\BlankLine
+	}
+	
+	\caption{COP-k-means}\label{alg:ckm}
+\end{algorithm}
+
+
+
+
+
+
+
+
+
+
+

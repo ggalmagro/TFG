@@ -37,12 +37,22 @@
                 BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
                 ngerman,american,%
                 ]{scrreprt}
-
+                
+\usepackage[b5paper,layout=b5paper]{geometry}
 %********************************************************************
 % Note: Make all your adjustments in here
 %*******************************************************
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[spanish, tworuled, lined, onelanguage]{algorithm2e}
+\usepackage[table]{xcolor}
+\usepackage{anysize}
+\usepackage{mathtools}
+\usepackage{amsmath}
 \input{classicthesis-config}
 \newtheorem{observacion}{Observación}[chapter]
+\newtheorem{definicion}{Definición}[chapter]
 %********************************************************************
 % Bibliographies
 %*******************************************************
@@ -94,6 +104,7 @@
 \include{Chapters/Introduccion}
 \include{Chapters/Clustering}
 \include{Chapters/ClusteringConRestricciones}
+\include{Chapters/Algoritmos}
 %\include{Chapters/Chapter01}
 \cleardoublepage
 %********************************************************************
