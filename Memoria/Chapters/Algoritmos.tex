@@ -4,15 +4,17 @@ Una vez introducido el problema del clustering con restricciones, pasamos a prof
 
 \section{Formalización del problema}
 
-Con el problema del clustering con restricciones ya definido en la sección \ref{ch:Clustering con restricciones}, definimos la manera de notar sus elementos, de forma que sea sencillo referirse a ellos.
+Con el problema del clustering con restricciones ya definido en la sección \ref{ch:Clustering con restricciones}, especificamos la manera de notar sus elementos, de forma que sea sencillo referirse a ellos.
 
 \begin{itemize}
 	
-	\item Notaremos con $X$ al conjunto de datos de entrada.
+	\item Notaremos con $X$ a la matriz de $n\times p$ que contiene el conjunto de datos de entrada.
 	
-	\item Notaremos con $R$ al conjunto de restricciones, tanto las de tipo \acs{ML} como las \acs{CL}, es decir $R = ML \cup CL$. 
+	\item Notaremos con $x$ a cada instancia de $X$, es decir, $x$ es un vector en el espacio $\mathbb{R}^p$
 	
-	\item Notaremos con $k$ al número de clusters de la partición resultante.
+	\item Notaremos con $R$ el conjunto de restricciones, tanto las de tipo \acs{ML} como las \acs{CL}, es decir $R = ML \cup CL$. 
+	
+	\item Notaremos con $k$ el número de clusters de la partición resultante.
 	
 \end{itemize}
 
@@ -20,9 +22,9 @@ Cabe destacar que los elementos y parámetros particulares de cada algoritmo ser
 
 \section{COP-k-means (Constrained k-means)}
 
-El algoritmo k-medias (\textit{k-means}) es uno de los algoritmos mas básicos para aplicar clustering, así, el algoritmo COP-k-medias (\textit{COP-k-means}) es la adaptación inmediata del mismo para considerar las restricciones.
+El algoritmo k-medias (\textit{k-means}) es uno de los algoritmos mas básicos para aplicar clustering, así, el algoritmo COP-k-medias (\textit{COP-k-means}) es la adaptación inmediata del mismo al clustering con restricciones.
 
-El cambio más notable que supone COP-k-medias, respecto al tradicional k-medias, consiste en modificar la regla de asignación de instancias a clusters de este último para comprobar que dicha asignación no viola ninguna restricción. De esta manera, en cada iteración se intenta asignar cada instancia $x_i$ al cluster más cercano $C_j$. Esta asignación solo se llevará a cabo si no se viola ninguna restricción. Si existe otra instancia $x_{ML}$ que debe ser asignada al mismo cluster que $x_i$, pero ya ha sido asignada a otro cluster, o existe una instancia $x_{CL}$ en $C_j$ que no puede ser agrupada junto a $x_i$, entonces $x_i$ no puede ser asignado a $C_j$. El proceso continua hasta encontrar una asignación legal para $x_i$, en caso de que no se encuentre se devuelve la partición vacía como resultado. Así, el algoritmo da como resultado una partición de $X$ que cumple todas las restricciones especificadas en $R$.
+El cambio más notable que supone COP-k-medias, respecto al tradicional k-medias, consiste en modificar la regla de asignación de instancias a clusters de este último, para comprobar que dicha asignación no viola ninguna restricción. De esta manera, en cada iteración se intenta asignar cada instancia $x_i$ al cluster más cercano $C_j$. Esta asignación solo se llevará a cabo si no se viola ninguna restricción. Si existe otra instancia $x_{ML}$ que debe ser asignada al mismo cluster que $x_i$, pero ya ha sido asignada a otro cluster, o existe una instancia $x_{CL}$ en $C_j$ que no puede ser agrupada junto a $x_i$, entonces $x_i$ no puede ser asignado a $C_j$. El proceso continua hasta encontrar una asignación legal para $x_i$, en caso de que no se encuentre se devuelve la partición vacía como resultado. Así, el algoritmo da como resultado una partición de $X$ que cumple todas las restricciones especificadas en $R$. El algoritmo \ref{alg:ckm} corresponde al pseudocódigo asociado a COP-k-medias \cite{Wagstaff:2001b}:
 
 
 \begin{algorithm}
@@ -54,13 +56,84 @@ El cambio más notable que supone COP-k-medias, respecto al tradicional k-medias
 	\caption{COP-k-means}\label{alg:ckm}
 \end{algorithm}
 
+\section{CEKM (Constrained Evidential k-means)}
 
+Para comprender el algoritmo CEKM, primero es necesario realizar una introducción al algoritmo k-medias difuso (\textit{fuzzy k-means}). En él, cada instancia puede pertenecer a uno o más clusters con diferentes grados de pertenencia. La matriz que almacena esta información, es decir, la partición difusa, se nota con $U$, y se calcula minimizando la siguiente función:
 
+\begin{equation}
+\sum_{j=1}^{k} u_{ij} \;\; t.q. \;\; u_{ij} \in [0,1] \forall i,j
+\label{eqn2}
+\end{equation}
 
+Donde $u_{ij}$ representa el grado de pertenencia de la instancia $i$ al cluster $j$, y $k$ es el número de clusters. Sin embargo este método puede producir resultados contraintuitivos cuando los datos a los que se aplica son ruidosos o presentan instancias aisladas \textit{outliers}.
 
+El clustering evidencial \textit{evidential clustering} da solución a los problemas que presenta el algoritmo k-medias difuso, introduciendo el concepto de partición de creencia (\textit{credal partition}), que extiende los conceptos existentes de particiones fuertes, difusas y probabilísticas. De esta forma, en una partición de creencia, se asigna cada instancia una masa de creencia (\textit{mass of belief}) no solo para un único cluster, sino para cualquier conjunto de los mismos $\Omega = \{\omega_1 \cdots \omega_k \}$. El método CECM combina las ventajas del uso de las restricciones con las del uso de funciones de creencia.
 
+\subsection{Funciones de creencia}
 
+La teoría de la evidencia de Dempster-Shafer ofrece un marco teórico para trabajar con información parcial y no completamente fiable, tomamos de ella los conceptos relativos a las funciones de creencia.
 
+Consideremos la variable $\omega$ que toma valores en el conjunto finito $\Omega = \{\omega_1 \cdots \omega_k \}$. El conocimiento parcial sujeto al valor real que adopta $\omega$ puede ser representado mediante una función de masa $m$, que es una aplicación de $\Omega$ al intervalo $[0,1]$:
 
+\begin{equation}
+\sum_{A \subseteq \Omega}^{m(A) = 1}
+\label{eqn3}
+\end{equation}
 
+A los subconjuntos $A$ de $\Omega$ que cumplen que $m(A) > 0$ se los denomina conjuntos focales (\textit{focal sets}) de $m$. El valor del conjunto focal $m(A)$ se interpreta como la fracción de una unidad de masa de creencia que esta asignada a $A$ y que no puede ser asignada a ningún otro subcojunto de $A$. Si el único conjunto focal es $\Omega$ nos encontramos en el caso de completa ignorancia sobre los datos. Por otra parte, si la masa de creencia se asigna a un único elemento de $\Omega$, nos encontramos en el caso de certeza absoluta.
 
+Se dice que una función de masa $m$ está normalizada si $m(\emptyset) = 0$, sin embargo, bajo la hipótesis de mundo abierto, una función de masa en la que $m(\emptyset) > 0$ se interpreta como la cantidad de creencia que se le asigna a la hipótesis de que el verdadero valor de $\omega$ puede no encontrarse en $\Omega$.
+
+Dada una función de masa $m$, podemos definir una función de plausibilidad $pl:2^\Omega \rightarrow [0,1]$ y una función de creencia $bel: 2^\Omega \rightarrow [0,1]$ de la siguiente manera:
+
+\begin{equation}
+pl(A) = \sum_{B \cap A \neq \emptyset} m(B) \;\;\; \forall A \subseteq \Omega
+\label{eqn4}
+\end{equation}
+
+y 
+
+\begin{equation}
+bel(A) = \sum_{B \subseteq A, B \neq \emptyset} m(B) \;\;\; \forall A \subseteq \Omega
+\label{eqn5}
+\end{equation}
+
+De esta manera, las funciones $pl$ y $bel$ están relacionadas como sigue:
+
+\begin{equation}
+\label{eqn6}
+\end{equation}
+
+Donde $\bar{A}$ representa el complemento de $A$.  La cantidad $bel(A)$ se interpreta como el grado de creencia en $A$, tomando en consideración la masa de creencia asignada a $A$ y a los subconjuntos no vacíos de $A$. Por el contrario, $pl(A)$ mide hasta que punto es erróneo no creer en $\bar{A}$.
+
+Con el objetivo de tomar decisiones en base al valor de $\omega$, es posible transformar la función de masa en una distribución de probabilidad pignística, definida, para una función de masa normalizada, como:
+
+\begin{equation}
+BetP(\omega) = \sum_{\omega \in A} \frac{m(A)}{|A|} \;\;\; \forall \omega \in \Omega
+\label{eqn7}
+\end{equation}
+
+\subsection{k-medias difuso y sus variantes}
+
+Cada cluster $\omega_j \in \Omega$ con $j \in \{1,\cdots,k\}$ esta representado por un vector $v_j \in \mathbb{R}^p$, es decir, un centroide. Además, definimos $V$ como la matriz compuesta por todos los centroides, y $U = (u_{ij})$ como la partición difusa que contiene los grados de pertenencia de cada instancia de $X$ a cada cluster. El algoritmo k-medias difuso calcula las matrices $U$ y $V$ de manera que se minimiza (sujeto a las ecuaciones \ref{eqn2} y \ref{eqn3}) la siguiente función:
+
+\begin{equation}
+J_{FCM}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{k} u_{ij}^\beta d_{ij}^2
+\label{eqn8}
+\end{equation}
+
+Donde $d_{ij}$ representa la distancia euclidea entre el objeto $x_i$ y el centroide $v_j$, y $\beta > 1$ es el exponente que controla el grado de difusión de la partición. La función objetivo se minimiza mediante un algoritmo iterativo que optimiza los centroides y los grados de pertenencia de manera alternativa. El algoritmo empieza con una asignación inicial sobre la que realiza modificaciones hasta que converge.
+
+Para detectar datos ruidosos u outliers empleamos el algoritmo NC \textit{Noise-Clustering}, que consiste en añadir a los $k$ clusters iniciales uno adicional llamado ``cluster ruidoso'', asociado a una distancia fija $\rho$ respecto a todos los objetos. El parámetro $\rho$ controla la cantidad de data que será considerados como outliers. La pertenencia $u_{i*}$ de un objeto $i$ al cluster ruidoso se calcula como:
+
+\begin{equation}
+u_{i*} = 1 - \sum_{j=1}^{k} u_{i,j} \;\;\; i = {1,\cdots,n}
+\label{eqn9}
+\end{equation}
+
+Entonces, la función objetivo que minimiza el algoritmo NC no es mas que una combinación del cálculo de pertenencia de objetos al cluster ruidoso y la que minimizaba el algoritmo k-medias difuso.
+
+\begin{equation}
+J_{NM}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{k} u_{ij}^\beta d_{ij}^2 + \sum_{i=1}^{k} \rho^2 u_{i*}^\beta
+\label{eqn10}
+\end{equation}
