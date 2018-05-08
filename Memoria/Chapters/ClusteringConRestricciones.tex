@@ -10,9 +10,9 @@ Nos situamos entonces en un nuevo escenario: es posible incorporar información 
 
 \section{Definición de las restricciones}
 
-El nuevo tipo de  información que incorporamos al clustering viene dado en forma de restricciones a nivel de instancia, esto es, especificar si dos instancias del conjunto de datos deben estar en el mismo cluster, o, por el contrario, deben estar en clusters separados.
+El nuevo tipo de  información que incorporamos al clustering viene dado en forma de restricciones a nivel de instancia, esto es, especificar si dos instancias del conjunto de datos deben estar en el mismo cluster o, por el contrario, deben estar en clusters separados.
 
-A las restricciones que indican que dos puntos deben ser situados en el mismo cluster se las denomina Must-link, y se notan por $ML(x,y)$, donde $x$ e $y$ son dos instancias del conjunto de datos. De manera similar, a las restricciones que especifican lo contrario se las denomina Cannot-link, y se notan por $CL(x,y)$. \cite{WagstaffCardie:2000}
+A las restricciones que indican que dos puntos deben ser situados en el mismo cluster se las denomina \textit{Must-link}, y se notan por $ML(x,y)$, donde $x$ e $y$ son dos instancias del conjunto de datos. De manera similar, a las restricciones que especifican lo contrario se las denomina \textit{Cannot-link}, y se notan por $CL(x,y)$. \cite{WagstaffCardie:2000}
 
 Aunque pueden parecer simples, las restricciones definidas de la anterior forma poseen propiedades interesantes. Las Restricciones de tipo Must-link son un ejemplo de relación de equivalencia, y por tanto son simétricas, reflexivas y transitivas, formalizando:
 
@@ -24,13 +24,13 @@ Aunque pueden parecer simples, las restricciones definidas de la anterior forma 
 	\textbf{Las restricciones de tipo CL pueden ser (encadenadas).} Sean $CC_i$ y $CC_j$ componentes conexas, conectadas mediante restricciones $ML$, y sean $x$ e $y$ dos instancias en $CC_i$ y $CC_j$ respectivamente. Entonces $CL(x,y): x \in CC_i, y \in CC_j \rightarrow CL(a,b) \forall a,b: a\in CC_i, b \in CC_j$. \cite{Survey:2007}
 \end{observacion}
 
-Un claro ejemplo de uso de las restricciones lo encontramos en casos de aplicación de clustering en los que existen restricciones en cuanto a las medidas de distancia, como sucedía en el supuesto de los datos GPS. Así, si queremos que las instancias que forman dos clusters estén separadas por una distancia mayor o igual a $\delta$, basta con establecer restricciones de tipo ML entre todas aquellas instancias cuya distancia sea menor que $\delta$. 
+Un claro ejemplo de uso de las restricciones lo encontramos en casos de aplicación de clustering en los que existen limitaciones en cuanto a las medidas de distancia, como sucedía en el supuesto de los datos GPS. Así, si queremos que las instancias que forman dos clusters estén separadas por una distancia mayor o igual a $\delta$, basta con establecer restricciones de tipo ML entre todas aquellas instancias cuya distancia sea menor que $\delta$. 
 De manera similar, si queremos que el diámetro de los clusters sea como mucho $\epsilon$, debemos establecer un conjunto de restricciones de tipo CL entre todas aquellas instancias que se encuentren a una distancia mayor que $\epsilon$. La figura \ref{fig:figure4} muestra una representación gráfica de estos dos tipos de restricciones.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.45]{imagenes/c3/RestriccionesDeltaEpsilo.png} 
-	\caption[Restricciones de tipo delta y epsilon.]{Restricciones de tipo delta y epsilon. \cite{Survey:2007}}\label{fig:figure4}
+	\caption[Restricciones de tipo delta y epsilon.]{Restricciones de tipo \textit{delta} y \textit{epsilon}. \cite{Survey:2007}}\label{fig:figure4}
 \end{figure}
 
 
@@ -38,13 +38,13 @@ De manera similar, si queremos que el diámetro de los clusters sea como mucho $
 
 Mientras que el aprendizaje completamente supervisado implica conocer la etiqueta asociada a cada instancia, en el aprendizaje semisupervisado solo se dispone de un subconjunto de instancias etiquetadas. Por otra parte, en gran cantidad de dominios la información disponible se refiere a relaciones entre instancias, y no a la clase concreta a la que pertenecen las mismas. Es más, en montajes de clustering interactivo, un usuario no experto en el dominio del problema podrá, probablemente, aportar información en forma de restricciones de tipo \acf{ML} y \acf{CL} \cite{Cohn:2003}\cite{DavidsonRavi:2007}, antes que aportar información sobre a qué clase concreta pertenecen ciertas instancias.
 
-Habitualmente, las restricciones se incluyen en los problemas de clustering de dos maneras. Pueden ser empleadas para modificar la regla de asignación de instancias a clusters del método en cuestión, de forma que la solución satisfaga el máximo número de restricciones posible. Alternativamente, cabe la posibilidad de entrenar la función de distancia empleada por el método en base a las restricciones, ya sea antes o durante la aplicación del mismo. En cualquier caso, la fase incialización puede tomar en consideración las restricciones, de forma que las instancias asociadas con restricciones \acf{ML} serán situadas en el mismo cluster, y aquellas entre las que exista una restricción \acf{CL}, quedarán en clusters diferentes. Basándonos en esta distinción, identificamos dos maneras de aproximar el problema, las basadas en restricciones (\textit{constraint-based}), y las basadas en distancias (\textit{distance-based}).
+Habitualmente, las restricciones se incluyen en los problemas de clustering de dos maneras. Pueden ser empleadas para modificar la regla de asignación de instancias a clusters del método en cuestión, de forma que la solución satisfaga el máximo número de restricciones posible. Alternativamente, cabe la posibilidad de entrenar la función de distancia empleada por el método en base a las restricciones, ya sea antes o durante la aplicación del mismo. En cualquier caso, la fase de inicialización puede tomar en consideración las restricciones, de forma que las instancias asociadas con restricciones \acf{ML} serán situadas en el mismo cluster, y aquellas entre las que exista una restricción \acf{CL}, quedarán en clusters diferentes. Basándonos en esta distinción, identificamos dos maneras de aproximar el problema, las basadas en restricciones (\textit{constraint-based}), y las basadas en distancias (\textit{distance-based}).
 
 \subsection{Métodos basados en restricciones}
 
 En los métodos basados en restricciones, el propio método de clustering es modificado de manera que la información disponible se emplea para sesgar la búsqueda y obtener una partición de los datos apropiada.
 
-Existen dos modelos de métodos basados en restricciones: (1) aquellos que fuerzan el cumplimiento de las restricciones, e intentan encontrar la mejor asignación posible que no inflija ninguna de ellas \cite{Wagstaff:2001b}\cite{DavidsonRavi:2005b}, y (2) las que hacen una interpretación relajada de las restricciones \cite{Basu:2004}\cite{Seagal:2003}\cite{DavidsonRavi:2005a}\cite{Law:2005}, permitiéndose incumplir un número mínimo de ellas para optimizar la función objetivo, de esta manera surge un compromiso entre el número de restricciones incumplidas y el valor de la función objetivo. Existen diversas técnicas para obtener una partición atendiendo a las restricciones:
+Existen dos modelos de métodos basados en restricciones: (1) aquellos que fuerzan el cumplimiento de las restricciones, e intentan encontrar la mejor asignación posible que no infrinja ninguna de ellas \cite{Wagstaff:2001b}\cite{DavidsonRavi:2005b}, y (2) los que hacen una interpretación relajada de las restricciones \cite{Basu:2004}\cite{Seagal:2003}\cite{DavidsonRavi:2005a}\cite{Law:2005}, permitiéndose incumplir un número mínimo de ellas para optimizar la función objetivo; de esta manera surge un compromiso entre el número de restricciones incumplidas y el valor de la función objetivo. Existen diversas técnicas para obtener una partición atendiendo a las restricciones:
 
 \begin{itemize}
 	
@@ -54,11 +54,11 @@ Existen dos modelos de métodos basados en restricciones: (1) aquellos que fuerz
 	
 	\item Forzar el cumplimiento de todas las restricciones modificando la regla de asignación del método. \cite{Wagstaff:2001b}
 	
-	\item Inicializando los clusters e base a restricciones inferidas del conjunto de instancias etiquetadas.\cite{Basu:2002}
+	\item Inicializando los clusters en base a restricciones inferidas del conjunto de instancias etiquetadas.\cite{Basu:2002}
 	
 \end{itemize}
 
-La figura \ref{fig:figure5} muestra un conjunto de datos junto a sus restricciones asociadas, la \ref{fig:figure6} propone un posible agrupamiento que satisface todas las restricciones.
+La figura \ref{fig:figure5} muestra un conjunto de datos junto a sus restricciones asociadas. La \ref{fig:figure6} propone un posible agrupamiento que satisface todas las restricciones.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -88,11 +88,11 @@ La figura \ref{fig:figure8} muestra un posible agrupamiento basado en una métri
 
 \section{Aplicaciones del clustering con restricciones} 
 
-Esta sección muestra algunos casos de aplicación en los que el clustering con restricciones ha resultado ser una herramienta más útil que el clustering no supervisado. Para cada caso analizaremos como se obtuvieron las restricciones y como estas mejoran los resultados en el clustering resultante. 
+Esta sección muestra algunos casos de aplicación en los que el clustering con restricciones ha resultado ser una herramienta más útil que el clustering no supervisado. Para cada caso analizaremos cómo se obtuvieron las restricciones y cómo éstas mejoran los resultados en el clustering resultante. 
 
 \subsection{Aplicaciones en análisis de imágenes}
 
-La figura \ref{fig:figure9} muestra un extracto del conjunto de datos de caras de  \acf{CMU}, en el que la tarea es agrupar caras en base a diferentes criterios. En este caso, el objetivo es agrupar las caras según su orientación, es decir, las caras con la misma orientación deberán estar en el mismo cluster.
+La figura \ref{fig:figure9} muestra un extracto del conjunto de datos de caras de  \acf{CMU}, en el que la tarea es agrupar caras en base a diferentes criterios. En este caso, el objetivo es agrupar las caras según su orientación.
 
 \clearpage
 
@@ -107,7 +107,7 @@ La figura \ref{fig:figure9} muestra un extracto del conjunto de datos de caras d
 	\caption[Caras de la base de datos de  \ac{CMU}.]{Caras de la base de datos de  \ac{CMU}. \cite{Survey:2007}}\label{fig:figure9}
 \end{figure}
 
-El método empleado para extraer las restricciones es uno de los más populares en la literatura: establecer el número de clusters de la partición resultado igual al número de clases en la base de datos, y generar las restricciones a partir de un subconjunto de instancias etiquetadas, esto es, si dos instancias tiene diferentes etiquetas, establecer una restriccion \acf{CL} entre ellas, en caso contrario una de tipo \acf{ML}. De esta forma, entre las imágenes mostradas en la figura \ref{fig:figure10} se establecen restricciones \acf{CL}, ya que, aunque pertenecen a la misma persona, no presentan la misma orientación.
+El método empleado para extraer las restricciones es uno de los más populares en la literatura: establecer el número de clusters de la partición resultado igual al número de clases en la base de datos, y generar las restricciones a partir de un subconjunto de instancias etiquetadas; esto es, si dos instancias tiene diferentes etiquetas, establecer una restricción \acf{CL} entre ellas, en caso contrario una de tipo \acf{ML}. De esta forma, entre las imágenes mostradas en la figura \ref{fig:figure10} se establecen restricciones \acf{CL}, ya que, aunque pertenecen a la misma persona, no presentan la misma orientación.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -116,7 +116,7 @@ El método empleado para extraer las restricciones es uno de los más populares 
 	\caption[Restricciones de tipo \ac{CL} entre caras de la misma persona.]{Restricciones de tipo \ac{CL} entre caras de la misma persona.  \cite{Survey:2007}}\label{fig:figure10}
 \end{figure}
 
-En la figura \ref{fig:figure11} se muestra otro conjunto de datos de imágenes sobre el que se aplican técnicas de clustering con restricciones. En este caso, la tarea es realizar reconocimiento de objetos para incorporar el método al sistema de navegación del robot Aibo \cite{DavidsonRavi:2005a}. Para ello se emplean restricciones de distancia de tipo $\delta$ y $\epsilon$ como las descritas en la figura \ref{fig:figure4}, de esta manera se consiguen clusters bien diferenciados y por tanto útiles para las tareas de búsqueda de caminos que el robot realiza durante la navegación.
+En la figura \ref{fig:figure11} se muestra otro conjunto de datos de imágenes sobre el que se aplican técnicas de clustering con restricciones. En este caso, la tarea es realizar reconocimiento de objetos para incorporar el método al sistema de navegación del robot Aibo \cite{DavidsonRavi:2005a}. Para ello se emplean restricciones de distancia de tipo $\delta$ y $\epsilon$ como las descritas en la figura \ref{fig:figure4}, De esta manera se consiguen clusters bien diferenciados y por tanto útiles para las tareas de búsqueda de caminos que el robot realiza durante la navegación.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -131,7 +131,7 @@ En la figura \ref{fig:figure11} se muestra otro conjunto de datos de imágenes s
 
 \subsection{Aplicaciones en análisis de vídeos}
 
-Las bases de datos de video son uno de los ejemplos en los que las restricciones pueden ser generadas directamente desde el dominio de datos, especialmente disponiendo de datos espacio-temporales sobre el vídeo \cite{Yan:2006}. En datos temporalmente sucesivos es posible establecer restricciones de tipo \acf{ML} entre grupos de píxeles de fotogramas (\textit{frames}) cercanos en el tiempo. Esto es especialmente útil cuando la tarea es implementar reconocimiento de objetos basado en clustering y segmentación. También es posible añadir restricciones \acf{CL} a clusters localizados en el mismo fotograma, ya que existe una baja probabilidad de que estén asociados al mismo objeto. De hecho, en el dominio asociado a problemas de análisis de vídeo existen gran variedad métodos de extracción de restricciones \cite{Yan:2006}, la figura \ref{fig:figure12} muestra algunos ejemplos.  
+Las bases de datos de vídeo son uno de los ejemplos en los que las restricciones pueden ser generadas directamente desde el dominio de datos, especialmente disponiendo de datos espacio-temporales sobre el vídeo \cite{Yan:2006}. En datos temporalmente sucesivos es posible establecer restricciones de tipo \acf{ML} entre grupos de píxeles de fotogramas (\textit{frames}) cercanos en el tiempo. Esto es especialmente útil cuando la tarea es implementar reconocimiento de objetos basado en clustering y segmentación. También es posible añadir restricciones \acf{CL} a clusters localizados en el mismo fotograma, ya que existe una baja probabilidad de que estén asociados al mismo objeto. De hecho, en el dominio asociado a problemas de análisis de vídeo existen gran variedad de métodos de extracción de restricciones \cite{Yan:2006}, la figura \ref{fig:figure12} muestra algunos ejemplos.  
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -150,11 +150,11 @@ Las bases de datos de video son uno de los ejemplos en los que las restricciones
 
 En la figura \ref{fig:figure12}, la imagen (a) corresponde a restricciones extraídas del seguimiento de una persona durante un periodo de tiempo, la (b) corresponde a restricciones espaciales que asocian dos objetos localizados en el mismo fotograma, la imagen (c) corresponde a restricciones obtenidas mediante reconocimiento facial y la (d) a las proporcionadas por el usuario.
 
-Disponiendo de tantos métodos para extraer restricciones, cabe plantearse, ¿qué sucede si se establecen demasiadas restricciones? ¿Hace esto que el problema esté sobrerestringido? En secciones posteriores (\ref{Problemas}) abordaremos estas cuestiones.
+Disponiendo de tantos métodos para extraer restricciones, cabe plantearse: ¿qué sucede si se establecen demasiadas restricciones? ¿Hace esto que el problema esté sobrerestringido? En secciones posteriores (\ref{Problemas}) abordaremos estas cuestiones.
 
 \subsection{Aplicaciones en genética}
 
-En clustering de genes basado en microarrays, los genes vienen representados por su perfil de expresión en diferentes experimentos y agrupados empleando diferentes métodos, en este caso métodos de clustering con restricciones. La  figura \ref{fig:figure13} muestra un ejemplo, se trata de restricciones de tipo \acf{ML} se establecen entre genes en base a los datos de co-ocurrencia almacenados en la base de datos de interacciones de proteínas, que contiene información sobre qué genes (y sus proteínas asociadas) están presentes en los mismos procesos celulares \cite{Xenarios:2001}. Esta información puede ser empleada para mejorar los resultados que proporcionan los métodos de clustering. \cite{Seagal:2003}
+En clustering de genes basado en microarrays, los genes vienen representados por su perfil de expresión en diferentes experimentos y agrupados empleando diferentes métodos, en este caso métodos de clustering con restricciones. La  figura \ref{fig:figure13} muestra un ejemplo: se trata de restricciones de tipo \acf{ML} que se establecen entre genes en base a los datos de co-ocurrencia almacenados en la base de datos de interacciones de proteínas, que contiene información sobre qué genes (y sus proteínas asociadas) están presentes en los mismos procesos celulares \cite{Xenarios:2001}. Esta información puede ser empleada para mejorar los resultados que proporcionan los métodos de clustering. \cite{Seagal:2003}
 
 \begin{figure}[!h]
 	\centering
@@ -164,11 +164,11 @@ En clustering de genes basado en microarrays, los genes vienen representados por
 
 \subsection{Aplicaciones en análisis de textos}
 
-En tareas de clasificación de contenido, el objetivo es dividir de manera automática grandes cantidades de documentos en grupos o clusters. En este caso es posible extraer las restricciones de múltiples recursos auxiliares, por ejemplo, si dos documentos se encuentran en el mismo directorio se podría inferir una restricción de tipo \acf{ML} entre ellos. De esta manera es posible modificar el clustering resultante para que se adapte a un criterio concreto, por ejemplo, crear una jerarquía de documentos semejante a la forma en la que se encuentran organizados en la estructura de directorios de entrada.
+En tareas de clasificación de contenido, el objetivo es dividir de manera automática grandes cantidades de documentos en grupos o clusters. En este caso es posible extraer las restricciones de múltiples recursos auxiliares. Por ejemplo, si dos documentos se encuentran en el mismo directorio se podría inferir una restricción de tipo \acf{ML} entre ellos. De esta manera es posible modificar el clustering resultante para que se adapte a un criterio concreto, como por ejemplo crear una jerarquía de documentos semejante a la forma en la que se encuentran organizados en la estructura de directorios de entrada.
 
 \subsection{Aplicaciones en datos web} 
 
-El clustering con restricciones resulta de gran utilidad en el procesado de datos de búsqueda en páginas web. Aquí, el objetivo es agrupar, de manera automática, los resultados de una consulta ambigua en el motor de búsqueda en clusters de \acs{URL}s, que se refieran al concepto introducido como consulta en diferentes contextos. En este ámbito es posible extraer las restricciones a partir de búsquedas realizadas anteriormente por los usuarios, de manera que se establece una restricción de tipo \acf{ML} entre \acs{URL}s visitadas en la misma sesión de usuario. Aplicar clustering utilizando estas restricciones puede ayudar a sesgar el resultado de las búsquedas hacia las preferencias del usuario.
+El clustering con restricciones resulta de gran utilidad en el procesamiento de datos de búsqueda en páginas web. Aquí, el objetivo es agrupar, de manera automática, los resultados de una consulta ambigua en el motor de búsqueda en clusters de \acs{URL}s, que se refieran al concepto introducido como consulta en diferentes contextos. En este ámbito es posible extraer las restricciones a partir de búsquedas realizadas anteriormente por los usuarios, de manera que se establece una restricción de tipo \acf{ML} entre \acs{URL}s visitadas en la misma sesión de usuario. Aplicar clustering utilizando estas restricciones puede ayudar a sesgar el resultado de las búsquedas hacia las preferencias del usuario.
 
 \subsection{Aplicaciones en datos de audio}
 
@@ -176,7 +176,7 @@ En ciertas tareas de análisis de audio, es posible que no se conozca el número
 
 \subsection{Aplicaciones en datos de GPS} \label{EjemploGPS}
 
-Tal y como se indicó en el inicio e este capítulo, el clustering con restricciones sobre datos \acs{GPS} se utiliza para identificar el carril por el que circula cada vehículo, como se muestra en la figura \ref{fig:figure14}. Cada instancia viene representada por la posición que ocupa en la vía en coordenadas cartesianas bidimensionales $(x,y)$, obtenidas en base a los datos \acs{GPS}. La figura \ref{fig:figure15} muestra de manera gráfica esta representación de los datos, cabe destacar que múltiples instancias pueden referirse al mismo vehículo en distintos momentos en el tiempo.
+Tal y como se indicó en el inicio de este capítulo, el clustering con restricciones sobre datos \acs{GPS} se utiliza para identificar el carril por el que circula cada vehículo, como se muestra en la figura \ref{fig:figure14}. Cada instancia viene representada por la posición que ocupa en la vía en coordenadas cartesianas bidimensionales $(x,y)$, obtenidas en base a los datos \acs{GPS}. La figura \ref{fig:figure15} muestra de manera gráfica esta representación de los datos (cabe destacar que múltiples instancias pueden referirse al mismo vehículo en distintos momentos en el tiempo).
 
 \begin{figure}[!h]
 	\centering
@@ -207,7 +207,7 @@ Encontramos dos beneficios principales en el uso de restricciones:
 
 A continuación se analizan estos dos beneficios:
 
-Dado $X = \{x_1 \cdots x_u\}$, un gran conjunto de instancias no etiquetadas, y $L = \{(x_{u+1}, y_{u+1})\cdots (x_{u+l}, y_{u+l})\}$, un pequeño conjunto de instancias etiquetadas, es común escoger dos elementos de $L$ (con reemplazamiento) y establecer una restricción \acs{ML} entre ellos si pertenecen a la misma clase o, en caso contrario, una de tipo \acs{CL}. Un método apropiado para evaluar los resultados ofrecidos por un método de clustering es medir en nivel de exactitud de éste a la hora de predecir las etiquetas del conjunto $X$. Esto normalmente requiere que se especifique el número de clusters deseados igual al número de clases conocidas en $X$ ($k = k*$). Para medir la exactitud se emplean métodos como el \textit{Rand index} \cite{Rand:1971}.
+Dado $X = \{x_1 \cdots x_u\}$, un gran conjunto de instancias no etiquetadas, y $L = \{(x_{u+1}, y_{u+1})\cdots (x_{u+l}, y_{u+l})\}$, un pequeño conjunto de instancias etiquetadas, es común escoger dos elementos de $L$ (con reemplazamiento) y establecer una restricción \acs{ML} entre ellos si pertenecen a la misma clase o, en caso contrario, una de tipo \acs{CL}. Un método apropiado para evaluar los resultados ofrecidos por un método de clustering es medir el nivel de exactitud de éste a la hora de predecir las etiquetas del conjunto $X$. Esto normalmente requiere que se especifique el número de clusters deseados igual al número de clases conocidas en $X$ ($k = k*$). Para medir la exactitud se emplean métodos como el \textit{Rand index} \cite{Rand:1971}.
 
 El trabajo de Wagstaff y Cardie \cite{WagstaffCardie:2000}, en el que generaban las restricciones de la manera descrita anteriormente, demostraba que, cuando se realiza un promedio de la exactitud de las predicciones obtenidas con algoritmos de clustering con restricciones, variando estas últimas entre experimentos, se obtienen resultados hasta un 20\% mejores que con las técnicas clásicas.
 
@@ -237,7 +237,7 @@ La introducción de restricciones en el clustering cambia el problema al que és
 	
 \end{definicion}
 
-La complejidad teórica del problema dependerá del tipo de restricciones que se combinen en él, el cuadro \ref{tab:tabla1} presenta, de manera resumida, la complejidad esperada en cada caso. 
+La complejidad teórica del problema dependerá del tipo de restricciones que se combinen en él. El cuadro \ref{tab:tabla1} presenta, de manera resumida, la complejidad esperada en cada caso. 
 
 \begin{table}[h]
 	\centering
@@ -262,7 +262,7 @@ La complejidad teórica del problema dependerá del tipo de restricciones que se
 		\hline
 		
 	\end{tabular}
-	\caption[Complejidad del problema del clustering en función del tipo de restricciones]{Complejidad del problema del clustering en función del tipo de restricciones\cite{Survey:2007}}
+	\caption[Complejidad del problema del clustering en función del tipo de restricciones]{Complejidad del problema del clustering en función del tipo de restricciones \cite{Survey:2007}}
 	\label{tab:tabla1}
 \end{table}
 
@@ -270,32 +270,32 @@ Tal y como queda reflejado en el cuadro \ref{tab:tabla1}, la utilización de res
 
 \begin{observacion}
 	
-	\textbf{Saber que existe una solución factible no nos ayuda a encontrarla.} Las implicaciones de este resultado sobre la complejidad del clustering con restricciones implican que, aún en caso de que exista una partición factible, no será fácil de encontrar, hablando en términos de complejidad algorítmica. \cite{Survey:2007}
+	\textbf{Saber que existe una solución factible no nos ayuda a encontrarla.} Las implicaciones de este resultado sobre la complejidad del clustering con restricciones implican que, aun en caso de que exista una partición factible, no será fácil de encontrar, hablando en términos de complejidad algorítmica. \cite{Survey:2007}
 	\label{ob:observacion34}
 	
 \end{observacion} 
 
-Los autores Wagstaff \cite{Wagstaff:2002} y Davidson y Ravi \cite{DavidsonRavi:2007} muestran que aún especificando el número de clusters de salida igual al de clases verdaderas ($k = k*$), cosa que garantiza que existe una solución factible, algoritmos simples como la adaptación de \textit{k-means} al clustering con restricciones (\textit{COP-k-means}\cite{Wagstaff:2001b}), pueden no converger debido al problema de la factibilidad.
+Los autores Wagstaff \cite{Wagstaff:2002} y Davidson y Ravi \cite{DavidsonRavi:2007} muestran que aun especificando el número de clusters de salida igual al de clases verdaderas ($k = k*$), cosa que garantiza que existe una solución factible, algoritmos simples como la adaptación de \textit{k-means} al clustering con restricciones (\textit{COP-k-means}\cite{Wagstaff:2001b}), pueden no converger debido al problema de la factibilidad.
 
 \subsection{El problema de la utilidad de conjuntos de restricciones} \label{ProbRestr}
 
-En el clustering con restricciones se asume que estas son indicaciones que guían al algoritmo para encontrar la partición de los datos deseada. Entonces, está justificado pensar que, de cuanta mas información adicional (restricciones) dispongamos, mas cercano estará el resultado que obtenemos al que buscamos, tal y como la observación \ref{ob:observacion33} afirmaba. Sin embargo, y a pesar de lo dispuesto en dicha observación, existen casos en los que, aún generando las restricciones sin ruido y en base a las etiquetas verdaderas, existen conjuntos de restricciones que, lejos de mejorar los resultados, los empeoran considerablemente \cite{DavidsonRaviWagstaff:2006}. Esto parece estar en desacuerdo con la observación \ref{ob:observacion33}, sin embargo, recordemos que en ella se hace referencia al caso medio, y no a casos particulares.
+En el clustering con restricciones se asume que éstas son indicaciones que guían al algoritmo para encontrar la partición de los datos deseada. Entonces, está justificado pensar que, de cuanta más información adicional (restricciones) dispongamos, más cercano estará el resultado que obtengamos al que buscamos, tal y como la observación \ref{ob:observacion33} afirmaba. Sin embargo, y a pesar de lo dispuesto en dicha observación, existen casos en los que, aun generando las restricciones sin ruido y en base a las etiquetas verdaderas, existen conjuntos de restricciones que, lejos de mejorar los resultados, los empeoran considerablemente \cite{DavidsonRaviWagstaff:2006}. Esto parece estar en desacuerdo con la observación \ref{ob:observacion33}, sin embargo, recordemos que en ella se hace referencia al caso medio, y no a casos particulares.
 
 \begin{observacion}
 	
-	\textbf{Conjuntos de restricciones particulares pueden causar efectos adversos}. Algunos conjuntos de restricciones generados en base a las etiquetas verdaderas y libres de ruido, pueden resultar en una pérdida de precisión a la hora de predecir esas mismas etiquetas. \cite{Survey:2007}
+	\textbf{Conjuntos de restricciones particulares pueden causar efectos adversos}. Algunos conjuntos de restricciones generados en base a las etiquetas verdaderas y libres de ruido pueden resultar en una pérdida de precisión a la hora de predecir esas mismas etiquetas. \cite{Survey:2007}
 	
 \end{observacion}
 
 \subsection{Soluciones al problema de la factibilidad}
 
-El problema de la factibilidad puede ser abordado de varias maneras, la mas inmediata quizá sea mantener el número de restricciones bajo, en proporcion al número de instancias totales, para minimizar la probabilidad de que surjan inconsistencias. Sin embargo, no es el escenario ideal no poder aumentar el número de restricciones si el problema lo requiere. Por ello se debe poner interés en analizar cuando un problema pasa a estar sobre-restringido, ya que, como hemos estudiado en secciones anteriores de este trabajo (\ref{ProbRestr}), incluso generando las restricciones en base a las etiquetas verdaderas, algoritmos como \textit{COP-k-means} dejan de ser efectivos conforme aumenta el número de restricciones a satisfacer, incluso reiniciado de manera aleatoria el algoritmo varias veces.
+El problema de la factibilidad puede ser abordado de varias maneras. La más inmediata quizá sea mantener el número de restricciones bajo, en proporción al número de instancias totales, para minimizar la probabilidad de que surjan inconsistencias. Sin embargo, no poder aumentar el número de restricciones si el problema lo requiere no es el escenario ideal. Por ello se debe poner interés en analizar cuando un problema pasa a estar sobrerestringido, ya que, como hemos estudiado en secciones anteriores de este trabajo (\ref{ProbRestr}), incluso generando las restricciones en base a las etiquetas verdaderas, algoritmos como \textit{COP-k-means} dejan de ser efectivos conforme aumenta el número de restricciones a satisfacer, incluso reiniciado de manera aleatoria el algoritmo varias veces.
 
-El fenómeno de la sobre-restricción de problemas mediante el uso de restricciones \acf{CL} esta íntimamente relacionado con el problema del coloreado de grafos, de hecho, ha sido demostrado que éste es equivalente al problema del clustering con restricciones \acs{CL} \cite{DavidsonRavi:2006}. Así, encontramos que resolver un problema con restricciones \acs{CL} mediante algoritmos como \textit{COP-k-means} es, a efectos prácticos, resolver el problema del coloreado de grafos.
+El fenómeno de la sobrerestricción de problemas mediante el uso de restricciones \acf{CL} está íntimamente relacionado con el problema del coloreado de grafos; de hecho, ha sido demostrado que éste es equivalente al problema del clustering con restricciones \acs{CL} \cite{DavidsonRavi:2006}. Así, encontramos que resolver un problema con restricciones \acs{CL} mediante algoritmos como \textit{COP-k-means} es, a efectos prácticos, resolver el problema del coloreado de grafos.
 
 \begin{observacion}
 	
-	\textbf{El problema del clustering con restricciones \acs{CL} as análogo al problema del coloreado de grafos} \cite{Survey:2007}
+	\textbf{El problema del clustering con restricciones \acs{CL} es análogo al problema del coloreado de grafos.} \cite{Survey:2007}
 	
 \end{observacion}
 
@@ -303,7 +303,7 @@ Este resultado permite trasladar muchas de las propiedades del problema del colo
 
 \begin{observacion}
 	
-	\textbf{El teorema de Brook es aplicable al problema del clustering con restricciones}
+	\textbf{El teorema de Brook es aplicable al problema del clustering con restricciones.}
 	Si $ k > $ (Mayor número de restricciones \acs{CL} sobre una instancia), entonces siempre existirá una partición factible. \cite{Survey:2007} \label{ob:observacion37}
 	
 \end{observacion}
@@ -312,9 +312,9 @@ Con esto, y aunque la observación \ref{ob:observacion34} indique lo contrario, 
 
 \subsection{Soluciones al problema de la utilidad de conjuntos de restricciones}
 
-La solución al problema es simple: identificar aquellos conjuntos de restricciones verdaderamente útiles. Sin embargo, esto involucra aplicar algún tipo de métrica que permita evaluar cuando un conjunto de restricciones dado cumple esta condición. A tal fin, Davidson, Wagstaff y Basu propusieron dos medidas: informatividad y coherencia.\\
+La solución al problema es simple: identificar aquellos conjuntos de restricciones verdaderamente útiles. Sin embargo, esto involucra aplicar algún tipo de métrica que permita evaluar cuándo un conjunto de restricciones dado cumple esta condición. A tal fin, Davidson, Wagstaff y Basu propusieron dos medidas: informatividad y coherencia.\\
 
-La \textbf{informatividad} es una medida referida a la cantidad de información presente en el conjunto de restricciones que el algoritmo no puede determinar por sí mismo. Por ejemplo, en la figura \ref{fig:figure16}, un algoritmo como \textit{COP-k-means} se vería inclinado a agrupar instancias cercanas en el espacio y colocar en clusters separados aquellas que se encuentren lejanas, sin embargo las restricciones sesgan el espacio de soluciones evitando que esto suceda. 
+La \textbf{informatividad} es una medida referida a la cantidad de información presente en el conjunto de restricciones que el algoritmo no puede determinar por sí mismo. Por ejemplo, en la figura \ref{fig:figure16}, un algoritmo como \textit{COP-k-means} se vería inclinado a agrupar instancias cercanas en el espacio y colocar en clusters separados aquellas que se encuentren lejanas; sin embargo, las restricciones sesgan el espacio de soluciones evitando que esto suceda. 
 
 \begin{figure}[!h]
 	\centering
@@ -323,7 +323,7 @@ La \textbf{informatividad} es una medida referida a la cantidad de información 
 \end{figure}
 
 
-La informatividad se estima utilizando el conjunto de restricciones como un conjunto de test, de manera que se mide la habilidad del algoritmo para predecir las restricciones presentes en el. Formalizando, dado un conjunto de restricciones $R$ y un algoritmo $A$, obtenemos la partición $P_A$ aplicando el algoritmo al conjunto de datos de entrada especificando el conjunto de restricciones vacío. Calculamos entonces la fracción de las restricciones incumplidas por $P_A$ \cite{Survey:2007}:
+La informatividad se estima utilizando el conjunto de restricciones como un conjunto de test, de manera que se mide la habilidad del algoritmo para predecir las restricciones presentes en él. Formalizando, dado un conjunto de restricciones $R$ y un algoritmo $A$, obtenemos la partición $P_A$ aplicando el algoritmo al conjunto de datos de entrada especificando el conjunto de restricciones vacío. Calculamos entonces la fracción de las restricciones incumplidas por $P_A$ \cite{Survey:2007}:
 
 \begin{equation}
 I_A(R) = \frac{1}{|R|}\left[ \sum_{r \in R} unsat(r, P_A) \right] 
@@ -331,7 +331,7 @@ I_A(R) = \frac{1}{|R|}\left[ \sum_{r \in R} unsat(r, P_A) \right]
 
 \clearpage
 
-Por otra parte, la \textbf{coherencia} mide el grado de concordancia dentro del propio conjunto de restricciones respecto a una métrica dada ($D$). Por ejemplo, la figura \ref{fig:figure17} muestra dos restricciones paralelas y muy cercanas, pero de distinto tipo. Es en casos como este en los que se da una contradicción, ya que las restricciones \acf{ML} indican que la distancia entre las instancias involucradas en ella es pequeña, mientras que las de tipo \acf{CL} deben indicar lo contrario.
+Por otra parte, la \textbf{coherencia} mide el grado de concordancia dentro del propio conjunto de restricciones respecto a una métrica dada ($D$). Por ejemplo, la figura \ref{fig:figure17} muestra dos restricciones paralelas y muy cercanas, pero de distinto tipo. Es en casos como este en los que se da una contradicción, ya que las restricciones \acf{ML} indican que la distancia entre las instancias involucradas en ellas es pequeña, mientras que las de tipo \acf{CL} deben indicar lo contrario.
 
 \begin{figure}[!h]
 	\centering
@@ -339,7 +339,7 @@ Por otra parte, la \textbf{coherencia} mide el grado de concordancia dentro del 
 	\caption[Ejemplo de conjunto de restricciones contradictorio.]{Ejemplo de conjunto de restricciones contradictorio. \cite{Survey:2007}}\label{fig:figure17}
 \end{figure}
 
-Entonces la medida de coherencia viene dada por el grado de solapamiento que presentan las restricciones al interpretarlas como vectores en el espacio y proyectarlas sobre uno de los ejes, tal y como se muestra en la figura \ref{fig:figure18} 
+Entonces, la medida de coherencia viene dada por el grado de solapamiento que presentan las restricciones al interpretarlas como vectores en el espacio y proyectarlas sobre uno de los ejes, tal y como se muestra en la figura \ref{fig:figure18}.
 
 \begin{figure}[!h]
 	\centering
