@@ -56,6 +56,8 @@ El cambio más notable que supone COP-k-medias, respecto al tradicional k-medias
 	\caption{COP-k-means}\label{alg:ckm}
 \end{algorithm}
 
+\clearpage
+
 \section{CEKM (Constrained Evidential k-means)}
 
 Para comprender el algoritmo CEKM, primero es necesario realizar una introducción al algoritmo k-medias difuso (\textit{fuzzy k-means}). En él, cada instancia puede pertenecer a uno o más clusters con diferentes grados de pertenencia. La matriz que almacena esta información, es decir, la partición difusa, se nota con $U$, y se calcula minimizando la siguiente función:
@@ -67,7 +69,7 @@ Para comprender el algoritmo CEKM, primero es necesario realizar una introducci�
 
 Donde $u_{ij}$ representa el grado de pertenencia de la instancia $i$ al cluster $j$, y $k$ es el número de clusters. Sin embargo este método puede producir resultados contraintuitivos cuando los datos a los que se aplica son ruidosos o presentan instancias aisladas \textit{outliers}.
 
-El clustering evidencial \textit{evidential clustering} da solución a los problemas que presenta el algoritmo k-medias difuso, introduciendo el concepto de partición de creencia (\textit{credal partition}), que extiende los conceptos existentes de particiones fuertes, difusas y probabilísticas. De esta forma, en una partición de creencia, se asigna cada instancia una masa de creencia (\textit{mass of belief}) no solo para un único cluster, sino para cualquier conjunto de los mismos $\Omega = \{\omega_1 \cdots \omega_k \}$. El método CECM combina las ventajas del uso de las restricciones con las del uso de funciones de creencia.
+El clustering evidencial \textit{evidential clustering} da solución a los problemas que presenta el algoritmo k-medias difuso, introduciendo el concepto de partición de creencia (\textit{credal partition}), que extiende los conceptos existentes de particiones fuertes, difusas y probabilísticas. De esta forma, en una partición de creencia, se asigna a cada instancia una masa de creencia (\textit{mass of belief}) no solo para un único cluster, sino para cualquier conjunto de los mismos $\Omega = \{\omega_1 \cdots \omega_k \}$. El método CECM combina las ventajas del uso de las restricciones con las del uso de funciones de creencia.
 
 \subsection{Funciones de creencia}
 
@@ -113,7 +115,7 @@ BetP(\omega) = \sum_{\omega \in A} \frac{m(A)}{|A|} \;\;\; \forall \omega \in \O
 \label{eqn7}
 \end{equation}
 
-\subsection{k-medias difuso y sus variantes}
+\subsection{FKM (fuzzy k-means) y sus variantes}
 
 Cada cluster $\omega_j \in \Omega$ con $j \in \{1,\cdots,k\}$ esta representado por un vector $v_j \in \mathbb{R}^p$, es decir, un centroide. Además, definimos $V$ como la matriz compuesta por todos los centroides, y $U = (u_{ij})$ como la partición difusa que contiene los grados de pertenencia de cada instancia de $X$ a cada cluster. El algoritmo k-medias difuso calcula las matrices $U$ y $V$ de manera que se minimiza (sujeto a las ecuaciones \ref{eqn2} y \ref{eqn3}) la siguiente función:
 
@@ -122,7 +124,7 @@ J_{FCM}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{k} u_{ij}^\beta d_{ij}^2
 \label{eqn8}
 \end{equation}
 
-Donde $d_{ij}$ representa la distancia euclidea entre el objeto $x_i$ y el centroide $v_j$, y $\beta > 1$ es el exponente que controla el grado de difusión de la partición. La función objetivo se minimiza mediante un algoritmo iterativo que optimiza los centroides y los grados de pertenencia de manera alternativa. El algoritmo empieza con una asignación inicial sobre la que realiza modificaciones hasta que converge.
+Donde $d_{ij}$ representa la distancia euclidiana entre el objeto $x_i$ y el centroide $v_j$, y $\beta > 1$ es el exponente que controla el grado de difusión de la partición. La función objetivo se minimiza mediante un algoritmo iterativo que optimiza los centroides y los grados de pertenencia de manera alternativa. El algoritmo empieza con una asignación inicial sobre la que realiza modificaciones hasta que converge.
 
 Para detectar datos ruidosos u outliers empleamos el algoritmo NC \textit{Noise-Clustering}, que consiste en añadir a los $k$ clusters iniciales uno adicional llamado ``cluster ruidoso'', asociado a una distancia fija $\rho$ respecto a todos los objetos. El parámetro $\rho$ controla la cantidad de data que será considerados como outliers. La pertenencia $u_{i*}$ de un objeto $i$ al cluster ruidoso se calcula como:
 
@@ -131,9 +133,186 @@ u_{i*} = 1 - \sum_{j=1}^{k} u_{i,j} \;\;\; i = {1,\cdots,n}
 \label{eqn9}
 \end{equation}
 
-Entonces, la función objetivo que minimiza el algoritmo NC no es mas que una combinación del cálculo de pertenencia de objetos al cluster ruidoso y la que minimizaba el algoritmo k-medias difuso.
+Entonces, la función objetivo que minimiza el algoritmo NC no es mas que una combinación del cálculo de pertenencia de objetos al cluster ruidoso y la que minimizaba el algoritmo k-medias difuso:
 
 \begin{equation}
 J_{NM}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{k} u_{ij}^\beta d_{ij}^2 + \sum_{i=1}^{k} \rho^2 u_{i*}^\beta
 \label{eqn10}
 \end{equation}
+
+\subsection{El algoritmo EKM (Evidential k-means)}
+
+Es posible obtener una versión credibilística del algoritmo NC reemplazando la matriz asociada a la partición difusa $U$ con una partición de creencia, que notaremos con $M$. En este contexto, el conocimiento parcial asociado a la pertenencia de un objeto a una clase viene representado por una función de masa aplicada al conjunto $\Omega$ de posibles clases. Por tanto, la masa de creencia puede ser asignada a cualquier subconjunto $A$ de $\Omega$, y no solo a elementos únicos de $\Omega$. Este esquema hace posible modelar una amplia variedad de circunstancias, que van de la completa ignorancia sobre el conjunto de datos hasta la completa certeza sobre el mismo.
+
+Para ilustrar estas ideas se propone el siguiente ejemplo: consideramos un conjunto de cuatro objetos que deben ser clasificados en dos clases. El cuadro \ref{tab:tabla2} contiene la partición de creencia asociada a estos datos. La clase del primer objeto es conocida con certeza, ya que su masa de creencia esta asignada a un solo elemento de $\Omega$. Por el contrario la clase del segundo objeto es completamente desconocida. La masa de creencia del tercer objeto esta repartida entre dos elementos de $\Omega$, por tanto tenemos conocimiento probabilístico sobre la clase a la que pertenece. El último objeto representa un outlier, ya que su masa de creencia está asignada al conjunto vacío.
+
+\begin{table}[h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{1}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{1cm}  >{\centering\arraybackslash}m{1cm}>{\centering\arraybackslash}m{1cm}>{\centering\arraybackslash}m{1cm}>{\centering\arraybackslash}m{1cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{5}{c}{\bf \color{white}{Ejemplo de partición de creencia}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{$A$} & \textbf{$m_1(A)$} & \textbf{$m_2(A)$} & \textbf{$m_3(A)$} & \textbf{$m_4(A)$} \\
+		$\emptyset$ & 0 & 0 & 0 & 1 \\
+		$\{\omega_1\}$ & 1 & 0 & 0.3 & 0 \\
+		$\{\omega_2\}$ & 0 & 0 & 0.7 & 0 \\
+		$\Omega$ & 0 & 1 & 0 & 0 \\
+		\hline
+		
+	\end{tabular}
+	\caption[Ejemplo de partición de creencia]{Ejemplo de partición de creencia \cite{CECM:2012}}
+	\label{tab:tabla2}
+\end{table}
+
+EKM es uno de los algoritmos que opera con una partición de creencia obtenida en base a los datos. Sea $m_{ij}$ el grado de creencia de que el objeto $x_i$ pertenece al subconjunto $A_j \subseteq \Omega$. Obtener una partición de creencia implica determinar, para cada $x_i$, las cantidades $m_{ij} = m_i(A_j)\;\; \forall A_j \neq \emptyset, A_j \subseteq \Omega$. De esta manera, cuando la distancia $d_{ij}$ entre $x_i$ y $A_j$ es alta (baja), $m_{ij}$ será un valor bajo (alto).
+
+Tal y como sucedía en el algoritmo k-medias difuso, cada clase $\omega_l$ está representado por un centroide $v_l \in \mathbb{R}^p$. Entonces, para cada subconjunto $A_j \neq \emptyset, A_j \subseteq \Omega$ se calcula su centroide $\bar{v}_j$ como el baricentro de los centros asociados a las clases presentes en $A_j$:
+
+\begin{equation}
+\bar{v}_j = \frac{1}{|A_j|} \sum_{l=1}^{k} S_{lj} v_l
+\label{eqn11}
+\end{equation}
+
+donde el valor $S_{lj}$ viene definido por:
+
+\begin{equation}
+S_{lj} = \begin{cases}
+1 \;\;\; \textbf{si} \;\;\; \omega_l \in A_j\\
+0 \;\;\; \textbf{otro caso}
+\end{cases}
+\label{eqn12}
+\end{equation}
+
+La distancia $d_{ij}$ entre la instancia $x_i$ y el conjunto focal $A_j$ se calcula como:
+
+\begin{equation}
+d_{ij} = ||x_i - \bar{v}_j||
+\label{eqn13}
+\end{equation}
+
+Entonces, el algoritmo ECM calcula las matrices $M$ y $V$ tratando de minimizar un criterio similar al del algoritmo NC:
+
+\begin{equation}
+J_{ECM}(M,V) = \frac{1}{2^cn} \sum_{i=1}^{n}\sum_{A_j \neq \emptyset} |A_j|^\alpha m_{ij}^\beta d_{ij}^2 + \sum_{i=1}^{n} \rho^2 m_{i\emptyset}\beta
+\label{eqn14}
+\end{equation}
+
+sujeto a las restricciones $m_{ij} \ge 0 \;\; \forall i,j$, y $m_{i\emptyset} \ge 0 \;\; \forall i$, y:
+
+\begin{equation}
+\sum_{j/A_j \subseteq \Omega, A_j \neq \emptyset} m_{ij} + m_{i\emptyset} = 1 \;\;\; \forall i = 1,n
+\label{eqn15}
+\end{equation}
+
+Donde $m_{i\emptyset}$ denota la cantidad de masa de creencia de la instancia $x_i$ asignada al conjunto vacío. El parámetro $\rho$ representa la distancia de cualquier objeto al conjunto vació, y el parámetro $\alpha$ se introduce para controlar la penalización por asignación objetos a conjuntos con alta cardinalidad.
+
+Gracias a la restricción expuesta en la ecuación \ref{eqn15}, podemos ver obtener equivalencia entre el algoritmo NC y EKM. El algoritmo EKM asigna una gran masa de creencia al conjunto para un objeto dado cuando éste se encuentra lejos de todos los subconjuntos $A_j$.
+
+Como en FKM y NC, la partición de creencia se calcula aplicando un proceso de optimización iterativo, que actualiza las masas  y los centroides de forma alterna. La regla de optimización de $M$ es muy similar a su homóloga en NC, excepto por el número de valores $m_{ij}$ a calcular, que en este caso es $2^c$, en lugar de los $k + 1$ grados de pertenencia que eran necesarios en NC. De esta manera, la función de masa queda definida como:
+
+ \begin{equation}
+m_{ij} = \frac{|A_j|^{-\alpha/(\beta-1)} d_{ij}^{-2/(\beta-1)}}{\sum_{A_l \ne \emptyset}|A_l|^{-\alpha/(\beta-1)} d_{ij}^{-2/(\beta-1)} + \rho^{-2/(\beta-1)}}
+ \label{eqn16}
+ \end{equation}
+ 
+ y
+ 
+\begin{equation}
+m_{i\emptyset} = 1 - \sum_{A_j \ne \emptyset}m_{ij} \;\;\; i = 1,n
+\label{eqn17}
+\end{equation}
+
+Por otra parte, la regla de actualización de los centroides resulta un poco más compleja. Requiere resolver un sistema lineal de ecuaciones en cada paso del proceso. Cada columna de $V$ es la solución para un sistema lineal de $k$ ecuaciones y $k$ incógnitas. Tomamos $B$ como la matriz de tamaño $(k \times p)$ definida como:
+
+\begin{equation}
+B_{lq} = \sum_{i=1}^{n} X_{iq} \sum_{A_j \ni \omega_l} |A_j|^{\alpha-1} m_{ij}^\beta \;\;\; l = 1,k \;\;\; q =1,p
+\label{eqn18}
+\end{equation}
+
+y la matriz $H$ de tamaño $(k \times k)$ como:
+
+\begin{equation}
+H_{lk} = \sum_{i} \sum_{A_j \supseteq \{\omega_t,\omega_l\}} |A_j|^{\alpha - 2} m_{ij}^\beta \;\;\; t,l = 1,c 
+\label{eqn20}
+\end{equation}
+
+de forma que $V$ es la solución del sistema de ecuaciones lineal $H\times V = B$, que puede ser resuelto mediante técnicas estándar.
+
+\subsection{Incorporación de restricciones a ECM}
+
+Una vez definidos los elementos que conforman el algoritmo ECM, debemos incorporar las restricciones a nivel de instancia al marco de las funciones de creencia, para integrarlas en el cálculo de la partición de creencia.
+
+Tomamos $x_i$ y $x_j$ como dos instancias con funciones de masa $m_i$ y $m_j$. Teniendo en cuenta la clase a la que pertenecen los objetos, la función de masa conjunta puede calcularse a partir de $m_i$ y $m_j$ en el producto cartesiano $\Omega \times \Omega = \Omega^2$:
+
+\begin{equation}
+m_{i \times j}(A \times B) = m_i(A)m_j(B) \;\;\; A,B \subseteq \Omega, A \neq \emptyset, B \neq \emptyset
+\label{eqn21}
+\end{equation}
+
+\begin{equation}
+m_{i \times j}(\emptyset) = m_i(\emptyset) + m_j(\emptyset) - m_i(\emptyset)m_j(\emptyset)
+\label{eqn22}
+\end{equation}
+
+Conociendo $ m_{i \times j} $ podemos calcular la plausibilidad asociada a que los objetos $x_i$ y $x_j$ pertenezcan a la misma clase que, en el espacio $\Omega^2$, corresponde al subconjunto $\theta = \{(\omega_1, \omega_1), (\omega_2, \omega_2), \cdots, (\omega_k, \omega_k)\}$. El caso contrario corresponde al complemento de $\theta$, es decir, $\bar{\theta}$
+
+\begin{equation}
+pl_{i\times j}(\theta) = \sum_{A \cap B \ne \emptyset}m_i(A)m_j(B)
+\label{eqn23}
+\end{equation}
+\begin{equation}
+pl_{i\times j}(\bar{\theta}) = 1 - m_{i\times j}(\emptyset) - \sum_{l=1}^{k} m_i(\{\omega_l\})m_j(\{\omega_l\})
+\label{eqn24}
+\end{equation}
+
+\subsection{Función objetivo de CEKM}
+
+Asumamos ahora que la partición de creencia es desconocida, y que disponemos del conjunto de restricciones. Es necesario entonces buscar una partición de creencia que considere las similitudes y diferencias obtenidas en base a los datos, así como las restricciones. Para ello debemos buscar que $pl_{i\times j} (\theta)$ sea tan bajo como sea posible sin $(x_i, x:_i) \in CL$, así como que $pl_{i\times j} (\bar{\theta})$ lo sea si $(x_i, x_i) \in ML$. A tal fin, integramos una penalización en el criterio de optimización de ECM de la siguiente manera:
+
+\begin{equation}
+J_{CONST} = \frac{1}{|R|} \left[\sum_{(x_i,x_j) \in ML} pl_{i\times j} (\bar{\theta})\;\; + \sum_{(x_i,x_j) \in CL} pl_{i\times j} (\theta)\right]
+\label{eqn25}
+\end{equation}
+
+De esta forma, la función objetivo a minimizar pasa a ser:
+
+\begin{equation}
+J_{CECM}(M,V) = (1- \xi)J_{ECM}(M,V) + \xi J_{CONST}
+\label{eqn26}
+\end{equation}
+
+donde el parámetro $\xi \in [0,1]$ se utiliza para controlar el compromiso entre las restricciones y el modelo geométrico asociado a la métrica de distancia.
+
+\subsection{Proceso de optimización de ECKM}
+
+De igual forma que en FKM, NC y EKM, el modelo de optimización de ECKM consiste en actualizar $M$ y $V$ de forma alterna. Cabe destacar que el termino de penalización añadido a CEKM no dependen de los centroides de los clusters, y por tanto se pueden aplicar el mismo modelo de actualización que en EKM (ecuaciones \ref{eqn18} y \ref{eqn20}). Generalmente, el problema es mucho mas complejo para las masas de creencia, pero fijando $\beta = 2$, la función objetivo \ref{eqn26} pasa a ser cuadrática respecto a $m_{ij}$. Con esto, y como las restricciones so lineales, se pueden emplear algoritmos de programación cuadrática para resolver el problema de la actualización de las masas de creencia. El proceso de cálculo asociado a ECKM queda resumido en el algoritmo \ref{alg:cecm}. 
+
+
+\begin{algorithm}
+	
+	\BlankLine
+	\KwIn{Conjunto de datos $X$, conjunto de restricciones $R$, número de clusters resultantes $k$}
+	\KwOut{Partición de creencia $M$, centroides $V$}
+	\BlankLine
+	\textbf{función} CEKM($X$, $R$, $k$) \Begin{
+		\BlankLine
+		1. Inicialización de $V$\\
+		2. Actualizar las masas ($M$) resolviendo el problema de programación cuadrática definido por \ref{eqn26} sujeto a \ref{eqn15}\\
+		3. Actualizar los centroides ($V$) resolviendo el sistema de ecuaciones lineal definido por \ref{eqn18} y \ref{eqn20} con $\beta = 2$\\
+		4. Iterar entre (2.) y (3.) hasta que no haya cambios significativos en $V$.\\
+		5. \KwRet $M$, $V$
+		\BlankLine
+	}
+	\caption{CECM}
+	\label{alg:cecm}
+\end{algorithm}
+
+
+
