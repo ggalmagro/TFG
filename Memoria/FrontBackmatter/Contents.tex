@@ -42,9 +42,10 @@
     \listoftables
 
     \vspace{8ex}
-	%\listofalgorithms
-	%\addtocontents{loa}{\def\string\figurename{Algorithm}}
-	%\vspace{8ex}
+    \refstepcounter{dummy}
+	\pdfbookmark[1]{\listalgorithmcfname}{loa}
+	\lstlistofalgorithms
+	\vspace{8ex}
     %*******************************************************
     % List of Listings
     %*******************************************************
@@ -67,7 +68,8 @@
     \begin{acronym}[UMLX]
     	\acro{ML}{Must-Link}
     	\acro{CL}{Cannot-Link}
-    	\acro{CMU}{Carnegie Mellon University}
+    	\acro{KM}{K-medias}
+    	\acro{KKM}{Fuzzy K-medias}
         \acro{URL}{Uniform Resource Locator}
         \acro{GPS}{Global Positioning System}
         \acro{CEKM}{Constrained Evidential k-means}

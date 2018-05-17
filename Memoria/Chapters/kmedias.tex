@@ -1,7 +1,50 @@
 %********************************************************************
 % Appendix
-%*******************************************************
-% If problems with the headers: get headings in appendix etc. right
-%\markboth{\spacedlowsmallcaps{Appendix}}{\spacedlowsmallcaps{Appendix}}
 \chapter{El algoritmo k-medias}\label{ap:kmeans}
+
+El algoritmo \acf{KM} es el método básico para aplicar clustering, fue ideado por  Hugo Steinhaus en 1957, aunque no fue aplicado a un caso real hasta 1967, por James MacQueen \cite{KMEANS:1967}. 
+
+El procedimiento que aplica K-medias es simple: asignar cada instancia al cluster cuyo centroide se encuentre mas cercano a ella, y calcular los centroides en base a las instancias asignadas al cluster asociado a cada uno. De esta manera, siguiendo la notación introducida en la sección \ref{ch:Algoritmos}, la regla de actualización de los centroides es:
+
+\begin{equation}
+v_i = \frac{1}{|c_i|} \sum_{x_i \in c_i} x_i
+\label{a1}
+\end{equation}
+
+Así, si cada instancia se asigna al cluster correspondiente al centroide mas cercano, la función de error que minimiza K-medias es:
+
+\begin{equation}
+ERR = \frac{1}{2} \sum_{j = i}^{k} \sum_{x_i \in c_i} (v_j - x_i)^2
+\label{a2}
+\end{equation}
+
+Formalizando la regla de asignación obtenemos:
+
+\begin{equation}
+c^i = argmin(||x_i - v_j||^2) \;\; t.q. \;\; j \in \{1, \cdots, k\}
+\label{a3}
+\end{equation}
+
+donde $c^i$ representa el cluster seleccionado para la instancia $x_i$. Con todo, el proceso que K-medias sigue para obtener una partición de los datos queda resumido en el algoritmo \ref{alg:kmedias}.
+
+\begin{algorithm}
+	
+	\BlankLine
+	\KwIn{Conjunto de datos $X$, numero de cluster resultantes $k$.}
+	\KwOut{Partición $P$ del conjunto de datos $X$, centroides $V$.}
+	\BlankLine
+	\textbf{función} K-medias($X$, $k$) \Begin{
+		\BlankLine
+		1. Inicalización aleatoria de los centroides $V = \{v_1, \cdots, v_k\}$.\\
+		2. Asignar cada instancia $x_i \in X$, al centroide más cercano $c_j$ siguiendo la ecuación \ref{a3}.\\
+		3. Para cada cluster $c_i$, actualizar su centroide aplicando la ecuación \ref{a1}\\
+		4. Iterar entre (2.) y (3.) hasta converger.\\
+		5. \KwRet $C$, $V$
+		\BlankLine
+	}
+	\BlankLine
+	\caption{K-medias}
+	\label{alg:kmedias}
+\end{algorithm}
+
 
