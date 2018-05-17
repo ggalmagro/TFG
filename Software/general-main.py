@@ -91,32 +91,32 @@ def main():
     circles_set, circles_labels = datasets.make_circles(300, .5, .05, random_state, .3)
     circles_set += 1.5
 
-    iris_const = np.identity(len(iris_labels))
-    iris_const = add_constraints(iris_set, iris_labels, iris_const, int(len(iris_labels) * const_percent), 0, 1)
-
-    wine_const = np.identity(len(wine_labels))
-    wine_const = add_constraints(wine_set, wine_labels, wine_const, int(len(wine_labels) * const_percent), 0, 1)
-
-    breast_cancer_const = np.identity(len(breast_cancer_labels))
-    breast_cancer_const = add_constraints(breast_cancer_set, breast_cancer_labels, breast_cancer_const, int(len(breast_cancer_labels) * const_percent), 0, 1)
-
-    glass_const = np.identity(len(glass_labels))
-    glass_const = add_constraints(glass_set, glass_labels, glass_const, int(len(glass_labels) * const_percent), 0, 1)
-
-    digits_const = np.identity(len(digits_labels))
-    digits_const = add_constraints(digits_set, digits_labels, digits_const, int(len(digits_labels) * const_percent), 0, 1)
-
-    rand_const = np.identity(len(rand_labels))
-    rand_const = add_constraints(rand_set, rand_labels, rand_const, int(len(rand_labels) * const_percent), 0, 1)
-
-    spiral_const = np.identity(len(spiral_labels))
-    spiral_const = add_constraints(spiral_set, spiral_labels, spiral_const, int(len(spiral_labels) * const_percent), 0, 1)
-
-    moons_const = np.identity(len(moons_labels))
-    moons_const = add_constraints(moons_set, moons_labels, moons_const, int(len(moons_labels) * const_percent), 0, 1)
-
-    circles_const = np.identity(len(circles_labels))
-    circles_const = add_constraints(circles_set, circles_labels, circles_const, int(len(circles_labels) * const_percent), 0, 1)
+    # iris_const = np.identity(len(iris_labels))
+    # iris_const = add_constraints(iris_set, iris_labels, iris_const, int(len(iris_labels) * const_percent), 0, 1)
+    #
+    # wine_const = np.identity(len(wine_labels))
+    # wine_const = add_constraints(wine_set, wine_labels, wine_const, int(len(wine_labels) * const_percent), 0, 1)
+    #
+    # breast_cancer_const = np.identity(len(breast_cancer_labels))
+    # breast_cancer_const = add_constraints(breast_cancer_set, breast_cancer_labels, breast_cancer_const, int(len(breast_cancer_labels) * const_percent), 0, 1)
+    #
+    # glass_const = np.identity(len(glass_labels))
+    # glass_const = add_constraints(glass_set, glass_labels, glass_const, int(len(glass_labels) * const_percent), 0, 1)
+    #
+    # digits_const = np.identity(len(digits_labels))
+    # digits_const = add_constraints(digits_set, digits_labels, digits_const, int(len(digits_labels) * const_percent), 0, 1)
+    #
+    # rand_const = np.identity(len(rand_labels))
+    # rand_const = add_constraints(rand_set, rand_labels, rand_const, int(len(rand_labels) * const_percent), 0, 1)
+    #
+    # spiral_const = np.identity(len(spiral_labels))
+    # spiral_const = add_constraints(spiral_set, spiral_labels, spiral_const, int(len(spiral_labels) * const_percent), 0, 1)
+    #
+    # moons_const = np.identity(len(moons_labels))
+    # moons_const = add_constraints(moons_set, moons_labels, moons_const, int(len(moons_labels) * const_percent), 0, 1)
+    #
+    # circles_const = np.identity(len(circles_labels))
+    # circles_const = add_constraints(circles_set, circles_labels, circles_const, int(len(circles_labels) * const_percent), 0, 1)
 
     #np.savetxt('breast.txt', breast_cancer_set)
 
@@ -315,68 +315,68 @@ def main():
     # circles_cecm_assignment_file.close()
     #
     # ########################### TV- Clustering ############################
-    print("TV-clust")
-    iris_const2, iris_checked = get_tvlust_input(iris_const)
-    wine_const2, wine_checked = get_tvlust_input(wine_const)
-    breast_cancer_const2, breast_cancer_checked = get_tvlust_input(breast_cancer_const)
-    glass_const2, glass_checked = get_tvlust_input(glass_const)
-    digits_const2, digits_checked = get_tvlust_input(digits_const)
-
-    iris_tvclust_assignment = TVClust(iris_set, iris_const2, iris_checked, 3)
-    wine_tvclust_assignment = TVClust(wine_set, wine_const2, wine_checked, 3)
-    breast_cancer_tvclust_assignment = TVClust(breast_cancer_set, breast_cancer_const2, breast_cancer_checked, 2)
-    glass_tvclust_assignment = TVClust(glass_set, glass_const2, glass_checked, 6)
-    digits_tvclust_assignment = TVClust(digits_set, digits_const2, digits_checked, 10)
-
-    rand_const2, rand_checked = get_tvlust_input(rand_const)
-    spiral_const2, spiral_checked = get_tvlust_input(spiral_const)
-    moons_const2, moons_checked = get_tvlust_input(moons_const)
-    circles_const2, circles_checked = get_tvlust_input(circles_const)
-
-    rand_tvclust_assignment = TVClust(rand_set, rand_const2, rand_checked, 3)
-    spiral_tvclust_assignment = TVClust(spiral_set, spiral_const2, spiral_checked, 2)
-    moons_tvclust_assignment = TVClust(moons_set, moons_const2, moons_checked, 2)
-    circles_tvclust_assignment = TVClust(circles_set, circles_const2, circles_checked, 2)
-
-    # Saving Results
-    iris_tvclust_assignment_file = open("results/TVClust/iris_tvclust_assignment.pkl", "wb")
-    pickle.dump(iris_tvclust_assignment, iris_tvclust_assignment_file)
-    iris_tvclust_assignment_file.close()
-
-    wine_tvclust_assignment_file = open("results/TVClust/wine_tvclust_assignment.pkl", "wb")
-    pickle.dump(wine_tvclust_assignment, wine_tvclust_assignment_file)
-    wine_tvclust_assignment_file.close()
-
-    breast_cancer_tvclust_assignment_file = open("results/TVClust/breast_cancer_tvclust_assignment.pkl", "wb")
-    pickle.dump(breast_cancer_tvclust_assignment, breast_cancer_tvclust_assignment_file)
-    breast_cancer_tvclust_assignment_file.close()
-
-    glass_tvclust_assignment_file = open("results/TVClust/glass_tvclust_assignment.pkl", "wb")
-    pickle.dump(glass_tvclust_assignment, glass_tvclust_assignment_file)
-    glass_tvclust_assignment_file.close()
-
-    digits_tvclust_assignment_file = open("results/TVClust/digits_tvclust_assignment.pkl", "wb")
-    pickle.dump(digits_tvclust_assignment, digits_tvclust_assignment_file)
-    digits_tvclust_assignment_file.close()
-
-    rand_tvclust_assignment_file = open("results/TVClust/rand_tvclust_assignment.pkl", "wb")
-    pickle.dump(rand_tvclust_assignment, rand_tvclust_assignment_file)
-    rand_tvclust_assignment_file.close()
-
-    spiral_tvclust_assignment_file = open("results/TVClust/spiral_tvclust_assignment.pkl", "wb")
-    pickle.dump(spiral_tvclust_assignment, spiral_tvclust_assignment_file)
-    spiral_tvclust_assignment_file.close()
-
-    moons_tvclust_assignment_file = open("results/TVClust/moons_tvclust_assignment.pkl", "wb")
-    pickle.dump(moons_tvclust_assignment, moons_tvclust_assignment_file)
-    moons_tvclust_assignment_file.close()
-
-    circles_tvclust_assignment_file = open("results/TVClust/circles_tvclust_assignment.pkl", "wb")
-    pickle.dump(circles_tvclust_assignment, circles_tvclust_assignment_file)
-    circles_tvclust_assignment_file.close()
+    # print("TV-clust")
+    # iris_const2, iris_checked = get_tvlust_input(iris_const)
+    # wine_const2, wine_checked = get_tvlust_input(wine_const)
+    # breast_cancer_const2, breast_cancer_checked = get_tvlust_input(breast_cancer_const)
+    # glass_const2, glass_checked = get_tvlust_input(glass_const)
+    # digits_const2, digits_checked = get_tvlust_input(digits_const)
+    #
+    # iris_tvclust_assignment = TVClust(iris_set, iris_const2, iris_checked, 3)
+    # wine_tvclust_assignment = TVClust(wine_set, wine_const2, wine_checked, 3)
+    # breast_cancer_tvclust_assignment = TVClust(breast_cancer_set, breast_cancer_const2, breast_cancer_checked, 2)
+    # glass_tvclust_assignment = TVClust(glass_set, glass_const2, glass_checked, 6)
+    # digits_tvclust_assignment = TVClust(digits_set, digits_const2, digits_checked, 10)
+    #
+    # rand_const2, rand_checked = get_tvlust_input(rand_const)
+    # spiral_const2, spiral_checked = get_tvlust_input(spiral_const)
+    # moons_const2, moons_checked = get_tvlust_input(moons_const)
+    # circles_const2, circles_checked = get_tvlust_input(circles_const)
+    #
+    # rand_tvclust_assignment = TVClust(rand_set, rand_const2, rand_checked, 3)
+    # spiral_tvclust_assignment = TVClust(spiral_set, spiral_const2, spiral_checked, 2)
+    # moons_tvclust_assignment = TVClust(moons_set, moons_const2, moons_checked, 2)
+    # circles_tvclust_assignment = TVClust(circles_set, circles_const2, circles_checked, 2)
+    #
+    # # Saving Results
+    # iris_tvclust_assignment_file = open("results/TVClust/iris_tvclust_assignment.pkl", "wb")
+    # pickle.dump(iris_tvclust_assignment, iris_tvclust_assignment_file)
+    # iris_tvclust_assignment_file.close()
+    #
+    # wine_tvclust_assignment_file = open("results/TVClust/wine_tvclust_assignment.pkl", "wb")
+    # pickle.dump(wine_tvclust_assignment, wine_tvclust_assignment_file)
+    # wine_tvclust_assignment_file.close()
+    #
+    # breast_cancer_tvclust_assignment_file = open("results/TVClust/breast_cancer_tvclust_assignment.pkl", "wb")
+    # pickle.dump(breast_cancer_tvclust_assignment, breast_cancer_tvclust_assignment_file)
+    # breast_cancer_tvclust_assignment_file.close()
+    #
+    # glass_tvclust_assignment_file = open("results/TVClust/glass_tvclust_assignment.pkl", "wb")
+    # pickle.dump(glass_tvclust_assignment, glass_tvclust_assignment_file)
+    # glass_tvclust_assignment_file.close()
+    #
+    # digits_tvclust_assignment_file = open("results/TVClust/digits_tvclust_assignment.pkl", "wb")
+    # pickle.dump(digits_tvclust_assignment, digits_tvclust_assignment_file)
+    # digits_tvclust_assignment_file.close()
+    #
+    # rand_tvclust_assignment_file = open("results/TVClust/rand_tvclust_assignment.pkl", "wb")
+    # pickle.dump(rand_tvclust_assignment, rand_tvclust_assignment_file)
+    # rand_tvclust_assignment_file.close()
+    #
+    # spiral_tvclust_assignment_file = open("results/TVClust/spiral_tvclust_assignment.pkl", "wb")
+    # pickle.dump(spiral_tvclust_assignment, spiral_tvclust_assignment_file)
+    # spiral_tvclust_assignment_file.close()
+    #
+    # moons_tvclust_assignment_file = open("results/TVClust/moons_tvclust_assignment.pkl", "wb")
+    # pickle.dump(moons_tvclust_assignment, moons_tvclust_assignment_file)
+    # moons_tvclust_assignment_file.close()
+    #
+    # circles_tvclust_assignment_file = open("results/TVClust/circles_tvclust_assignment.pkl", "wb")
+    # pickle.dump(circles_tvclust_assignment, circles_tvclust_assignment_file)
+    # circles_tvclust_assignment_file.close()
     #
     # ########################## RDP - means ############################
-    print("RDP-means")
+    # print("RDP-means")
     # T = np.mean(iris_set, 0)
     # lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(iris_set)[0], 1) - iris_set) ** 2, 1)))
     # lamb_arr[::-1].sort()

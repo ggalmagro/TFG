@@ -3,7 +3,7 @@ import random
 
 
 def cop_kmeans(dataset, k, ml=[], cl=[],
-               initialization='kmpp',
+               initialization='rand',
                max_iter=300, tol=1e-4):
     ml, cl = transitive_closure(ml, cl, len(dataset))
     ml_info = get_ml_info(ml, dataset)
@@ -64,7 +64,7 @@ def closest_clusters(centers, datapoint):
 
 
 def initialize_centers(dataset, k, method):
-    if method == 'random':
+    if method == 'rand':
         ids = list(range(len(dataset)))
         random.shuffle(ids)
         return [dataset[i] for i in ids[:k]]
