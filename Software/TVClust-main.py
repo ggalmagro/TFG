@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from TVClust.TVClust import TVClust
-from functions import generate_data_2D, draw_data_2D, draw_const, add_constraints
+from functions import generate_data_2D, draw_data_2D, draw_const, gen_rand_const
 
 def main():
 
@@ -22,7 +22,7 @@ def main():
     #ax0, ax1, ax2 = draw_data_2D(X, y, 3, [[4, 2], [1, 7], [5, 6]])
 
     mat_const = np.identity(len(y))
-    mat_const = add_constraints(X, y, mat_const, int(len(y) * 0.25), 0, 1)
+    mat_const = gen_rand_const(X, y, mat_const, int(len(y) * 0.25), 0, 1)
     np.savetxt('const.txt', mat_const)
 
     #draw_const(X, mat_const, ax1, ax2)
@@ -35,7 +35,7 @@ def main():
 
     np.savetxt('bc_checked.txt', checked)
 
-    result = TVClust(X, mat_const2, checked, 2)
+    result = TVClust(X, 2)
 
     print(result)
     ax3, ax4, ax5, = draw_data_2D(X, result, 3, [[4, 2], [1, 7], [5, 6]], True)

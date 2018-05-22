@@ -2,8 +2,8 @@ from __future__ import division, print_function
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import datasets
-from CECM.CECM import CECM
-from functions import generate_data_2D, draw_data_2D, draw_const, add_constraints
+from CECM.CECM import CEKM
+from functions import generate_data_2D, draw_data_2D, draw_const, gen_rand_const
 
 
 def main():
@@ -18,7 +18,7 @@ def main():
     ax0, ax1, ax2 = draw_data_2D(X, y, 3, [[4, 2], [1, 7], [5, 6]])
 
     mat_const = np.identity(len(y))
-    mat_const = add_constraints(X, y, mat_const, 100, 0, 1)
+    mat_const = gen_rand_const(X, y, mat_const, 100, 0, 1)
 
     for i in range(len(y)):
         for j in range(len(y)):
@@ -33,7 +33,7 @@ def main():
 
     draw_const(X, mat_const, ax1, ax2)
 
-    m, g, bet_p, j = CECM(X, 3, mat_const, alpha=1, rho2=1000, distance=0, bal=0, init=1)
+    m, g, bet_p, j = CEKM(X, 3, mat_const, 300, rho=1000, bal=0, init=1, alpha=1)
 
     predicted_y = np.array([np.argmax(bet_p[i, :]) for i in range(np.shape(bet_p)[0])], dtype=np.uint8)
 

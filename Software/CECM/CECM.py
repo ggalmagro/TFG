@@ -11,29 +11,24 @@ def get_bit(numb, K, ind):
     return int((''.join(str(1 & int(numb) >> i) for i in range(K)))[ind])
 
 
-def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
-    if init != 0 and init != 1:
-        init = 0
+def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init='rand', alpha=1):
 
     if alpha < 1:
         alpha = 1
 
-    if rho2 < 0:
-        rho2 = 100
-
-    if distance != 0 and distance != 1:
-        distance = 0
+    if rho < 0:
+        rho = 100
 
     if bal < 0 or bal > 1:
         bal = 0.5
 
-    rows, cols = np.shape(x)
+    rows, cols = np.shape(X)
     ident_matrix = np.identity(rows)
     beta = 2
 
     # constraint matrix reformulations
-    mat_contraintes = np.sign(const_mat + const_mat.conj().T - ident_matrix)
-    aux = const_mat * np.sign(const_mat)
+    mat_contraintes = np.sign(constraints + constraints.conj().T - ident_matrix)
+    aux = constraints * np.sign(constraints)
     aux = np.maximum(aux, aux.conj().T)
     mat_contraintes = mat_contraintes * aux
 
@@ -50,10 +45,10 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
     beq = np.ones((rows, 1))
 
     # centroids inicialization
-    if (init == 0):
-        g = np.random.rand(K, cols) * np.matlib.repmat(np.max(x) - np.min(x), K, 1) + np.matlib.repmat(np.min(x), K, 1)
+    if (init == 'rand'):
+        g = np.random.rand(K, cols) * np.matlib.repmat(np.max(X) - np.min(X), K, 1) + np.matlib.repmat(np.min(X), K, 1)
     else:
-        g = fuzz.cluster.cmeans(x.T, K, 2, 1e-5, 100)[0]
+        g = fuzz.cluster.cmeans(X.T, K, 2, 1e-5, 100)[0]
 
     # centers calculus for all the subsets
     gplus = np.zeros((nb_foc-1,cols))
@@ -66,7 +61,7 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
     # compute euclidean distance
     D = np.zeros((rows, nb_foc-1))
     for j in range(nb_foc - 1):
-        aux = (x - np.dot(np.ones((rows, 1)), np.matrix(gplus[j, :])))
+        aux = (X - np.dot(np.ones((rows, 1)), np.matrix(gplus[j, :])))
         B = np.diag(np.dot(aux, aux.conj().T))
         D[:, j] = B
 
@@ -80,7 +75,7 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
             vect1 = np.dot(D[i, j], np.ones((1, nb_foc - 1)) / vect1) ** (1 / (beta - 1))
             vect2 = ((c[j] ** (alpha / (beta - 1))) * np.ones((1, nb_foc - 1))) / (c ** (alpha / (beta - 1)))
             vect3 = vect1 * vect2
-            div = (np.sum(vect3) + ((c[j] ** (alpha / (beta - 1))) * D[i, j] / rho2) ** (1 / (beta - 1)))
+            div = (np.sum(vect3) + ((c[j] ** (alpha / (beta - 1))) * D[i, j] / rho) ** (1 / (beta - 1)))
 
             if (div == 0):
                 div = 1
@@ -89,7 +84,7 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
 
     masses = np.concatenate((np.abs(np.ones((rows, 1)) - np.matrix(np.sum(masses, 1)).T), np.abs(masses)), 1)
     x0 = masses.conj().T.reshape(rows * nb_foc, 1)
-    D, S, Smeans = set_distances(x, F, g, masses[:, 1:nb_foc], alpha, distance)
+    D, S, Smeans = set_distances(X, F, g, masses[:, 1:nb_foc], alpha)
 
     # Setting f matrix
     aux = mat_contraintes - np.identity(rows)
@@ -130,7 +125,7 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
 
     # Setting H matrix
     aux = np.dot(D, np.concatenate((np.zeros((nb_foc - 1, 1)), np.identity(nb_foc - 1)), 1))
-    aux = aux + np.concatenate((np.ones((rows, 1)) * rho2, np.zeros((rows, nb_foc - 1))), 1)
+    aux = aux + np.concatenate((np.ones((rows, 1)) * rho, np.zeros((rows, nb_foc - 1))), 1)
 
     vect_dist = aux.flatten()
 
@@ -145,8 +140,8 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
 
     not_finished = True
     gold = g
-
-    while (not_finished):
+    it_count = 0
+    while not_finished and it_count < max_iter:
         mass, l, fval = solqp(H, aeq, beq, f, x0)
 
         x0 = mass
@@ -156,12 +151,12 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
         m = np.asmatrix(m[1:nb_foc, :]).conj().T
 
         # calculation of centers
-        g = set_centers_ecm(x, m, F, Smeans, alpha, beta)
-        D, S, Smeans = set_distances(x, F, g, masses, alpha, distance)
+        g = set_centers_ecm(X, m, F, Smeans, alpha, beta)
+        D, S, Smeans = set_distances(X, F, g, masses, alpha)
 
         # Setting H matrix
         aux = np.dot(D, np.concatenate((np.zeros((nb_foc - 1, 1)), np.identity(nb_foc - 1)), 1))
-        aux = aux + np.concatenate((np.ones((rows, 1)) * rho2, np.zeros((rows, nb_foc - 1))), 1)
+        aux = aux + np.concatenate((np.ones((rows, 1)) * rho, np.zeros((rows, nb_foc - 1))), 1)
 
         vect_dist = aux.flatten()
 
@@ -174,9 +169,10 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
         J = np.dot(np.dot(mass.conj().T, H), mass) + bal
 
         diff = np.abs(g - gold)
-        grater_than_threshold = diff > 1e-3
+        grater_than_threshold = diff > stop_thr
         not_finished = sum(diff[grater_than_threshold]) > 0
         gold = g
+        it_count += 1
 
     m = np.concatenate( (np.abs(np.ones((rows, 1)) - np.sum(m, 1)), np.abs(m)), 1)
 
@@ -207,4 +203,4 @@ def CECM(x, K, const_mat, alpha=1, rho2=100, distance=0, bal=0.5, init=0):
     predicted = np.array([np.argmax(bet_p[i, :]) for i in range(np.shape(bet_p)[0])], dtype=np.uint8)
 
     return predicted
-    #return m, g, bet_p, J
+    #return bet_p, m, g, J

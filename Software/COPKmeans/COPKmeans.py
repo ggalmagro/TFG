@@ -1,20 +1,35 @@
 # -*- coding: utf-8 -*-
 import random
+import numpy as np
+
+def get_const_list(m):
+    ml = []
+    cl = []
+
+    for i in range(np.shape(m)[0]):
+        for j in range(i + 1, np.shape(m)[0]):
+            if m[i, j] == 1:
+                ml.append((i, j))
+            if m[i, j] == -1:
+                cl.append((i, j))
+
+    return ml, cl
 
 
-def cop_kmeans(dataset, k, ml=[], cl=[],
-               initialization='rand',
-               max_iter=300, tol=1e-4):
-    ml, cl = transitive_closure(ml, cl, len(dataset))
-    ml_info = get_ml_info(ml, dataset)
-    tol = tolerance(tol, dataset)
+def COPKM(X, K, constraints, max_iter=300, tol=1e-4, init='rand'):
 
-    centers = initialize_centers(dataset, k, initialization)
-    clusters = [-1] * len(dataset)
+    ml, cl = get_const_list(constraints)
+
+    ml, cl = transitive_closure(ml, cl, len(X))
+    ml_info = get_ml_info(ml, X)
+    tol = tolerance(tol, X)
+
+    centers = initialize_centers(X, K, init)
+    clusters = [-1] * len(X)
 
     for i in range(max_iter):
-        clusters_ = [-1] * len(dataset)
-        for i, d in enumerate(dataset):
+        clusters_ = [-1] * len(X)
+        for i, d in enumerate(X):
             indices, _ = closest_clusters(centers, d)
             counter = 0
             if clusters_[i] == -1:
@@ -33,8 +48,8 @@ def cop_kmeans(dataset, k, ml=[], cl=[],
                     print(i)
                     return None
 
-        clusters_, centers_ = compute_centers(clusters_, dataset, k, ml_info)
-        shift = sum(l2_distance(centers[i], centers_[i]) for i in range(k))
+        clusters_, centers_ = compute_centers(clusters_, X, K, ml_info)
+        shift = sum(l2_distance(centers[i], centers_[i]) for i in range(K))
         if shift <= tol:
             break
 

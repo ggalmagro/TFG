@@ -30,13 +30,14 @@ def objective(x, assignment, centroid, mat_const, xi, lamb):
 #Suponemos que escogemos una funcion cuadratica para la divergencia de Bregman, de
 #esta forma la divergencia de bregamn es igual a la distancia euclidea.
 
-def RDPmeans(x, lamb, mat_const, rate, xi0, max_iter):
 
-    num, dim = np.shape(x)
+def RDPM(X, lamb, constraints, max_iter = 300, xi0 = 0.1, rate = 1):
+
+    num, dim = np.shape(X)
 
     nb_clusters = 1
-    data_min = np.min(x, 0)
-    data_max = np.max(x, 0)
+    data_min = np.min(X, 0)
+    data_max = np.max(X, 0)
     data_diff = data_max - data_min
 
     centroid = np.random.rand(nb_clusters, dim)
@@ -77,15 +78,15 @@ def RDPmeans(x, lamb, mat_const, rate, xi0, max_iter):
 
                     for p in range(len(pts_in_cluster)):
 
-                        if mat_const[pts_in_cluster[p], d] == 1:
+                        if constraints[pts_in_cluster[p], d] == 1:
 
                             friends += 1
 
-                        elif mat_const[pts_in_cluster[p], d] == -1:
+                        elif constraints[pts_in_cluster[p], d] == -1:
 
                             strangers += 1
 
-                diff2c = sdist.distance.euclidean(x[d, :], centroid[c, :])
+                diff2c = sdist.distance.euclidean(X[d, :], centroid[c, :])
                 #Apply penlaty to difference
                 diff2c = diff2c - xi * (friends - strangers)
 
@@ -98,7 +99,7 @@ def RDPmeans(x, lamb, mat_const, rate, xi0, max_iter):
 
                 nb_clusters += 1
                 curr_assignment = nb_clusters - 1
-                centroid = np.vstack((centroid, x[d, :]))
+                centroid = np.vstack((centroid, X[d, :]))
 
             assignment[d] = curr_assignment
 
@@ -109,7 +110,7 @@ def RDPmeans(x, lamb, mat_const, rate, xi0, max_iter):
 
         for d in range(len(assignment)):
 
-            centroid[assignment[d], :] = centroid[assignment[d], :] + x[d, :]
+            centroid[assignment[d], :] = centroid[assignment[d], :] + X[d, :]
             points_in_cluster[assignment[d]] += 1
 
         add = 0

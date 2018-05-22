@@ -13,7 +13,7 @@
 \newmintedfile[LCVQE]{python}{
 	%linenos,
 	firstline=3,
-	lastline=3,
+	lastline=4,
 	numbersep=5pt,
 	gobble=0,
 	frame=lines,
@@ -57,7 +57,7 @@
 \newmintedfile[RDPM]{python}{
 	%linenos,
 	firstline=14,
-	lastline=14,
+	lastline=15,
 	numbersep=5pt,
 	gobble=0,
 	frame=lines,
@@ -95,9 +95,9 @@ Por último, y aunque no sea estrictamente necesaria para la implementación, em
 
 Uno de los objetivos de este trabajo es poner a disposición de la comunidad algunos de los métodos de clustering con restricciones que existen en la actualidad. A continuación se ofrece la documentación de los métodos implementados:
 
-\subsection{Función \texttt{add\_constraints}}
+\subsection{Función para generar restricciones}
 
-La función \texttt{add\_constraints} crea un conjunto de restricciones en base a un conjunto de datos. La función que sigue para ello es simple, basta con seleccionar de forma aleatoria dos instancias y establecer una restricción de tipo \acs{ML} o \acs{CL} en función de si las instancias pertenecen o no a la misma clase. Dado que el método necesita como argumento las etiquetas (un oráculo) puede no ser de utilidad en un caso real, en el que no conozcamos la clase a la que pertenece cada objeto; sin embargo es válido para realizar experimentos. A continuación se muestra el prototipo del método:
+La función \texttt{gen\_rand\_const} crea un conjunto de restricciones en base a un conjunto de datos. La función que sigue para ello es simple, basta con seleccionar de forma aleatoria dos instancias y establecer una restricción de tipo \acs{ML} o \acs{CL} en función de si las instancias pertenecen o no a la misma clase. Dado que el método necesita como argumento las etiquetas (un oráculo) puede no ser de utilidad en un caso real, en el que no conozcamos la clase a la que pertenece cada objeto; sin embargo es válido para realizar experimentos. A continuación se muestra el prototipo del método:
 
 
 \MakeConst{code.py}
@@ -106,7 +106,7 @@ Los parámetros de la función se detallan a continuación:
 
 \begin{itemize}
 
-	\item \textbf{\texttt{x}} {$\longrightarrow$ matriz de $n \times p$ que contiene el conjunto de datos}
+	\item \textbf{\texttt{X}} {$\longrightarrow$ matriz de $n \times p$ que contiene el conjunto de datos}
 	
 	\item \textbf{\texttt{y}} {$\longrightarrow$ lista de de etiquetas de longitud $n$ etiquetas asociadas al conjunto de datos.}
 	
@@ -122,25 +122,127 @@ Los parámetros de la función se detallan a continuación:
 
 La función devuelve una matriz de $n \times n$ que contiene \texttt{nb\_const} nuevas restricciones. Cada elemento de la matriz indica si existe una restricción entre dos instancias y de que tipo es, esto es, $0$ indica que no existe restricción, $1$ indica que existe una de tipo \acs{ML}, y $-1$ una de tipo \acs{CL}.
 
-\subsection{Función \texttt{COPKM}}
+\subsection{Función para aplicar COP-K-Medias}
+
+La función \texttt{COPKM} es la encargada de aplicar el algoritmo COP-k-medias (sección \ref{copkm}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \COPK{code.py}
 
-\subsection{Función \texttt{CECM}}
+\begin{itemize}
+	
+	\item \textbf{\texttt{X}} {$\longrightarrow$ matriz de $n \times p$ que contiene el conjunto de datos}
+	
+	\item \textbf{\texttt{K}} {$\longrightarrow$ número de clusters de la partición resultado}
+	
+	\item \textbf{\texttt{constraints}} {$\longrightarrow$ matriz de $n \times n$ que contiene el conjunto de restricciones. Siendo $i$ y $j$ los índices que indican filas y columnas respectivamente, un $1$ en la matriz indica una restricción \acs{ML} entre $i$ y $j$, un $-1$ indica una de tipo \acs{CL}, y un $0$ indica que no existe restricción.}
+	
+	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
+	
+	\item \textbf{\texttt{tol}} {$\longrightarrow$ factor multiplicativo para el cálculo del umbral del desplazamiento de los centroides por debajo del cual se detiene el proceso de iteración.}
+	
+	\item \textbf{\texttt{init}} {$\longrightarrow$ modelo de inicialización de los centroides: \texttt{'rand'} para inicialización aleatoria y \texttt{'kmpp'} para inicialización con K-medias++}
+	
+\end{itemize}
+
+La función devuelve la lista de longitud $n$ que indica la pertenencia de cada instancia a un cluster dado, es decir, la partición del conjunto de datos $X$, y los centroides $V$ asociados a los clusters.
+
+\subsection{Función para aplicar CEKM}
+
+La función \texttt{CEKM} aplica el algoritmo \acs{CEKM} (sección \ref{cekm}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \CECM{code.py}
 
-\subsection{Función \texttt{LCVQE}}
+\begin{itemize}
+	
+	\item \textbf{\texttt{X}} {$\longrightarrow$ matriz de $n \times p$ que contiene el conjunto de datos}
+	
+	\item \textbf{\texttt{K}} {$\longrightarrow$ número de clusters de la partición resultado}
+	
+	\item \textbf{\texttt{constraints}} {$\longrightarrow$ matriz de $n \times n$ que contiene el conjunto de restricciones. Siendo $i$ y $j$ los índices que indican filas y columnas respectivamente, un $1$ en la matriz indica una restricción \acs{ML} entre $i$ y $j$, un $-1$ indica una de tipo \acs{CL}, y un $0$ indica que no existe restricción.}
+	
+	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
+	
+	\item \textbf{\texttt{alpha}} {$\longrightarrow$ exponente que controla la penalización penalización por asignar instancias a conjuntos con alta cardinalidad.}
+	
+	\item \textbf{\texttt{rho}} {$\longrightarrow$ distancia de todos los objetos al conjunto vacío.}
+	
+	\item \textbf{\texttt{bal}} {$\longrightarrow$ compromiso entre la función objetivo $J_{CEKM}$ y las restricciones: $J_{CEKM} = (1-bal) \times J_{CEKM} + bal$}
+	
+	\item \textbf{\texttt{stop\_thr}} {$\longrightarrow$ umbral por debajo del cual la diferencia entre las posiciones de los centroides no es significativa. Por tanto si dicha diferencia es menor se detiene el proceso de iteración.}
+	
+	\item \textbf{\texttt{init}} {$\longrightarrow$ modelo de inicialización de los centroides: \texttt{'rand'} para inicialización aleatoria y \texttt{'fkm'} para inicialización con \acf{FKM}}
+	
+\end{itemize}
+
+La función devuelve la partición difusa resultado de aplicar la función $BetP(c)$ (ecuación \ref{eqn7}) a la partición de creencia, los centroides $V$, la matriz que contiene los valores de la función de masa $M$, y el valor de la función $J_{CEKM}$.
+
+\subsection{Función para aplicar LCVQE}
+
+La función \texttt{LCVQE} es la encargada de aplicar el algoritmo \acs{LCVQE} (sección \ref{lcvqe}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \LCVQE{code.py}
 
-\subsection{Función \texttt{RDPM}}
+\begin{itemize}
+	
+	\item \textbf{\texttt{X}} {$\longrightarrow$ matriz de $n \times p$ que contiene el conjunto de datos}
+	
+	\item \textbf{\texttt{K}} {$\longrightarrow$ número de clusters de la partición resultado}
+	
+	\item \textbf{\texttt{constraints}} {$\longrightarrow$ matriz de restricciones de $|R| \times 3$, en la que cada fila responde al formato $\{x_1, x_2, r\}$, donde $x_1$ y $x_2$ son las instancias implicadas en la restricción, y $r$ indica el tipo de la misma ($1$ para \acs{ML} y $-1$ para \acs{CL}).}
+	
+	\item \textbf{\texttt{centroids}} {$\longrightarrow$ centroides iniciales}
+	
+	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
+	
+\end{itemize}
+
+La función devuelve la lista de longitud $n$ que indica la pertenencia de cada instancia a un cluster dado, es decir, la partición del conjunto de datos $X$, los centroides $V$ asociados a los clusters, el número de iteraciones realizadas y el valor de la función $LCVQE$.
+
+\subsection{Función para aplicar RDPM}
+
+La función \texttt{RDPM} es la encargada de aplicar el algoritmo \acs{RDPM} (sección \ref{rdpmYtvc}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \RDPM{code.py}
 
-\subsection{Función \texttt{TVClust}}
+\begin{itemize}
+	
+	\item \textbf{\texttt{X}} {$\longrightarrow$ matriz de $n \times p$ que contiene el conjunto de datos}
+	
+	\item \textbf{\texttt{lamb}} {$\longrightarrow$}
+	
+	\item \textbf{\texttt{constraints}} {$\longrightarrow$ matriz de $n \times n$ que contiene el conjunto de restricciones. Siendo $i$ y $j$ los índices que indican filas y columnas respectivamente, un $1$ en la matriz indica una restricción \acs{ML} entre $i$ y $j$, un $-1$ indica una de tipo \acs{CL}, y un $0$ indica que no existe restricción.}
+	
+	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
+	
+	\item \textbf{\texttt{xi0}} {$\longrightarrow$}
+	
+	\item \textbf{\texttt{rate}} {$\longrightarrow$}
+	
+\end{itemize}
+
+La función devuelve la lista de longitud $n$ que indica la pertenencia de cada instancia a un cluster dado, es decir, la partición del conjunto de datos $X$, y el número de clusters presentes en ella.
+
+\subsection{Función para aplicar TVClust}
 
 \TVC{code.py}
+
+\begin{itemize}
+	
+	\item \textbf{\texttt{X}} {$\longrightarrow$ matriz de $n \times p$ que contiene el conjunto de datos}
+	
+	\item \textbf{\texttt{K}} {$\longrightarrow$ número de clusters de la partición resultado}
+	
+	\item \textbf{\texttt{constraints}} {$\longrightarrow$ matriz de $n \times n$ que contiene el conjunto de restricciones. Siendo $i$ y $j$ los índices que indican filas y columnas respectivamente, un $1$ en la matriz indica una restricción \acs{ML} entre $i$ y $j$, un $0$ indica una de tipo \acs{CL}, y un $-1$ indica que no existe restricción.}
+	
+	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
+	
+	\item \textbf{\texttt{is\_keep\_l}} {$\longrightarrow$}
+	
+	\item \textbf{\texttt{alpha}} {$\longrightarrow$}
+	
+	\item \textbf{\texttt{stop\_thr}} {$\longrightarrow$}
+	
+\end{itemize}
 
 
 

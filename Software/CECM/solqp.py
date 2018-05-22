@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.sparse
 import math
+import gc
 
 
 def solqp(Q, A, b, c, x, toler = 1.e-5, beta = 0.95, alpha = 0.95):
@@ -90,6 +91,12 @@ def solqp(Q, A, b, c, x, toler = 1.e-5, beta = 0.95, alpha = 0.95):
     aux_matrix2 = np.concatenate((comp, np.zeros((m,1))))
     solve = np.linalg.solve(aux_matrix1, aux_matrix2)
     comp = solve[0:n]
+
+    aux_row1 = []
+    aux_row2 = []
+    aux_matrix1 = []
+    aux_matrix2 = []
+    gc.collect(2)
 
     nora = np.min(comp / x)
 

@@ -87,8 +87,8 @@ def draw_data_2DNC(data, labels, numb_labels, title):
     ax0.set_ylabel("y")
     return ax0
 
-def add_constraints(x, y, mat_const, nb_const, noise = 0, prop = False):
-    n, nb_att = np.shape(x)
+def gen_rand_const(X, y, mat_const, nb_const, noise = 0, prop = False):
+    n, nb_att = np.shape(X)
 
     # check the number of constraint to find
     nb_const_max = math.factorial(n - 1)

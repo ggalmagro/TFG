@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from LCVQE.LCVQE import LCVQE
-from functions import generate_data_2D, draw_data_2D, draw_const, add_constraints
+from functions import generate_data_2D, draw_data_2D, draw_const, gen_rand_const
 
 def main():
 
@@ -18,7 +18,7 @@ def main():
     ax0, ax1, ax2 = draw_data_2D(X, y, 3, [[4, 2], [1, 7], [5, 6]])
 
     mat_const = np.identity(len(y))
-    mat_const = add_constraints(X, y, mat_const, 150, 0, 1)
+    mat_const = gen_rand_const(X, y, mat_const, 150, 0, 1)
 
     # for i in range(len(y)):
     #     for j in range(len(y)):

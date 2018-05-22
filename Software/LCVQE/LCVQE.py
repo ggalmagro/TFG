@@ -1,7 +1,8 @@
 import numpy as np
 from numpy import matlib
 
-def LCVQE(X, k, constraints, centroids, max_iter = 100):
+
+def LCVQE(X, K, constraints, max_iter=300, centroids=None):
 
     numb_obj, dim = np.shape(X)
 
@@ -9,15 +10,18 @@ def LCVQE(X, k, constraints, centroids, max_iter = 100):
     data_max = np.max(X, 0)
     data_diff = data_max - data_min
 
-    centroid = np.random.rand(k, dim)
+    if centroids is None:
+        rand_centroids = np.random.rand(K, dim)
 
-    for i in range(k):
-        centroid[i, :] = centroid[i, :] * data_diff
-        centroid[i, :] = centroid[i, :] + data_min
+        for i in range(K):
+            rand_centroids[i, :] = rand_centroids[i, :] * data_diff
+            rand_centroids[i, :] = rand_centroids[i, :] + data_min
 
-    centroids = centroid
+        centroids = rand_centroids
 
-    distances = np.zeros((numb_obj, k))
+    centroids = np.matrix(centroids)
+
+    distances = np.zeros((numb_obj, K))
     iter = 1
     old_idx = []
     idx = np.zeros(numb_obj)
@@ -27,13 +31,13 @@ def LCVQE(X, k, constraints, centroids, max_iter = 100):
 
     while iter <= max_iter and not np.all(old_idx == idx):
 
-        GMLV = [[] for i in range(k)]
-        GCLV = [[] for i in range(k)]
+        GMLV = [[] for i in range(K)]
+        GCLV = [[] for i in range(K)]
 
         old_idx = idx
 
-        for c in range(k):
-            diff_to_centroid = X - np.matlib.repmat(centroids[c,:], numb_obj, 1)
+        for c in range(K):
+            diff_to_centroid = X - np.matlib.repmat(centroids[c, :], numb_obj, 1)
             distances[:, c] = np.sum(np.power(diff_to_centroid, 2), 1).T
 
         idx = np.argmin(distances, 1)
@@ -106,7 +110,7 @@ def LCVQE(X, k, constraints, centroids, max_iter = 100):
                 idx[s_1] = c_j
                 idx[s_2] = idx_sorted_dist[s_2, 1]
 
-        for c in range(k):
+        for c in range(K):
             members = np.where(idx == c)[0]
             coords_members = np.sum(X[members, :], 0)
             coords_GMLV = np.sum(X[np.array(GMLV[c], dtype=np.int), :], 0)
@@ -116,9 +120,9 @@ def LCVQE(X, k, constraints, centroids, max_iter = 100):
                 n_j = 1
             centroids[c, :] = (coords_members + 0.5*coords_GMLV + coords_GCLV) / n_j
 
-        lcvqe = np.zeros((k, 1))
+        lcvqe = np.zeros((K, 1))
 
-        for c in range(k):
+        for c in range(K):
             lcvqe[c] = 0.5*np.sum(distances[np.where(idx == c)[0], c], 0)
             sum_ML = 0
             sum_CL = 0

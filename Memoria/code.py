@@ -1,14 +1,15 @@
-def add_constraints(X, y, mat_const, nb_const, noise = 0, 
-	prop = False):
-def LCVQE(X, k, constraints, centroids, max_iter = 100)
+def gen_rand_const(X, y, mat_const, nb_const, noise = 0, 
+	prop = False)
+def LCVQE(X, K, constraints, max_iter = 300, 
+	centroids = None)
+def TVClust(X, K, constraints, max_iter = 300, 
+	is_keep_l = 1, alpha0 = 1.2, stop_thr = 0.0005)
 
-def TVClust(X, k, constraints, checked, max_iter = 100, 
-	isKeepL = 1, alpha0 = 1.2, stopThreshold=0.0005 )
+def CEKM(X, K, constraints, max_iter = 300, alpha = 1, 
+	rho = 100, bal = 0.5, stop_thr = 1e-3, init = 'rand')
 
-def CECM(X, k, constraints, alpha=1, rho2=100, bal=0.5, 
-	init=0)
+def COPKM(X, K, constraints, max_iter = 300,  tol = 1e-4,
+	init = 'rand')
 
-def COPKM(X, k, ml=[], cl=[], max_iter=300,  tol=1e-4,
-	initialization='rand')
-
-def RDPM(X, lamb, constraints, rate, xi0, max_iter)
+def RDPM(X, lamb, constraints, max_iter = 300, xi0 = 0.1, 
+	rate = 1)

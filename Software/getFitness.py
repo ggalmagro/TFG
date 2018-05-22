@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn import datasets
-from CECM.CECM import CECM
+from CECM.CECM import CEKM
 from CKmeans.CKmeans import CKmeans
 from LCVQE.LCVQE import LCVQE
-from RDPmeans.RDPmeans import RDPmeans
+from RDPmeans.RDPmeans import RDPM
 from TVClust.TVClust import TVClust
-from functions import generate_data_2D, draw_data_2D, draw_const, add_constraints, twospirals
+from functions import generate_data_2D, draw_data_2D, draw_const, gen_rand_const, twospirals
 from sklearn.datasets import fetch_mldata
 from sklearn.metrics import adjusted_rand_score
 import gc
