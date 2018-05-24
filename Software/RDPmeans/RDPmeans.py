@@ -31,7 +31,7 @@ def objective(x, assignment, centroid, mat_const, xi, lamb):
 #esta forma la divergencia de bregamn es igual a la distancia euclidea.
 
 
-def RDPM(X, lamb, constraints, max_iter = 300, xi0 = 0.1, rate = 1):
+def RDPM(X, lamb, constraints, max_iter = 300, xi_0 = 0.1, xi_rate = 1):
 
     num, dim = np.shape(X)
 
@@ -142,7 +142,7 @@ def RDPM(X, lamb, constraints, max_iter = 300, xi0 = 0.1, rate = 1):
             pass
             #print ("Terminated by reaching the while threshold")
 
-        xi = xi0 * (rate**iter)
+        xi = xi_0 * (xi_rate ** iter)
 
     return assignment, nb_clusters
 

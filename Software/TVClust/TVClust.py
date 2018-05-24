@@ -80,9 +80,9 @@ def TVClust(X, K, constraints, max_iter=100, is_keep_l=1, alpha0=1.2, stop_thr=0
                     if checked[i, j] == 1:
                         tmpj = 0
                         tmpj = tmpj + constraints[i, j] * (sps.digamma(alpha_p) - sps.digamma(alpha_p + beta_p) \
-                                                           - sps.digamma(beta_q) + sps.digamma(alpha_q + beta_q)) - (1 - constraints[i, j]) * \
-                                                                                                                    (sps.digamma(alpha_q) - sps.digamma(alpha_q + beta_q) - sps.digamma(beta_p)\
-                             + sps.digamma(alpha_p + beta_p))
+                                - sps.digamma(beta_q) + sps.digamma(alpha_q + beta_q)) - (1 - constraints[i, j]) * \
+                                (sps.digamma(alpha_q) - sps.digamma(alpha_q + beta_q) - sps.digamma(beta_p)\
+                                + sps.digamma(alpha_p + beta_p))
 
                         tmp = tmp + rQ[j, k] * tmpj
 
@@ -117,10 +117,6 @@ def TVClust(X, K, constraints, max_iter=100, is_keep_l=1, alpha0=1.2, stop_thr=0
         rQ = rQ + 10**(-40)  # prevent log(0)
         rQ = rQ / np.matrix(np.sum(np.array(rQ), 1)).T
         term75 = np.sum(np.multiply(rQ, np.log(rQ)))
-
-        # if term75 > -0.1:
-        #     nRun = iter
-        #     iter = iterN + 1
 
         if (is_keep_l == 1) & (iter <= max_iter):
             term71 = 0
@@ -169,6 +165,7 @@ def TVClust(X, K, constraints, max_iter=100, is_keep_l=1, alpha0=1.2, stop_thr=0
             pImprove = 1
             if iter > 0:
                 pImprove = (L[iter] - L[iter - 1]) / np.absolute(L[iter - 1])
+
         print("Iter: " + str(iter) + " L: " + str(L[iter]) + " improvement: " + str(pImprove*100))
         if pImprove < stop_thr:
             nRun = iter
