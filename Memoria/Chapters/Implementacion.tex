@@ -124,7 +124,7 @@ La función devuelve una matriz de $n \times n$ que contiene \texttt{nb\_const} 
 
 \subsection{Función para aplicar COP-K-Medias}
 
-La función \texttt{COPKM} es la encargada de aplicar el algoritmo COP-k-medias (sección \ref{copkm}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
+La función \texttt{COPKM} es la encargada de aplicar el algoritmo COP-k-medias (sección \ref{copkm}) a un conjunto de datos dado. La implementación de esta función esta basada en el trabajo de Behrouz Babaki \cite{behrouz}. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \COPK{code.py}
 
@@ -208,15 +208,15 @@ La función \texttt{RDPM} es la encargada de aplicar el algoritmo \acs{RDPM} (se
 	
 	\item \textbf{\texttt{X}} {$\longrightarrow$ matriz de $n \times p$ que contiene el conjunto de datos}
 	
-	\item \textbf{\texttt{lamb}} {$\longrightarrow$}
+	\item \textbf{\texttt{lamb}} {$\longrightarrow$ distancia mínima a la que se considera que una instancia no pertenece a un cluster, medida desde el centroide del mismo.}
 	
 	\item \textbf{\texttt{constraints}} {$\longrightarrow$ matriz de $n \times n$ que contiene el conjunto de restricciones. Siendo $i$ y $j$ los índices que indican filas y columnas respectivamente, un $1$ en la matriz indica una restricción \acs{ML} entre $i$ y $j$, un $-1$ indica una de tipo \acs{CL}, y un $0$ indica que no existe restricción.}
 	
 	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
 	
-	\item \textbf{\texttt{xi0}} {$\longrightarrow$}
+	\item \textbf{\texttt{xi\_0}} {$\longrightarrow$ parámetro $\xi_0$ del algoritmo \ref{alg:rdpm}, controla el compromiso entre el peso de el conjunto de datos y el de el conjunto de restricciones.}
 	
-	\item \textbf{\texttt{rate}} {$\longrightarrow$}
+	\item \textbf{\texttt{xi\_rate}} {$\longrightarrow$ parámetro $\xi_{rate}$ del algoritmo \ref{alg:rdpm}, controla el ratio de incremento de $\xi_0$.}
 	
 \end{itemize}
 
@@ -236,13 +236,15 @@ La función devuelve la lista de longitud $n$ que indica la pertenencia de cada 
 	
 	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
 	
-	\item \textbf{\texttt{is\_keep\_l}} {$\longrightarrow$}
+	\item \textbf{\texttt{is\_keep\_l}} {$\longrightarrow$ booleano que indica si se debe o no monitorizar la métrica de convergencia.}
 	
-	\item \textbf{\texttt{alpha}} {$\longrightarrow$}
+	\item \textbf{\texttt{alpha}} {$\longrightarrow$ parámetro $\alpha$ involucrado en el Proceso de Dirichlet (para mas detalles consultar sección \ref{rdpmYtvc}).}
 	
-	\item \textbf{\texttt{stop\_thr}} {$\longrightarrow$}
+	\item \textbf{\texttt{stop\_thr}} {$\longrightarrow$ umbral por debajo del cual la mejora en la función objetivo de \acs{TVClust} no se considera significativa y se detiene el proceso de iteración.}
 	
 \end{itemize}
+
+La función devuelve la lista de longitud $n$ que indica la pertenencia de cada instancia a un cluster dado, es decir, la partición del conjunto de datos $X$, y el número de clusters presentes en ella.
 
 
 

@@ -33,17 +33,45 @@ Siguiendo a Aristóteles, Teoprastos escribió el primer documento que recopilab
 
 La clasificación de los animales y las plantas ha sido de gran importancia en campos como la biología y la zoología. Particularmente, esta clasificación sentó las bases para el desarrollo de la teoría de la evolución de Darwin. Pero también ha sido de gran relevancia en áreas de conocimiento como la química y la física, con la clasificación de los elementos en la tabla periódica, propuesta por Mendeleyev en la década de 1860; o en astronomía, con la clasificación de estrellas en enanas o gigantes empleando las directrices de Hertzsprung–Russell.
 
-\section{Motivación Personal}
+\section{El problema del Aprendizaje Automático}
 
-Durante mi formación he escuchado de multitud de profesores que incorporar conocimiento humano a una máquina es una de las tareas más complejas a las que se ha enfrentado la humanidad.
+El \acf{AA}, del inglés \textit{Machine Learning}, es una campo derivado de las ciencias de la computación, y una rama de la inteligencia artificial, que tiene como último objetivo desarrollar métodos que hagan posible que las máquinas aprendan. En otras palabras, las técnicas que se enmarcan dentro del \acs{AA} tiene como objetivo desarrollar programas que guíen a las computadoras para que aprendan a partir de un conjunto de ejemplos.
 
-Algo que realmente me resultó interesante fue que Deep Blue, la primera máquina en ganar al campeón del mundo de ajedrez, Gary Kasparov en aquel momento (1996), no ganó por un avance significativo en el algoritmo que ejecutaba la máquina, sino por avances en el hardware, que permitían que la máquina analizase más movimientos por unidad de tiempo, es decir, la máquina no empleaba conocimiento del que no disponía anteriormente, simplemente ``pensaba'' más rápido.
+\subsection{¿Qué es realmente el aprendizaje?}
 
-Por ello, he querido profundizar en el campo de la incorporación de conocimiento a las máquinas algo más de lo que he podido hacerlo durante estos años. El clustering con restricciones puede verse como un ejemplo de ello, al fin y al cabo no es más que guiar el proceso de toma de decisiones de una máquina incorporando conocimiento extraído de las personas.
+La Real Academia Española define el aprendizaje de la siguiente manera: ``Adquisición por la práctica de una conducta duradera''. Si bien esta definición es plenamente aplicable al objetivo del \acf{AA}, es algo general como para abarcar lo que este realmente pretende. De ahora en adelante, en lo que a este trabajo respecta, entenderemos aprendizaje como: ``Cambios en un sistema adaptativo que hacen posible que el mismo realice una tarea conocida de manera mas efectiva y eficiente'' \cite{Michalski:2013}.
+
+\subsection{Tipos de Aprendizaje Automático}
+
+Existen varios enfoques dentro del campo del \acf{AA}, estos se clasifican en función de la información que se le proporciona a la máquina para que aprenda. Así, encontramos cuatro tipos de aprendizaje distintos: 
+
+\begin{itemize}
+	
+	\item \textbf{\acf{AS}}: del inglés \textit{Supervised Learning}, en él, la máquina dispone del conjunto de datos así como de la clase a la que pertenecen los mismos. El objetivo es aprender una función que permita predecir la clase de ejemplos que no se encontraban en el conjunto entrenamiento. Podemos entender este tipo de aprendizaje comparando el conjunto de entrenamiento con un profesor y la máquina como un alumno.
+	
+	\item \textbf{\acf{ANS}}: del ingles \textit{Unsupervised Learning}, a diferencia del caso anterior, la máquina solo dispone del conjunto de datos, y no de la clase a la que estos pertenecen. El objetivo es obtener la clase a la que pertenecen los ejemplos que se encuentran en el conjunto de entrenamiento, y en algunas ocasiones también obtener una función que prediga las clases de nuevos ejemplos. Retomando la analogía del aluno y el profesor, podemos entender que en \acs{ANS} es el alumno el que aprende por si mismo y enseña al profesor, dado que este último no conoce nada sobre los datos.
+	
+	\item \textbf{\acf{ASS}}: del ingles \textit{Semi Supervised Learning}. Este tipo de aprendizaje se encuentra entre los dos anteriores, la máquina dispone del conjunto de datos y de información parcial sobre los mismos. El objetivo es el mismo que en \acs{ANS}, pero las técnicas empleadas para lograrlo son diferentes. Ahora, tanto profesor como alumno aprenden, ya que ninguno de los dos disponen de toda la información. El alumno aprenderá primero del profesor y desarrollará ese nuevo conocimiento para más tarde mostrárselo.
+	
+	\item \textbf{\acf{AR}}: del inglés \textit{Reinforcement Learning}, en este caso la máquina dispone solo del conjunto de datos, pero el esquema de aprendizaje es distinto a los anteriores. Este se basa en el método ensayo-error, esto es, la máquina (el alumno) lleva a cabo acciones sobre los datos y estas se ven recompensadas o castigadas por el entorno (el profesor).
+	
+\end{itemize}
 
 \section{Objetivos}
 
-%\let\cleardoublepage\relax
+Este trabajo tiene como objetivo abordar el aprendizaje semi-supervisado desde el marco de las restricciones a nivel de instancia sobre el problema. Aunque existen multitud de estudios y bibliografía sobre esta área, no existen publicaciones recientes que lo aborden de manera práctica y unificada.
+
+En este trabajo se presenta una revisión sobre las técnicas comunes para aplicar clustering con restricciones, así como se profundiza sobre el mismo y se exponen sus aplicaciones. Además, se estudian y ponen a disposición de la comunidad cinco algoritmos de clustering con restricciones a nivel de instancia. El lenguaje escogido para la implementación de dichos métodos es Python, dada su popularidad en el área del \acf{AA} y su facilidad de uso.
+
+\section{Estructura de este trabajo}
+
+La sección \ref{ch:Breve introducción al Clustering} pretende realizar una pequeña introducción al problema de clustering, esto es, definir los conceptos básicos sobre el mismo y exponer algunas de sus aplicaciones.
+
+La sección \ref{ch:Clustering con restricciones} define los conceptos relacionados con el clustering con restricciones, poniendo de manifiesto las diferencias que presenta el mismo respecto a otras técnicas. Además, aporta ejemplos de aplicación del mismo y realiza un estudio sobre las ventajas y desventajas que este presenta. Será en la sección \ref{ch:Algoritmos} en la que presentaremos cinco de los métodos de clustering con restricciones existentes, profundizando en sus bases y unificando los conceptos comunes a los mismos.
+
+En la sección \ref{ch:Impl} encontraremos una guía y documentación para el uso del software desarrollado, que corresponde a la implementación de los cinco métodos expuestos en la sección \ref{ch:Algoritmos}. La sección \ref{ch:Experimentación} está íntimamente relacionada con la \ref{ch:Impl}, sirviendo como prueba de concepto para los métodos documentados en la misma.
+
+Por último, la sección \ref{ch:Conclusiones} presenta las conclusiones sobre el trabajo realizado.
 
 
 

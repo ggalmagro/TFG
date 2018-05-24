@@ -11,5 +11,5 @@ def CEKM(X, K, constraints, max_iter = 300, alpha = 1,
 def COPKM(X, K, constraints, max_iter = 300,  tol = 1e-4,
 	init = 'rand')
 
-def RDPM(X, lamb, constraints, max_iter = 300, xi0 = 0.1, 
-	rate = 1)
+def RDPM(X, lamb, constraints, max_iter = 300, xi_0 = 0.1, 
+	xi_rate = 1)
