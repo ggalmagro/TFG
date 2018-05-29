@@ -166,7 +166,7 @@ def TVClust(X, K, constraints, max_iter=100, is_keep_l=1, alpha0=1.2, stop_thr=0
             if iter > 0:
                 pImprove = (L[iter] - L[iter - 1]) / np.absolute(L[iter - 1])
 
-        print("Iter: " + str(iter) + " L: " + str(L[iter]) + " improvement: " + str(pImprove*100))
+        #print("Iter: " + str(iter) + " L: " + str(L[iter]) + " improvement: " + str(pImprove*100))
         if pImprove < stop_thr:
             nRun = iter
             iter = max_iter + 1

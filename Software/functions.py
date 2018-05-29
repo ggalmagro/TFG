@@ -21,11 +21,11 @@ def draw_const(data, mat_const, ax1, ax2):
 
             if aux_const[i, j] == 1:
 
-                ax1.plot([data[i, 0], data[j, 0]], [data[i, 1], data[j, 1]], 'k-')
+                ax1.plot([data[i, 0], data[j, 0]], [data[i, 1], data[j, 1]], linestyle = '-', color = "black")
 
             elif aux_const[i, j] == -1:
 
-                ax2.plot([data[i, 0], data[j, 0]], [data[i, 1], data[j, 1]], 'k-')
+                ax2.plot([data[i, 0], data[j, 0]], [data[i, 1], data[j, 1]], linestyle = '--', color = "black")
 
     ax1.set_title("Must-Link Constraints")
     ax2.set_title("Cannot-Link Constraints")

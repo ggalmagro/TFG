@@ -7,8 +7,6 @@ import gc
 def solqp(Q, A, b, c, x, toler = 1.e-5, beta = 0.95, alpha = 0.95):
 
     m, n = np.shape(A)
-    print (np.shape(x)[0])
-    print (type(x))
     if np.shape(x)[0] == 0:
         a = b - np.dot(A, np.ones((n,1)))
         x = np.ones((n+1,1))
