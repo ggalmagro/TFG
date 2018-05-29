@@ -270,7 +270,7 @@ Tal y como queda reflejado en la Tabla \ref{tab:tabla1}, la utilización de rest
 
 \begin{observacion}
 	
-	\textbf{Saber que existe una solución factible no nos ayuda a encontrarla.} Las implicaciones de este resultado sobre la complejidad del clustering con restricciones implican que, aun en caso de que exista una partición factible, no será fácil de encontrar, hablando en términos de complejidad algorítmica. \cite{Survey:2007}
+	\textbf{Saber que existe una solución factible no nos ayuda a encontrarla.} Las consecuencias de este resultado sobre la complejidad del clustering con restricciones implican que, aun en caso de que exista una partición factible, no será fácil de encontrar, hablando en términos de complejidad algorítmica. \cite{Survey:2007}
 	\label{ob:observacion34}
 	
 \end{observacion} 
@@ -287,7 +287,7 @@ En el clustering con restricciones se asume que éstas son indicaciones que guí
 	
 \end{observacion}
 
-\subsection{Soluciones al problema de la factibilidad}
+\subsection{Soluciones al problema de la factibilidad} \label{problemaFactib}
 
 El problema de la factibilidad puede ser abordado de varias maneras. La más inmediata quizá sea mantener el número de restricciones bajo, en proporción al número de instancias totales, para minimizar la probabilidad de que surjan inconsistencias. Sin embargo, no poder aumentar el número de restricciones si el problema lo requiere no es el escenario ideal. Por ello se debe poner interés en analizar cuando un problema pasa a estar sobrerestringido, ya que, como hemos estudiamos en la Sección \ref{ProbRestr}, incluso generando las restricciones en base a las etiquetas verdaderas, algoritmos como COP-K-medias (Sección \ref{copkm}) dejan de ser efectivos conforme aumenta el número de restricciones a satisfacer, incluso reiniciado de manera aleatoria el algoritmo varias veces.
 

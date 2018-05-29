@@ -64,34 +64,109 @@ Esta será la medida del error que emplearemos en todos los experimentos.
 
 Para generar las restricciones haremos uso de la función propuesta para ello en la Sección \ref{genConst}. La cantidad de restricciones viene definida como un porcentaje aplicado sobre el cardinal de conjunto de datos. Dicho porcentaje se especificará en la sección correspondiente al análisis de cada algoritmo. No obstante, podemos obtener una representación gráfica de las restricciones haciendo uso de las funcionalidades de la biblioteca Matplotlib, la Figura \ref{fig:figure23} muestra las restricciones generadas sobre los conjuntos de datos \textit{Rand Dataset} e \textit{Rand Dataset}, especificando que el número de restricciones debe ser un $30\%$ del total de los datos disponibles en cada caso.
 
-
+\clearpage
 
 \begin{figure}[bth]
 	\myfloatalign
 	\subfloat[\textit{Iris Dataset}]
 	{\includegraphics[width=.3\linewidth]{imagenes/c6/IrisSet}}
-	\subfloat[\textit{Restricciones \acs{ML}}]
+	\subfloat[Restricciones \acs{ML}]
 	{\includegraphics[width=.3\linewidth]{imagenes/c6/Restr/IrisML}}
-	\subfloat[\textit{Restricciones \acs{CL}}]
+	\subfloat[Restricciones \acs{CL}]
 	{\includegraphics[width=.3\linewidth]{imagenes/c6/Restr/IrisCL}}\\
 	\subfloat[\textit{Rand Dataset}]
 	{\includegraphics[width=.3\linewidth]{imagenes/c6/ArtifSets/RandSet}}
-	\subfloat[\textit{Restricciones \acs{ML}}]
+	\subfloat[Restricciones \acs{ML}]
 	{\includegraphics[width=.3\linewidth]{imagenes/c6/Restr/RandML}}
-	\subfloat[\textit{Restricciones \acs{CL}}]
+	\subfloat[Restricciones \acs{CL}]
 	{\includegraphics[width=.3\linewidth]{imagenes/c6/Restr/RandCL}}\\
 	\caption{Visualización de las restricciones.}\label{fig:figure23}
 \end{figure} 
 
 \section{Resultados de COP-K-Medias}
 
-A continuación se muestran los resultados obtenidos al aplicar el algoritmo COP-K-Medias (Sección \ref{copkm}) a los conjuntos de datos presentados en la Sección \ref{datasets}.
+La Tabla \ref{tab:tabla5} muestra los resultados obtenidos al aplicar el algoritmo COP-K-Medias (Sección \ref{copkm}) a los conjuntos de datos presentados en la Sección \ref{datasets}. En ella se indican: el valor para \textit{Rand Index}, el tiempo que tarda el algoritmo en proporcionar salida, y el porcentaje de restricciones \acs{ML} y \acs{CL}. El número de restricciones generado para cada conjunto de datos es un $10\%$ del total de datos disponibles en cada caso, por tanto la suma del porcentaje de restricciones de los dos tipos debe ser aproximadamente $0.1$.
 
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{1}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{1.2cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{5}{c}{\bf \color{white}{Resultados de COP-K-Medias con restricciones CL y ML}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{RandIndex} & \textbf{Tiempo} & \textbf{\% ML} & \textbf{\% CL}  \\
+		Iris & $0.499$ & $0.0532$ & $0.033$ & $0.066$ \\
+		Wine & $0.38$ & $0.087$ & $0.056$ & $0.039$ \\
+		Glass  & $0.25$ & $0.1449$ & $0.15$ & $0.04$ \\
+		Breast Cancer & NA & NA & $0.028$ & $0.07$ \\ 
+		Digits & $0.632$ & $13.306$ & $0.008$ & $0.092$ \\
+		Rand & $0.960$ & $0.0346$ & $0.033$ & $0.066$ \\
+		Spirals & $0.0245$ & $0.13$ & $0.05$ & $0.05$ \\
+		Circles & $-0.002$ & $0.16$ & $0.046$ & $0.053$ \\
+		Moons & NA & NA & $0.053$ & $0.046$ \\
+		\hline
+		
+	\end{tabular}
+	\caption{Resultados obtenidos con COP-K-Medias empleado restricciones \acs{CL} y \acs{ML}}
+	\label{tab:tabla5}
+\end{table}
 
+De entre los resultados obtenidos destacan los asociados a los conjuntos de datos \textit{Glass Dataset} y \textit{Moons Dataset}. Encontramos que en ninguno de los dos casos el algoritmo COP-K-Medias es capaz de encontrar una solución factible, a pesar de que es seguro que esta existe, ya que las restricciones se generan en base a las etiquetas verdaderas. Esto es consecuencia directa de lo expuesto en la Observación \ref{ob:observacion34}, puesto que en la resolución del problema se emplean tanto restricciones de tipo \acs{ML} como \acs{CL}. Para obtener resultados para \textit{GlassDataset} y \textit{MoonsDataset} podemos aplicar la solución más simple propuesta en la sección \ref{problemaFactib}, esto es, suprimir las restricciones de tipo \acs{CL} y aumentar las de tipo \acs{ML}. La Tabla \ref{tab:tabla6} muestra los resultados con esta nueva configuración.
 
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{1}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{1.2cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{5}{c}{\bf \color{white}{Resultados de COP-K-Medias con restricciones ML}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{RandIndex} & \textbf{Tiempo} & \textbf{\% ML} & \textbf{\% CL}  \\
+		Iris & $0.489$ & $0.0423$ & $0.366$ & $0$ \\
+		Wine & $0.337$ & $0.0762$ & $0.353$ & $0$ \\
+		Glass & $0.175$ & $0.112$ & $0.555$ & $0$ \\
+		Breast Cancer & $0.45$ & $0.556$ & $0.224$ & $0$ \\
+		Digits & $0.582$ & $10.847$ & $0.105$ & $0$ \\
+		Rand & $1.0$ & $0.031$ & $0.393$ & $0$ \\
+		Spirals & $-0.0028$ & $0.1302$ & $0.52$ & $0$ \\
+		Circles & $0.091$ & $0.1301$ & $0.463$ & $0$ \\
+		Moons & $0.126$ & $0.116$ & $0.513$ & $0$ \\
+		\hline
+		
+	\end{tabular}
+	\caption{Resultados obtenidos con COP-K-Medias empleado solo restricciones \acs{ML}}
+	\label{tab:tabla6}
+\end{table}
 
+Como cabía esperar, los resultados de la Tabla \ref{tab:tabla6} muestran que empleado solo restricciones de tipo \acs{ML} el algoritmo COP-K-Medias es capaz de dar una partición para todos los conjuntos de datos. Sin embargo la precisión de las predicciones decrece en algunos casos, esto se debe la pérdida de la información que proporcionaban las restricciones \acs{CL}. 
 
+Además de obtener los resultados numéricos podemos representar algunas de las particiones obtenidas con COP-K-Medias para obtener una mejor idea del comportamiento del algoritmo. En la Figura \ref{fig:figure24} se muestran los resultados obtenidos para \textit{Iris Dataset} y \textit{Rand Dataset}, los cuadros (a) y (b) muestran los resultados considerando restricciones ML y CL, mientras que los (c) y (d) solo consideran restricciones ML.
 
+\begin{figure}[bth]
+	\myfloatalign
+	\subfloat[]
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/Iris01}}
+	\subfloat[]
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/Rand01}}\\
+	\subfloat[]
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/IrisSoloML}}
+	\subfloat[]
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/RandSoloMl}}\\
+	\caption{Visualización de los resultados de COP-K-Medias}\label{fig:figure24}
+\end{figure}
+
+\section{Resultados de CEKM}
 
 
 
