@@ -1,10 +1,10 @@
 \chapter{Algoritmos de clustering con restricciones}\label{ch:Algoritmos}
 
-Una vez introducido el problema del clustering con restricciones, pasamos a profundizar en los métodos para su aplicación. La siguiente sección presenta 5 algoritmos de clustering con restricciones, cuyos resultados serán expuestos más tarde, en la sección \ref{ch:Experimentación}.
+Una vez introducido el problema del clustering con restricciones, pasamos a profundizar en los métodos para su aplicación. La siguiente sección presenta 5 algoritmos de clustering con restricciones, cuyos resultados serán expuestos más tarde, en la Sección \ref{ch:Experimentación}.
 
 \section{Formalización del problema}
 
-Definido ya el problema del clustering con restricciones en la sección \ref{ch:Clustering con restricciones}, especificamos la manera de notar sus elementos, de forma que sea sencillo referirse a ellos.
+Definido ya el problema del clustering con restricciones en la Sección \ref{ch:Clustering con restricciones}, especificamos la manera de notar sus elementos, de forma que sea sencillo referirse a ellos.
 
 \begin{itemize}
 	
@@ -21,13 +21,13 @@ Definido ya el problema del clustering con restricciones en la sección \ref{ch:
 	\item Notaremos con $V$ la matriz de $K\times p$ que almacena el conjunto de centroides asociados a los clusters, de manera que $v_i \in \mathbb{R}^p$ corresponde al cluster $c_i$.
 	
 \end{itemize}
-Cabe destacar que los elementos y parámetros particulares de cada algoritmo serán definidos en la sección correspondiente al mismo, así como que no todos los elementos expuestos anteriormente son comunes a todos los algoritmos; si bien si que lo son a la mayoría.
+Cabe destacar que los elementos y parámetros particulares de cada algoritmo serán definidos en la sección correspondiente al mismo, así como que no todos los elementos expuestos anteriormente son comunes a todos los algoritmos; si bien sí que lo son a la mayoría de ellos.
 
 \section{COP-K-means (Constrained K-means)} \label{copkm}
 
-El algoritmo K-medias (\acs{KM}, apéndice \ref{ap:kmeans}) es uno de los más básicos para aplicar clustering. Así, el algoritmo COP-K-medias (\textit{COP-K-means}) es la adaptación inmediata de \acs{KM} al clustering con restricciones. Para realizar un estudio detallado sobre el mismo tomaremos como base el trabajo de Wagstaff et al. (2001) \cite{Wagstaff:2001b}.
+El algoritmo K-medias (\acs{KM}, Apéndice \ref{ap:kmeans}) es uno de los más básicos para aplicar clustering. Así, el algoritmo COP-K-medias (\textit{COP-K-means}) es la adaptación inmediata de \acs{KM} al clustering con restricciones. Para realizar un estudio detallado sobre el mismo tomaremos como base el trabajo de Wagstaff et al. (2001) \cite{Wagstaff:2001b}.
 
-El cambio más notable que supone COP-K-medias respecto al tradicional K-medias, consiste en modificar la regla de asignación de instancias a clusters de este último, para comprobar que dicha asignación no viola ninguna restricción. De esta manera, en cada iteración se intenta asignar cada instancia $x_i$ al cluster más cercano $c_j$. Ésta asignación solo se llevará a cabo si, como hemos dicho, no se viola ninguna restricción. Si existe una instancia $x_{ML}$ que debe ser asignada al mismo cluster que $x_i$, pero ya ha sido incluida en otro cluster, o existe una instancia $x_{CL}$ en $c_j$ que no puede ser agrupada junto a $x_i$, entonces $x_i$ no puede ser asignado a $c_j$. El proceso continua hasta encontrar una asignación legal para $x_i$, en caso de que no se encuentre se devuelve la partición vacía como resultado. Así el algoritmo da como resultado una partición de $X$ que cumple necesariamente todas las restricciones especificadas en $R$. El Algoritmo \ref{alg:ckm} corresponde al pseudocódigo asociado a COP-K-medias \cite{Wagstaff:2001b}:
+El cambio más notable que supone COP-K-medias respecto al tradicional K-medias, consiste en modificar la regla de asignación de instancias a clusters de este último, para comprobar que dicha asignación no viola ninguna restricción. De esta manera, en cada iteración se intenta asignar cada instancia $x_i$ al cluster más cercano $c_j$. Esta asignación sólo se llevará a cabo si, como hemos dicho, no se viola ninguna restricción. Si existe una instancia $x_{ML}$ que debe ser asignada al mismo cluster que $x_i$, pero ya ha sido incluida en otro cluster, o existe una instancia $x_{CL}$ en $c_j$ que no puede ser agrupada junto a $x_i$, entonces $x_i$ no puede ser asignado a $c_j$. El proceso continúa hasta encontrar una asignación legal para $x_i$, en caso de que no se encuentre se devuelve la partición vacía como resultado. Así el algoritmo proporciona una partición de $X$ que cumple necesariamente todas las restricciones especificadas en $R$. El Algoritmo \ref{alg:ckm} corresponde al pseudocódigo asociado a COP-K-medias \cite{Wagstaff:2001b}:
 
 
 \begin{algorithm}
@@ -59,24 +59,24 @@ El cambio más notable que supone COP-K-medias respecto al tradicional K-medias,
 	\caption{COP-K-medias}\label{alg:ckm}
 \end{algorithm}
 
-Existen multitud de criterios de convergencia estandarizados, aunque es común emplear uno adaptado al problema particular que queramos solucionar. El más extendido consiste en calcular la diferencia de la posición de los centroides entre dos iteraciones sucesivas, de forma que cuando esta sea menor que un umbral dado detenemos el proceso de iteración.
+Existen multitud de criterios de convergencia estandarizados, aunque es común emplear uno adaptado al problema particular que queramos solucionar. El más extendido consiste en calcular la diferencia de la posición de los centroides entre dos iteraciones sucesivas, de forma que cuando ésta sea menor que un umbral dado detenemos el proceso de iteración.
 
 \section{CEKM (Constrained Evidential K-means)} \label{cekm}
 
-Tal y como indican Violaine el al. (2012) \cite{CECM:2012}, cuyo trabajo es el fundamento de la siguiente sección, para comprender el algoritmo  \acf{CEKM}, primero es necesario realizar una introducción al algoritmo K-medias difuso (\textit{Fuzzy K-means}, \acs{FKM}). En él, cada instancia puede pertenecer a uno o más clusters, con diferentes grados de pertenencia. La matriz que almacena esta información, es decir, la partición difusa, se nota con $U$, y se calcula minimizando la siguiente función:
+Tal y como indican Violaine et al. (2012) \cite{CECM:2012}, cuyo trabajo es el fundamento de la siguiente sección, para comprender el algoritmo  \acf{CEKM}, primero es necesario realizar una introducción al algoritmo K-medias difuso (\textit{Fuzzy K-means}, \acs{FKM}). En él, cada instancia puede pertenecer a uno o más clusters, con diferentes grados de pertenencia. La matriz que almacena esta información, es decir, la partición difusa, se nota con $U$, y se calcula minimizando la siguiente función:
 
 \begin{equation}
-\sum_{j=1}^{k} u_{ij} \;\; t.q. \;\; u_{ij} \in [0,1] \forall i,j
+\sum_{j=1}^{K} u_{ij} \;\; t.q. \;\; u_{ij} \in [0,1] \forall i,j
 \label{eqn2}
 \end{equation}
 
 Donde $u_{ij}$ representa el grado de pertenencia de la instancia $i$ al cluster $j$, y $K$ es el número de clusters. Sin embargo, este método puede producir resultados contraintuitivos cuando los datos a los que se aplica son ruidosos o presentan instancias aisladas (\textit{outliers}).
 
-El clustering evidencial (\textit{evidential clustering}) da solución a los problemas que presenta el algoritmo \acs{FKM}, introduciendo el concepto de partición de creencia (\textit{credal partition}), que extiende los conceptos existentes de particiones fuertes, difusas y probabilísticas. De esta forma, en una partición de creencia, se asigna a cada instancia una masa de creencia (\textit{mass of belief}) no solo para un único cluster, sino para cualquier conjunto de los mismos. El método \acs{CEKM} combina las ventajas del uso de las restricciones con las del uso de funciones de creencia.
+El clustering evidencial (\textit{evidential clustering}) da solución a los problemas que presenta el algoritmo \acs{FKM}, introduciendo el concepto de partición de creencia (\textit{credal partition}), que extiende los conceptos existentes de particiones fuertes, difusas y probabilísticas. De esta forma, en una partición de creencia, se asigna a cada instancia una masa de creencia (\textit{mass of belief}), no sólo para un único cluster, sino para cualquier conjunto de los mismos. El método \acs{CEKM} combina las ventajas del uso de las restricciones con las del uso de funciones de creencia.
 
 \subsection{Funciones de creencia}
 
-La teoría de la evidencia de Dempster-Shafer ofrece un marco teórico para trabajar con información parcial y no completamente fiable, tomamos de ella los conceptos relativos a las funciones de creencia.
+La teoría de la evidencia de Dempster-Shafer ofrece un marco teórico para trabajar con información parcial y no completamente fiable; tomamos de ella los conceptos relativos a las funciones de creencia.
 
 Consideremos la variable $c$ que toma valores en el conjunto finito $C = \{c_1 \cdots c_K \}$. El conocimiento parcial sujeto al valor real que adopta $c$ puede ser representado mediante una función de masa $m$, que es una aplicación de $C$ al intervalo $[0,1]$:
 
@@ -85,7 +85,7 @@ Consideremos la variable $c$ que toma valores en el conjunto finito $C = \{c_1 \
 \label{eqn3}
 \end{equation}
 
-A los subconjuntos $A$ de $C$ que cumplen que $m(A) > 0$ se los denomina conjuntos focales (\textit{focal sets}) de $m$. El valor del conjunto focal $m(A)$ se interpreta como la fracción de una unidad de masa de creencia que está asignada a $A$ y que no puede ser asignada a ningún otro subcojunto de $A$. Si el único conjunto focal es $C$, nos encontramos en el caso de completa ignorancia sobre los datos. Por el contrario, si la masa de creencia se asigna a un único elemento de $C$, estaríamos en el caso de certeza absoluta.
+A los subconjuntos $A$ de $C$ que cumplen que $m(A) > 0$ se los denomina conjuntos focales (\textit{focal sets}) de $m$. El valor del conjunto focal $m(A)$ se interpreta como la fracción de una unidad de masa de creencia que está asignada a $A$ y que no puede ser asignada a ningún otro subconjunto de $A$. Si el único conjunto focal es $C$, nos encontramos en el caso de completa ignorancia sobre los datos. Por el contrario, si la masa de creencia se asigna a un único elemento de $C$, estaríamos en el caso de certeza absoluta.
 
 Se dice que una función de masa $m$ está normalizada si $m(\emptyset) = 0$. Sin embargo, bajo la hipótesis de mundo abierto, una función de masa en la que $m(\emptyset) > 0$ se interpreta como la cantidad de creencia que se le asigna a la hipótesis de que el verdadero valor de $c$ puede no encontrarse en $C$.
 
@@ -103,14 +103,14 @@ bel(A) = \sum_{B \subseteq A, B \neq \emptyset} m(B) \;\;\; \forall A \subseteq 
 \label{eqn5}
 \end{equation}
 
-De esta manera, las funciones $pl$ y $bel$ están relacionadas como sigue:
+De esta forma, las funciones $pl$ y $bel$ están relacionadas como sigue:
 
 \begin{equation}
 pl(A) = 1 - m(\emptyset) - bel(\bar{A})
 \label{eqn6}
 \end{equation}
 
-Donde $\bar{A}$ representa el complemento de $A$.  La cantidad $bel(A)$ se interpreta como el grado de creencia en $A$, tomando en consideración la masa de creencia asignada a $A$ y a los subconjuntos no vacíos de $A$. Por el contrario, $pl(A)$ mide hasta que punto es erróneo no creer en $\bar{A}$.
+Donde $\bar{A}$ representa el complemento de $A$.  La cantidad $bel(A)$ se interpreta como el grado de creencia en $A$, tomando en consideración la masa de creencia asignada a $A$ y a los subconjuntos no vacíos de $A$. Por el contrario, $pl(A)$ mide hasta qué punto es erróneo no creer en $\bar{A}$.
 
 Con el objetivo de tomar decisiones en base al valor de $c$, es posible transformar la función de masa en una distribución de probabilidad pignística, definida, para una función de masa normalizada, como:
 
@@ -121,14 +121,14 @@ BetP(c) = \sum_{c \in A} \frac{m(A)}{|A|} \;\;\; \forall c \in C
 
 \subsection{FKM (fuzzy K-means) y sus variantes}
 
-Cada cluster $c_j \in C$ con $j \in \{1,\cdots,K\}$ esta representado por un vector $v_j \in \mathbb{R}^p$, es decir, un centroide. Además, definimos $V$ como la matriz compuesta por todos los centroides, y $U = (u_{ij})$ como la partición difusa que contiene los grados de pertenencia de cada instancia de $X$ a cada cluster. El algoritmo \acf{FKM} calcula las matrices $U$ y $V$ de manera que minimiza (sujeto a las ecuaciones \ref{eqn2} y \ref{eqn3}) la siguiente función:
+Cada cluster $c_j \in C$ con $j \in \{1,\cdots,K\}$ está representado por un vector $v_j \in \mathbb{R}^p$, esto es, un centroide. Además, definimos $V$ como la matriz compuesta por todos los centroides, y $U = (u_{ij})$ como la partición difusa que contiene los grados de pertenencia de cada instancia de $X$ a cada cluster. El algoritmo \acf{FKM} calcula las matrices $U$ y $V$ de manera que minimiza (sujeto a las Ecuaciones \ref{eqn2} y \ref{eqn3}) la siguiente función:
 
 \begin{equation}
 J_{FKM}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{K} u_{ij}^\beta d_{ij}^2
 \label{eqn8}
 \end{equation}
 
-Donde $d_{ij}$ representa la distancia Euclidea entre el objeto $x_i$ y el centroide $v_j$, y donde $\beta > 1$ es el exponente que controla el grado de difusión de la partición. La función objetivo se minimiza mediante un algoritmo iterativo que optimiza los centroides y los grados de pertenencia de manera alterna. El algoritmo empieza con una asignación inicial sobre la que realiza modificaciones hasta que converge.
+Donde $d_{ij}$ representa la distancia Euclídea entre el objeto $x_i$ y el centroide $v_j$, y donde $\beta > 1$ es el exponente que controla el grado de difusión de la partición. La función objetivo se minimiza mediante un algoritmo iterativo que optimiza los centroides y los grados de pertenencia de manera alterna. El algoritmo empieza con una asignación inicial sobre la que realiza modificaciones hasta que converge.
 
 Para detectar datos ruidosos u outliers empleamos el algoritmo \acs{NC} \textit{Noise-Clustering}. Este método consiste en añadir a los $K$ clusters iniciales uno adicional llamado ``cluster ruidoso'', asociado a una distancia fija $\rho$ respecto a todos los objetos. El parámetro $\rho$ controla la cantidad de datos que serán considerados como outliers. La pertenencia $u_{i*}$ de un objeto $i$ al cluster ruidoso se calcula como:
 
@@ -137,7 +137,7 @@ u_{i*} = 1 - \sum_{j=1}^{K} u_{i,j} \;\;\; i = {1,\cdots,n}
 \label{eqn9}
 \end{equation}
 
-Por tanto, la función objetivo que minimiza el algoritmo \acs{NC} no es más que una combinación del cálculo de pertenencia de objetos al cluster ruidoso y la que minimizaba el algoritmo \acs{FKM}:
+Por tanto, la función objetivo que minimiza el algoritmo \acs{NC} no es más que una combinación del cálculo de pertenencia de objetos al cluster ruidoso y de la que minimizaba el algoritmo \acs{FKM}:
 
 \begin{equation}
 J_{NC}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{K} u_{ij}^\beta d_{ij}^2 + \sum_{i=1}^{K} \rho^2 u_{i*}^\beta
@@ -146,9 +146,9 @@ J_{NC}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{K} u_{ij}^\beta d_{ij}^2 + \sum_{i=1}^{K
 
 \subsection{El algoritmo EKM (Evidential K-means)}
 
-Es posible obtener una versión credibilística del algoritmo \acs{NC} reemplazando la matriz asociada a la partición difusa $U$ con una partición de creencia, que notaremos con $M$. En este contexto, el conocimiento parcial asociado a la pertenencia de un objeto a una clase, viene representado por una función de masa aplicada al conjunto $C$ de posibles clases. Por tanto, la masa de creencia puede ser asignada a cualquier subconjunto $A$ de $C$, y no sólo a elementos únicos de $C$. Este esquema hace posible modelar una amplia variedad de circunstancias, que van de la completa ignorancia sobre el conjunto de datos hasta la completa certeza sobre el mismo.
+Es posible obtener una versión credibilística del algoritmo \acs{NC} reemplazando la matriz asociada a la partición difusa $U$ con una partición de creencia, que notaremos con $M$. En este contexto, el conocimiento parcial asociado a la pertenencia de un objeto a una clase viene representado por una función de masa aplicada al conjunto $C$ de posibles clases. Por tanto, la masa de creencia puede ser asignada a cualquier subconjunto $A$ de $C$, y no sólo a elementos únicos de $C$. Este esquema hace posible modelar una amplia variedad de circunstancias, que van de la completa ignorancia sobre el conjunto de datos hasta la completa certeza sobre el mismo.
 
-Para ilustrar estas ideas se propone el siguiente ejemplo: consideramos un conjunto de cuatro objetos que deben ser clasificados en dos clases. La Tabla \ref{tab:tabla2} contiene la partición de creencia asociada a estos datos. La clase del primer objeto es conocida con certeza, ya que su masa de creencia esta asignada a un solo elemento de $C$. Por el contrario la clase del segundo objeto es completamente desconocida. La masa de creencia del tercer objeto esta repartida entre dos elementos de $C$, por tanto tenemos conocimiento probabilístico sobre la clase a la que pertenece. El último objeto representa un outlier, ya que su masa de creencia está asignada al conjunto vacío.
+Para ilustrar estas ideas se propone el siguiente ejemplo: consideramos un conjunto de cuatro objetos que deben ser clasificados en dos clases. La Tabla \ref{tab:tabla2} contiene la partición de creencia asociada a estos datos. La clase del primer objeto es conocida con certeza, ya que su masa de creencia está asignada a un solo elemento de $C$. Por el contrario, la clase del segundo objeto es completamente desconocida. La masa de creencia del tercer objeto está repartida entre dos elementos de $C$. Por tanto, tenemos conocimiento probabilístico sobre la clase a la que pertenece. El último objeto representa un outlier, ya que su masa de creencia está asignada al conjunto vacío.
 
 \begin{table}[h]
 	\centering
@@ -215,9 +215,9 @@ sujeto a las restricciones $m_{ij} \ge 0 \;\; \forall i,j$, y $m_{i\emptyset} \g
 \label{eqn15}
 \end{equation}
 
-Donde $m_{i\emptyset}$ denota la cantidad de masa de creencia de la instancia $x_i$ asignada al conjunto vacío. El parámetro $\rho$ representa la distancia de cualquier objeto al conjunto vació, y el parámetro $\alpha$ se introduce para controlar la penalización por asignar objetos a conjuntos con alta cardinalidad.
+Donde $m_{i\emptyset}$ denota la cantidad de masa de creencia de la instancia $x_i$ asignada al conjunto vacío. El parámetro $\rho$ representa la distancia de cualquier objeto al conjunto vacío, y el parámetro $\alpha$ se introduce para controlar la penalización por asignar objetos a conjuntos con alta cardinalidad.
 
-Gracias a la restricción expuesta en la ecuación \ref{eqn15}, podemos obtener equivalencia entre los algoritmos \acs{NC} y \acs{EKM}. El algoritmo \acs{EKM} asigna una gran masa de creencia al conjunto vacío para un objeto dado cuando éste se encuentra lejos de todos los subconjuntos $A_j$.
+Gracias a la restricción expuesta en la Ecuación \ref{eqn15}, podemos obtener equivalencia entre los algoritmos \acs{NC} y \acs{EKM}. El algoritmo \acs{EKM} asigna una gran masa de creencia al conjunto vacío para un objeto dado cuando éste se encuentra lejos de todos los subconjuntos $A_j$.
 
 Como en \acs{FKM} y \acs{NC}, la partición de creencia se calcula aplicando un proceso de optimización iterativo, que actualiza las masas  y los centroides de forma alterna. La regla de optimización de $M$ es muy similar a su homóloga en \acs{NC}, excepto por el número de valores $m_{ij}$ a calcular, que en este caso es $2^c$, en lugar de los $K + 1$ grados de pertenencia que eran necesarios en \acs{NC}. De esta manera, la función de masa queda definida como:
 
@@ -275,7 +275,7 @@ pl_{i\times j}(\bar{\theta}) &= 1 - m_{i\times j}(\emptyset) - \sum_{l=1}^{K} m_
 
 \subsection{Función objetivo de CEKM}
 
-Asumimos ahora que la partición de creencia es desconocida, y que disponemos del conjunto de restricciones. En tal caso será necesario buscar una partición de creencia que considere las similitudes y diferencias obtenidas en base a los datos, así como las restricciones. Para ello debemos buscar que $pl_{i\times j} (\theta)$ sea tan bajo como sea posible si $(x_i, x_i) \in CL$, así como que $pl_{i\times j} (\bar{\theta})$ lo sea si $(x_i, x_i) \in ML$. A tal fin, integramos una penalización en el criterio de optimización de \acs{EKM} de la siguiente manera:
+Asumimos ahora que la partición de creencia es desconocida, y que disponemos del conjunto de restricciones. En tal caso será necesario buscar una partición de creencia que considere las similitudes y diferencias obtenidas en base a los datos y a las restricciones. Para ello debemos buscar que $pl_{i\times j} (\theta)$ sea tan bajo como sea posible si $(x_i, x_i) \in CL$, así como que $pl_{i\times j} (\bar{\theta})$ también lo sea si $(x_i, x_i) \in ML$. A tal fin, integramos una penalización en el criterio de optimización de \acs{EKM} de la siguiente manera:
 
 \begin{equation}
 J_{CONST} = \frac{1}{|R|} \left[\sum_{(x_i,x_j) \in ML} pl_{i\times j} (\bar{\theta})\;\; + \sum_{(x_i,x_j) \in CL} pl_{i\times j} (\theta)\right]
@@ -293,7 +293,7 @@ donde el parámetro $\xi \in [0,1]$ se utiliza para controlar el compromiso entr
 
 \subsection{Proceso de optimización de CEKM}
 
-De igual forma que en \acs{FKM}, \acs{NC} y \acs{EKM}, el modelo de optimización de \acs{CEKM} consiste en actualizar $M$ y $V$ de forma alterna. Cabe destacar que el termino de penalización añadido a \acs{CEKM} no depende de los centroides de los clusters, y por tanto se pueden aplicar el mismo modelo de actualización que en \acs{EKM} (ecuaciones \ref{eqn18} y \ref{eqn20}). Generalmente, el problema es mucho más complejo para las masas de creencia. Sin embargo fijando $\beta = 2$, la función objetivo \ref{eqn26} pasa a ser cuadrática respecto a $m_{ij}$. Con esto, y como las restricciones son lineales, se pueden emplear algoritmos de programación cuadrática para resolver el problema de la actualización de las masas de creencia. El proceso de cálculo asociado a \acs{CEKM} queda resumido en el Algoritmo \ref{alg:cecm}. 
+De igual forma que en \acs{FKM}, \acs{NC} y \acs{EKM}, el modelo de optimización de \acs{CEKM} consiste en actualizar $M$ y $V$ de forma alterna. Cabe destacar que el término de penalización añadido a \acs{CEKM} no depende de los centroides de los clusters, y por tanto se puede aplicar el mismo modelo de actualización que en \acs{EKM} (Ecuaciones \ref{eqn18} y \ref{eqn20}). Generalmente el problema es mucho más complejo para las masas de creencia. Sin embargo, fijando $\beta = 2$, la Ecuación \ref{eqn26}, que describe la función objetivo, pasa a ser cuadrática respecto a $m_{ij}$. Con esto, y como las restricciones son lineales, se pueden emplear algoritmos de programación cuadrática para resolver el problema de la actualización de las masas de creencia. El proceso de cálculo asociado a \acs{CEKM} queda resumido en el Algoritmo \ref{alg:cecm}. 
 
 
 \begin{algorithm}
@@ -315,9 +315,9 @@ De igual forma que en \acs{FKM}, \acs{NC} y \acs{EKM}, el modelo de optimizació
 	\label{alg:cecm}
 \end{algorithm}
 
-En la mayoría de las ocasiones se requiere como resultado de un algoritmo de clustering una partición fuerte del conjunto de datos, y no una partición de creencia. Podemos obtener una partición difusa calculando la probabilidad pignística $BetP_i(\{c_j\})$ en base a cada función de masa $m_i$ aplicando la ecuación \ref{eqn7}, e interpretar este valor como el grado de pertenencia del objeto $i$ al cluster $j$. Una vez obtenida la partición difusa podemos procesarla como precise el problema para obtener la partición fuerte. La manera más común de hacerlo es asignar cada instancia al cluster para el que presente un mayor grado de pertenencia.
+En la mayoría de las ocasiones se requiere como resultado de un algoritmo de clustering una partición fuerte del conjunto de datos, y no una partición de creencia. Podemos obtener una partición difusa calculando la probabilidad pignística $BetP_i(\{c_j\})$ en base a cada función de masa $m_i$ aplicando la Ecuación \ref{eqn7}, e interpretar este valor como el grado de pertenencia del objeto $i$ al cluster $j$. Una vez obtenida la partición difusa, podemos procesarla como precise el problema para obtener la partición fuerte. La manera más común de hacerlo es asignar cada instancia al cluster para el que presente un mayor grado de pertenencia.
 
-Otra manera de extraer información de la partición de creencia es asignar cada objeto al subconjunto de clases que contengan un mayor porcentaje de su masa de creencia. De esta forma obtenemos una partición de creencia fuerte de, como mucho, $2^K$ clusters. A partir de esta partición es posible discernir que objetos deben ser asignados a un único cluster sin ambigüedad, además de detectar aquellos que se encuentran en la frontera de dos o más clusters, que a menudo suelen ser relevantes.
+Otra manera de extraer información de la partición de creencia es asignar cada objeto al subconjunto de clases que contengan un mayor porcentaje de su masa de creencia. De esta forma obtenemos una partición de creencia fuerte de, como mucho, $2^K$ clusters. A partir de esta partición es posible discernir qué objetos deben ser asignados a un único cluster sin ambigüedad, además de detectar aquellos que se encuentran en la frontera de dos o más clusters, que a menudo suelen ser relevantes.
 
 \clearpage
 
@@ -327,14 +327,14 @@ Tomando como base el trabajo de Pelleg y Dorit (2007) \cite{LCVQE:2007}, es nece
 
 \subsection{El algoritmo CVQE}
 
-El algoritmo \acs{CVQE} consiste en una generalización del algoritmo K-medias (\acs{KM}, apéndice \ref{ap:kmeans}) para incluir las restricciones. En el algoritmo \acs{KM} los centroides $v_i$ se actualiza en cada iteración siguiendo la regla:
+El algoritmo \acs{CVQE} consiste en una generalización del algoritmo K-medias (\acs{KM}, Apéndice \ref{ap:kmeans}) para incluir las restricciones. En el algoritmo \acs{KM} los centroides $v_i$ se actualizan en cada iteración siguiendo la regla:
 
 \begin{equation}
 v_i = \frac{1}{|c_i|} \sum_{x_i \in c_i} x_i
 \label{eqn27}
 \end{equation}
 
-Que no es más que un promedio de todas las instancias asignadas al cluster asociado al centroide $v_i$. Tras la actualización, se recalculan las asignaciones de forma que que cada instancia este asociada al cluster más cercano Esto deriva en una regla que minimiza la función \acf{VQE}:
+que no es más que un promedio de todas las instancias asignadas al cluster asociado al centroide $v_i$. Tras la actualización, se recalculan las asignaciones de forma que cada instancia esté asociada al cluster más cercano. Esto deriva en una regla que minimiza la función \acf{VQE}:
 
 \begin{equation}
 VQE = \frac{1}{2} \sum_{j = i}^{K} \sum_{x_i \in c_i} (v_j - x_i)^2
@@ -348,7 +348,7 @@ VQE = \frac{1}{2} \sum_{j = i}^{K} \sum_{x_i \in c_i} (v_j - x_i)^2
 \label{eqn29}
 \end{equation}
 
-Además definimos $M$ como la función que, dada una instancia, devuelve el índice del cluster que la contiene: $M = \{j | x \in c_j\}$, así como las funciones $g(i) = M(x_1(i))$ y $g^\prime(i) = M(x_2(i))$. Por otra parte, definimos $h(i)$ como la función que devuelve el centroide más cercano al centroide $v_i$. Finalmente definimos $vl(i)$ de manera que indica si las restricción i-ésima ha sido violada, por tanto, para $i = 1, \cdots , ml \;\; vl(i) = 1 \leftrightarrow g(i) \neq g^\prime(i)$, de forma similar $i = ml + 1, \cdots , ml + cl \;\; vl(i) = 1 \leftrightarrow g(i) = g^\prime(i)$. Definidas estas funciones, la regla de actualización de \acs{CVQE} es:
+Además definimos $M$ como la función que, dada una instancia, devuelve el índice del cluster que la contiene: $M = \{j | x \in c_j\}$, y las funciones $g(i) = M(x_1(i))$ y $g^\prime(i) = M(x_2(i))$. Por otra parte, definimos $h(i)$ como la función que devuelve el centroide más cercano al centroide $v_i$. Finalmente definimos $vl(i)$ de manera que indica si las restricción i-ésima ha sido violada, por tanto, para $i = 1, \cdots , ml \;\; vl(i) = 1 \leftrightarrow g(i) \neq g^\prime(i)$, de forma similar $i = ml + 1, \cdots , ml + cl \;\; vl(i) = 1 \leftrightarrow g(i) = g^\prime(i)$. Definidas estas funciones, la regla de actualización de \acs{CVQE} es:
 
 \begin{equation}
 v_j = \frac{1}{N_j} \left[ \sum_{x_i \in c_i}x_i + 
@@ -374,7 +374,7 @@ CVQE_j = \frac{1}{2} \sum_{x_i \in c_j} T_{j,1} +
 \label{eqn32}
 \end{equation}
 
-donde los términos $T_{j,1}$, $T_{j,2}$ y $T_{j,3}$ vienen definidos como: 
+y los términos $T_{j,1}$, $T_{j,2}$ y $T_{j,3}$ vienen definidos como: 
 
 \begin{equation}
 \begin{split}
@@ -387,13 +387,27 @@ T_{j,3} &= \left[ (v_j - v_{h(g^\prime(l))})^2 \cdot vl(l) \right]
 
 Cabe destacar que, al contrario de lo que sucede en \acf{KM}, en \acs{CVQE}, un cluster $c_i$ puede contener instancias para las que el centroide $v_i$ no es el más cercano a ella.
 
-En cada paso, el algoritmo \acs{CVQE} asigna asigna cada par de instancias implicadas en una restricción de manera que se minimiza la función $CVQE$.
+En cada paso, el algoritmo \acs{CVQE} asigna cada par de instancias implicadas en una restricción de manera que se minimiza la función $CVQE$.
 
 A continuación se exponen algunas de las características del algoritmo \acs{CVQE} que resultan relevantes para la compresión de \acs{LCVQE}.
 
-En primer lugar, el orden en el que se especifican las instancias implicadas en las restricciones es relevante. Consideremos una restricción formada por las instancias $(x_i(l), x_2(l))$, de forma que $x_1(l) \in c_{g(l)}$, y $x_2(l) \in c_{g^\prime(l)}$. Solo $c_{g(l)}$ se ve afectado por violar la restricción, mientras que sobre $c_{g^\prime(l)}$ no se aplica ninguna cambio. Esta regla se cumple tanto para las restricciones \acf{ML} como para las \acf{CL}.
+En primer lugar, el orden en el que se especifican las instancias implicadas en las restricciones es relevante. Consideremos una restricción formada por las instancias $(x_i(l), x_2(l))$, de forma que $x_1(l) \in c_{g(l)}$, y $x_2(l) \in c_{g^\prime(l)}$. Sólo $c_{g(l)}$ se ve afectado por violar la restricción, mientras que sobre $c_{g^\prime(l)}$ no se aplica ningún cambio. Esta regla se cumple tanto para las restricciones \acf{ML} como para las \acf{CL}.
 
-El segundo lugar, determinar la asignación que minimiza la función de error requiere $\mathcal{O}(K^2)$ cálculos para cada restricción. Por tanto, el método puede resultar computacionalmente pesado para grandes conjuntos de restricciones o clusters. Además, no es posible descartar ninguna opción de los cálculos aparte de las triviales. Para ejemplificar esto consideramos la Figura \ref{fig:figure19}. En ella, el par $(x,y)$ es una restricción \acs{ML}, y los centroides existentes son $\{v_1,\cdots,v_6\}$. Dependiendo de los valores $R$, $\delta$ y $\epsilon$ las instancias pueden ser asignadas a los centroides $(v_1, v_2)$, $(v_3, v_4)$, $(v_5, v_6)$. Por tanto, las $K^2$ opciones deben ser consideradas para cada restricción al decidir una asignación.
+\begin{observacion}
+	
+	En \acs{CVQE} el orden en el que se especifican las instancias implicadas en una restricción es relevante.
+	
+\end{observacion}
+
+En segundo lugar, determinar la asignación que minimiza la función de error requiere $\mathcal{O}(K^2)$ cálculos para cada restricción. Por tanto, el método puede resultar computacionalmente pesado para grandes conjuntos de restricciones o clusters. Además, no es posible descartar ninguna opción de los cálculos aparte de las triviales.
+
+\begin{observacion}
+	
+	El método \acs{CVQE} es computacionalmente pesado para grandes conjuntos de datos o restricciones.
+	
+\end{observacion}
+
+Para ejemplificar esto consideramos la Figura \ref{fig:figure19}. En ella, el par $(x,y)$ es una restricción \acs{ML}, y los centroides existentes son $\{v_1,\cdots,v_6\}$. Dependiendo de los valores $R$, $\delta$ y $\epsilon$ las instancias pueden ser asignadas a los centroides $(v_1, v_2)$, $(v_3, v_4)$, $(v_5, v_6)$. Por tanto, las $K^2$ opciones deben ser consideradas para cada restricción al decidir una asignación.
 
 \begin{figure}[!h]
 	\centering
@@ -401,7 +415,15 @@ El segundo lugar, determinar la asignación que minimiza la función de error re
 	\caption[Ejemplo de CVQE.]{Ejemplo de CVQE. \cite{LCVQE:2007}}\label{fig:figure19}
 \end{figure}
 
-La última observación esta relacionada con el hecho de que la penalización por violar restricciones depende de la distancia entre los cetroides implicados en ella, pero no de la distancia entre las instancias. Para mostrar el problema que esto supone tomamos la Figura \ref{fig:figure20}, en la que se presentan dos problemas de clustering. Para ambos, los centroides existentes son $v_1$ y $v_2$, mientras que un problema incluye la restricción $ML(x_1, y)$ y el otro $ML(x_2, y)$.
+La última observación que debemos hacer está relacionada con el hecho de que la penalización por violar restricciones depende de la distancia entre los centroides implicados en ella, pero no de la distancia entre las instancias. 
+
+\begin{observacion}
+	
+	El término de penalización por violar restricciones de \acs{CVQE} sólo depende de la distancia entre los centroides implicados en la restricción.
+	
+\end{observacion}
+
+Para mostrar el problema que esto supone tomamos la Figura \ref{fig:figure20}, en la que se presentan dos problemas de clustering. Para ambos, los centroides existentes son $v_1$ y $v_2$, mientras que un problema incluye la restricción $ML(x_1, y)$ y el otro $ML(x_2, y)$.
 
 
 \begin{figure}[!h]
@@ -439,7 +461,13 @@ La Tabla \ref{tab:tabla3} recoge las asignaciones posibles en cada caso, así co
 
 El algoritmo \acs{LCVQE} minimiza una función similar a la que minimiza \acs{CVQE}. Con la diferencia de que, para cada asignación, \acs{LCVQE} considera, como mucho, los dos clusters más naturalmente apropiados para la asignación. Por ello, la complejidad del algoritmo es independiente de $K$, al contrario de lo que sucedía en \acs{CVQE}.
 
-De manera intuitiva, las restricciones \acs{ML} violadas modifican la actualización de los centroides para desplazar estos hacia la instancia opuesta. Para las restricciones \acs{CL} violadas, se determina cual es la instancia mas lejana al centroide común, sirviendo esta como guía para mover el segundo centroide mas cercano hacia ella. Con esto tenemos que, en \acs{LCVQE}, las restricciones son simétricas, es decir, no es relevante el orden en el que se especifiquen las instancia implicadas en ellas.
+Intuitivamente, las restricciones \acs{ML} violadas modifican la actualización de los centroides para desplazarlos hacia la instancia opuesta. Para las restricciones \acs{CL} violadas, se determina cuál es la instancia más lejana al centroide común, sirviendo ésta como guía para mover el segundo centroide más cercano hacia ella. Con esto tenemos que, en \acs{LCVQE}, las restricciones son simétricas, es decir, no es relevante el orden en el que se especifiquen las instancias implicadas en ellas.
+
+\begin{observacion}
+	
+	En \acs{LCVQE} las restricciones son simétricas, esto es, el orden en el que se especifiquen las instancias en ellas no es relevante.
+	
+\end{observacion}
 
 Para formalizar la regla de actualización es necesario definir nuevas funciones. $L_j(i)$ devuelve la instancia de entre $x_1(i)$ y $x_2(i)$ que más lejos se encuentre del centroide $v_j$. $MM(x)$ devuelve el centroide más cercano a $x$ distinto de $v_{M(x)}$. Con esto la regla de actualización queda definida como:
 
@@ -477,7 +505,7 @@ E_j = & \frac{1}{2} \sum_{x_i \in c_j} T_{j,1} +
 \label{eqn42}
 \end{equation}
 
-donde los términos $T$ vienen definidos como:
+quedando definidos los términos $T$ como:
 
 \begin{equation}
 \begin{split}
@@ -493,9 +521,21 @@ El Algoritmo \ref{alg:lcvqe} recoge de manera resumida el proceso que sigue \acs
 
 El criterio de convergencia puede estar basado en la diferencia de los centroides entre iteraciones sucesivas, así como en criterios de asignación de instancias a clusters o evaluaciones totales de la función de error.
 
-El algoritmo \acs{LCVQE} requiere $\mathcal{O}(p)$ operaciones en cada paso, con $p$ el número de dimensiones, ya que solo se consideran tres posibles asignaciones, independientemente del valor de $K$. Por tanto \acs{LCVQE} supera en eficiencia a \acs{CVQE}, que era altamente sensible al número de clusters y de restricciones.
+El algoritmo \acs{LCVQE} requiere $\mathcal{O}(p)$ operaciones en cada paso, siendo $p$ el número de dimensiones, ya que sólo se consideran tres posibles asignaciones, independientemente del valor de $K$. Por tanto \acs{LCVQE} supera en eficiencia a \acs{CVQE}, que era altamente sensible al número de clusters y de restricciones.
 
-Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de la Figura \ref{fig:figure20}, la Tabla \ref{tab:tabla4} muestra las asignaciones posibles en cada caso, así como el los valores \acs{LCVQE}. Asumimos que la asignación en ambos problemas es $x_i \in c_2$ e $y \in c_1$. En el caso de la restricción $(x_1, y)$ el centroide se actualiza según la regla $c_1 = (y + \frac{1}{2}x_1)/1.5$, y en el caso de $(x_1, y)$ tenemos que $c_1 = (y + \frac{1}{2}x_2)/1.5$, resultados intuitivamente mejores que los que obteníamos con \acs{LCVQE}, ya que el centroide se mueve hacia la distancia media de las instancias en lugar de hacia el otro centroide $c_2$.
+\begin{observacion}
+	
+	El algoritmo \acs{LCVQE} es computacionalmente más eficiente que \acs{CVQE}, pues en cada paso realiza $\mathcal{O}(p)$ operaciones.
+	
+\end{observacion}
+
+Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de la Figura \ref{fig:figure20}. La Tabla \ref{tab:tabla4} muestra las asignaciones posibles en cada caso, así como los valores \acs{LCVQE}. En ambos problemas asumimos que la asignación es $x_i \in c_2$ e $y \in c_1$. En el caso de la restricción $(x_1, y)$ el centroide se actualiza según la regla $c_1 = (y + \frac{1}{2}x_1)/1.5$, y en el caso de $(x_1, y)$ tenemos que $c_1 = (y + \frac{1}{2}x_2)/1.5$, resultados intuitivamente mejores que los que obteníamos con \acs{CVQE}, ya que el centroide se mueve hacia la distancia media de las instancias en lugar de hacia el otro centroide $c_2$.
+
+\begin{observacion}
+	
+	El término de penalización por violar restricciones de \acs{CVQE} involucra las características espaciales de las instancias implicadas en ella.
+	
+\end{observacion}
 
 \begin{table}[!h]
 	\centering
@@ -529,8 +569,8 @@ Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de 
 	\textbf{función} LCVQE($X$, $R$, $K$) \Begin{
 		\BlankLine
 		1. Inicialización de $GMLV_j = GCLV_j = \emptyset \;\; \forall j \in \{1, \cdots, K\}$\\
-		2. Inicialización de $C$ por la regla del centroide mas cercano.\\
-		3. Para cada $\{(x_1(i), x_2(i))\} \in ML$ con $v_j$ el centroide mas cercano a $x_1(i)$ y $v_n$ el centroide mas cercano a $x_2(i)$ calcular:\\
+		2. Inicialización de $C$ por la regla del centroide más cercano.\\
+		3. Para cada $\{(x_1(i), x_2(i))\} \in ML$ siendo $v_j$ el centroide más cercano a $x_1(i)$ y $v_n$ el centroide más cercano a $x_2(i)$ calcular:\\
 		\begin{enumerate}[(a)]
 			\item $\frac{1}{2} \left[(x_1(l) - v_j)^2 + (x_2(l) - v_n)^2\right] + \frac{1}{4} \left[(x_1(l) - v_n)^2 + (x_2(l) - v_j)^2\right]$
 			
@@ -540,7 +580,7 @@ Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de 
 		\end{enumerate}
 		Si (a) es minimal $\rightarrow$ $GMLV_j = GMLV_j \cup x_2(l)$ y $GMLV_n = GMLV_n \cup x_1(l)$. Asignar $x_1$ a $c_j$ y $x_2$ a $c_n$. \\ Si (b) es minimal $\rightarrow$ asignar $x_1$ y $x_2$ a $c_j$. \\ Si (c) es minimal $\rightarrow$ asignar $x_1$ y $x_2$ a $c_n$.\\
 		
-		4. Para cada $\{(x_1(i), x_2(i))\} \in CL$ con $v_j$ el centroide mas cercano a $x_1(i)$ y $v_n$ el centroide mas cercano a $x_2(i)$, y siendo $Max_n(l) = argmax_{x_i(l)}(x_i(l)- v_n)^2$. Tomamos $j$ como el centroide mas cercano a $Max_n(l)$ que no sea $n$ y calculamos:
+		4. Para cada $\{(x_1(i), x_2(i))\} \in CL$ con $v_j$ el centroide más cercano a $x_1(i)$ y $v_n$ el centroide más cercano a $x_2(i)$, y siendo $Max_n(l) = argmax_{x_i(l)}(x_i(l)- v_n)^2$. Tomamos $j$ como el centroide más cercano a $Max_n(l)$ que no sea $n$ y calculamos:
 		\begin{enumerate}[(a)]
 			\item $\frac{1}{2} (x_1(l) - v_j)^2 + \frac{1}{2}(x_2(l) - v_j)^2 + \frac{1}{2} (Max_n(l) - v_{MM(Max_j(l))})^2$
 			
@@ -558,7 +598,6 @@ Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de 
 \end{algorithm}
 
 
-\clearpage
 
 
 
@@ -567,36 +606,36 @@ Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de 
 
 Tomamos como referencia principal el trabajo de Daniel Khashabi et al. (2015) \cite{RDPM:2015}. En él, los autores incorporan las restricciones desde una perspectiva distinta a las anteriores. Así, modelan el conjunto de instancias y el conjunto de restricciones de manera diferente, es por ello que llaman \acf{TVClust} al método base para \acf{RDPM}.
 
-Para ser mas específicos, \acs{TVClust} combina una mezcla de Procesos de Dirichlet, aplicados sobre el conjunto de instancias, y una interpretación del conjunto de restricciones que considera las mismas como un grafo aleatorio. Además, los autores derivan este modelo, basándose en el algoritmo \acf{DPM} \cite{DPM:2012} combinado con el modelo de las restricciones, para obtener un algoritmo determinista que incorpora las mismas a \acs{DPM}, esto es, el algoritmo \acf{RDPM}.
+Para ser más específicos, \acs{TVClust} combina una mezcla de Procesos de Dirichlet, aplicados sobre el conjunto de instancias, y una interpretación del conjunto de restricciones que las considera como un grafo aleatorio. Además, los autores derivan este modelo, basándose en el algoritmo \acf{DPM} \cite{DPM:2012} combinado con el modelo de las restricciones, para obtener un algoritmo determinista que incorpora las mismas a \acs{DPM}, esto es, el algoritmo \acf{RDPM}.
 
 \subsection{El modelo Bayesiano no paramétrico}
 
-Introducimos las particularidades relacionadas con el modelo de datos sobre el que aplicaremos clustering. El conjunto de instancias $X$ viene definido tal y como se especifica al inicio de la sección \ref{ch:Algoritmos}, y definimos el conjunto de restricciones $R$ como una matriz simétrica de $n \times n$. En $R$ se encuentran almacenadas todas las posibles restricciones que involucran a parejas de instancias. Así, tomando $x_i$ y $x_j$ como dos instancias, basta con obtener el valor $R_{i,j}$ en la matriz para saber la relación que existe entre ellas. Si $R_{i,j} = 1$, entonces existe una restricción de tipo \acf{ML} entre $x_i$ y $x_j$, si $R_{i,j} = 0$ la restricción será de tipo \acf{CL}, y no existirá relación entre las instancias en cualquier otro caso.
+Introducimos las particularidades relacionadas con el modelo de datos sobre el que aplicaremos clustering. El conjunto de instancias $X$ viene definido tal y como se especifica al inicio de la Sección \ref{ch:Algoritmos}, y el conjunto de restricciones $R$ como una matriz simétrica de $n \times n$. En $R$ se encuentran almacenadas todas las posibles restricciones que involucran a parejas de instancias. Así, tomando $x_i$ y $x_j$ como dos instancias, basta con obtener el valor $R_{i,j}$ en la matriz para saber la relación que existe entre ellas. Si $R_{i,j} = 1$, entonces existe una restricción de tipo \acf{ML} entre $x_i$ y $x_j$, si $R_{i,j} = 0$ la restricción será de tipo \acf{CL}, y no existirá relación entre las instancias en cualquier otro caso.
 
-Consideramos los dos conjuntos de datos de los que disponemos, $X$ y $R$, como dos formas distintas de ver la estructura de clusters subyacente. Cabe destacar que cualquiera de estas dos estructuras es suficiente para llevar a cabo procesos de clustering clásicos, ya sean métodos como \acf{KM} (sección \ref{ap:kmeans}), en el caso de $X$, o \textit{normalized graph-cut} en el caso de $R$.
+Consideramos los dos conjuntos de datos de los que disponemos, $X$ y $R$, como dos formas distintas de ver la estructura de clusters subyacente. Cabe destacar que cualquiera de estas dos estructuras es suficiente para llevar a cabo procesos de clustering clásicos, ya sean métodos como \acf{KM} (Sección \ref{ap:kmeans}), en el caso de $X$, o \textit{normalized graph-cut} en el caso de $R$.
 
-La aproximación mediante \acs{TVClust} consiste en agregar información de los dos modelos mediante un enfoque Bayesiano, de manera que sea posible alcanzar un consenso entre ambos, que tenga como resultado la partición de $X$. Dada la estructura de clustering latente, que se supone común, los datos de ambas interpretaciones se modelan mediante dos procesos generativos distintos: $X$ se modela mediante Mezcla de Procesos de Dirichlet, y $R$ se modela mediante un grafo aleatorio.
+La aproximación mediante \acs{TVClust} consiste en agregar información de los dos modelos mediante un enfoque Bayesiano, de manera que sea posible alcanzar un consenso entre ambos, que tenga como resultado la partición de $X$. Dada la estructura de clustering latente, que se supone común, los datos de ambas interpretaciones se modelan mediante dos procesos generativos distintos: $X$ se modela mediante Mezcla de Procesos de Dirichlet, y $R$ mediante un grafo aleatorio.
 
-Considerar modelos distintos para entender los datos y las restricciones es de especial utilidad cuando ninguno de los dos puede ser tomado como completamente fiable. Mientras que otros métodos de clustering como COP-K-medias (sección \ref{copkm}) confían en la exactitud de las restricciones, \acs{TVClust} hace una interpretación relajada de las mismas, haciéndolo más robusto ante errores. Podría decirse que, en \acs{TVClust}, $R_{i,j} = 1$ equivale una una restricción \textit{may-link}, mientras que $R_{i,j} = 0$ se asociaría a una \textit{may-not-link}, en contraste con las ya conocidas \acf{ML} y \acf{CL}.
+Considerar modelos distintos para entender los datos y las restricciones es de especial utilidad cuando ninguno de los dos puede ser tomado como completamente fiable. Mientras que otros métodos de clustering como COP-K-medias (Sección \ref{copkm}) confían en la exactitud de las restricciones, \acs{TVClust} hace una interpretación relajada de las mismas, haciéndolo más robusto ante errores. Podría decirse que, en \acs{TVClust}, $R_{i,j} = 1$ equivale una una restricción \textit{May-Link}, mientras que $R_{i,j} = 0$ se asociaría a una \textit{May-Not-Link}, en contraste con las ya conocidas \acf{ML} y \acf{CL}.
 
 \subsubsection{Modelo para las instancias}
 
 Como ya hemos visto, utilizamos una Mezcla de Procesos de Dirichlet como modelo de clustering subyacente para el conjunto de datos $X$. Tomamos $\theta_i$ como el parámetro del modelo asociado
-a la instancia $x_i$, que es modelado como una muestra independiente e idénticamente distribuida \footnote{\textbf{iid} es la abreviatura en inglés para ``independiente e idénticamente distribuida''} de una distribución aleatoria $G$, que se obtiene en base a un Proceso de Dirichlet $\mathsf{DP}(\alpha, G_0)$:
+a la instancia $x_i$, que es modelado como una muestra independiente e idénticamente distribuida \footnote{\textbf{iid} es la abreviatura en inglés para ``independiente e idénticamente distribuida''.} de una distribución aleatoria $G$, que se obtiene en base a un Proceso de Dirichlet $\mathsf{DP}(\alpha, G_0)$:
 
 \begin{equation}
 \{\theta_0, \cdots, \theta_n\} \;\; t.q. \;\; G \overset{iid}{\thicksim} G, \;\;\; G \thicksim \mathsf{DP}(\alpha, G_0)
 \label{eqn44}
 \end{equation}
 
-Con esto, conociendo la distribución de $\theta_{\backslash i}$, definida esta como $\theta_{\backslash i} = \{\theta_0, \cdots, \theta_{i-1},\theta_{i+1}, \cdots,\theta_n\}$ podemos conocer la de $\theta_{i}$ aplicando el esquema de Balckwell-MacQueen \cite{Blackwell:1973}
+Con esto, conociendo la distribución de $\theta_{\backslash i}$ definida como $\theta_{\backslash i} = \{\theta_0, \cdots, \theta_{i-1},\theta_{i+1}, \cdots,\theta_n\}$ podemos conocer la de $\theta_{i}$ aplicando el esquema de Balckwell-MacQueen \cite{Blackwell:1973}:
 
 \begin{equation}
 p(\theta_{i}|\theta_{\backslash i}) \varpropto \sum_{k = 1}^{K} n_{-i,k} \delta_{\theta_{k}^*}(\theta_{i}) + \alpha G_0(\theta_{i})
 \label{eqn45}
 \end{equation}
 
-donde asumimos que existen $K$ \footnote{La interpretación de $K$ en esta sección es distinta a la propuesta al inicio de la sección \ref{ch:Algoritmos}, en la introducción a la notación} valores únicos entre $\theta_{\backslash i}$ notados como $\{\theta_{1}^*, \cdots, \theta_{K}^*\}$, $\delta_{\theta_{k}^*}(\cdot)$ es la función delta de Kronecker, y $n_{-i,k}$ es el número de instancias agrupadas en el cluster $c_k$ excluyendo la instancia $i$. Así, la ecuación \ref{eqn45} puede entenderse dentro de los métodos de clustering tradicionales en el sentido de que con una probabilidad positiva, $\theta_i$ tomará uno de los valores del conjunto $\{\theta_{1}^*, \cdots, \theta_{K}^*\}$, esto es, la instancia asociada se incluirá en uno de los clusters presentes. Para simplificar este concepto podemos emplear la Metáfora del Restaurante Chino, propuesta por Aldous (1983), en la que asignar $\theta_i$ a un cluster es análogo a sentar un cliente en una mesa del restaurante. El cliente puede sentarse en una pesa ya ocupada u ocupar una que estaba vacía.
+donde asumimos que existen $K$ \footnote{La interpretación de $K$ en esta sección es distinta a la propuesta al inicio de la Sección \ref{ch:Algoritmos}, en la introducción a la notación.} valores únicos entre $\theta_{\backslash i}$ notados como $\{\theta_{1}^*, \cdots, \theta_{K}^*\}$, $\delta_{\theta_{k}^*}(\cdot)$ es la función delta de Kronecker, y $n_{-i,k}$ es el número de instancias agrupadas en el cluster $c_k$ excluyendo la instancia $i$. Así, la Ecuación \ref{eqn45} puede entenderse dentro de los métodos de clustering tradicionales en el sentido de que con una probabilidad positiva, $\theta_i$ tomará uno de los valores del conjunto $\{\theta_{1}^*, \cdots, \theta_{K}^*\}$, esto es, la instancia asociada se incluirá en uno de los clusters presentes. Para simplificar este concepto podemos emplear la Metáfora del Restaurante Chino, propuesta por Aldous (1983), en la que asignar $\theta_i$ a un cluster es análogo a sentar un cliente en una mesa del restaurante. El cliente puede sentarse en una mesa ya ocupada o en una que estaba vacía.
 
 Dado $\theta_i$, utilizamos una familia de funciones paramétricas $p(x_i|\theta_i)$ para modelar la instancia $x_i$, en concreto tomaremos las familia de las exponenciales:
 
@@ -612,7 +651,7 @@ p(x|\theta) = exp(\langle x, \theta \rangle - \psi(\theta) - h(x))
 \label{eqn47}
 \end{equation}
 
-Con esta formulación obtenemos:
+Con esta formulación definimos:
 
 \begin{equation}
 \begin{split}
@@ -629,7 +668,7 @@ d G_0(\theta| \tau, \eta) = exp(\langle \theta, \tau \rangle - \eta\psi(\theta) 
 \label{eqn49}
 \end{equation}
 
-donde $\tau$ y $\eta$ son parámetros de la distribución base. Dada esta definición de probabilidad y conjugado, las posterior distribución sobre $\theta$ será la familia de exponenciales de la misma forma que la inicial, pero escalando los parámetros a $\tau + x$ y $\eta + 1$ (para más detalles consultar \cite{RDPM:2015}).
+donde $\tau$ y $\eta$ son parámetros de la distribución base. Dadas estas definiciones de probabilidad y conjugado, la posterior distribución sobre $\theta$ será la familia exponencial de la misma forma que la inicial, pero escalando los parámetros a $\tau + x$ y $\eta + 1$ (para más detalles consultar \cite{RDPM:2015}).
 
 La familia exponencial contiene multitud de distribuciones empleadas en la práctica. Por ejemplo, las distribuciones Gaussianas se utilizan para modelar valores reales en un espacio $\mathbb{R}^p$. 
 
@@ -649,7 +688,7 @@ p(R_{i,j} = 1 | H_{i,j} = 0) = 1 - q
 \label{eqn50}
 \end{equation}
 
-Dicho de otra forma, los valores $p$ y $q$ representan la credibilidad de los valores presentes en la matriz $R$, mientras que $1 - p$ y $1 - q$ representan la probabilidad de error. El valor concreto que se debe asignar a $p$ y $q$ varía para cada problema; pueden ser obtenidos mediante conocimiento experto o con técnicas de aprendizaje desde datos.
+Dicho de otra forma, los parámetros $p$ y $q$ representan la credibilidad de los valores presentes en la matriz $R$, mientras que $1 - p$ y $1 - q$ representan la probabilidad de error. El valor concreto que se debe asignar a $p$ y $q$ varía para cada problema; pueden ser obtenidos mediante conocimiento experto o con técnicas de aprendizaje desde datos.
 
 \subsubsection{Inferencia mediante muestreo de Gibbs}
 
@@ -673,11 +712,11 @@ s_{k}^i = \#\{j:\theta_j = \theta_{k}^*, R_{i,j} = 0\}\\
 \label{eqn52}
 \end{equation}
 
-El proceso de cálculo y simplificación que deriva en estas ecuaciones se encuentra detallado en el trabajo tomado como base para la elaboración de esta sección \cite{RDPM:2015}.
+El proceso de cálculo y simplificación que deriva en estas ecuaciones se encuentra detallado en el trabajo de Daniel Khashabi et al. (2015) \cite{RDPM:2015}.
 
 Retomando la analogía del restaurante chino, podemos interpretar la distribución de muestreo de $\theta_i$ de la siguiente manera: si la instancia $i$ es \textit{amiga} de la instancia $j$, entonces $R_{i,j} = 1$, por otra parte, si dos instancias son \textit{desconocidas} entonces $R_{i,j} = 0$. Con esto, podemos interpretar el valor $f_{i}^k$ como el número de amigos de la instancia $i$ en la mesa $k$, y $s_{i}^k$ como el número de desconocidos.
 
-Tal y como hemos visto, los valores $p$ y $q$ representan la credibilidad de las restricciones, esto es, el nivel de confianza en que son correctas. Para representar un grado de confianza alto generalmente estableceremos que $p > 1 - q$. Con esto, y tomando en consideración la ecuación \ref{eqn51}, la probabilidad de que una persona sea asignada a una mesa no solo aumenta con la popularidad de la misma, sino que también lo hace con el número de amigos de la instancia en la mesa ($f_{i}^k$) y disminuye con el número de desconocidos ($s_{i}^k$).
+Tal y como hemos visto, los valores $p$ y $q$ representan la credibilidad de las restricciones, esto es, el nivel de confianza en que son correctas. Para representar un grado de confianza alto generalmente estableceremos que $p > 1 - q$. Con esto, y tomando en consideración la Ecuación \ref{eqn51}, la probabilidad de que una persona sea asignada a una mesa no sólo aumenta con la popularidad de la misma, sino que también lo hace con el número de amigos de la instancia en la mesa ($f_{i}^k$) y disminuye con el número de desconocidos ($s_{i}^k$).
 
 Una mejora aplicable al modelo consiste en modificar la regla de actualización del conjunto de parámetros $ \{\theta_1, \cdots, \theta_n\}$, de manera que, en lugar de actualizar los paramétros particulares de cada instancia de manera secuencial, se actualiza un conjunto de parámetros asociados a los clusters $\{\theta_i^*, \cdots, \theta_K^*\}$, así como los indicadores de asignación de instancias a clusters (las etiquetas) $\{z_i, \cdots, z_n\}$ donde $z_i\in \{1, \cdots, K\}$ indica el cluster al que esta asignado la instancia $i$. Entonces la nueva regla de actualización es:
 
@@ -701,9 +740,9 @@ Para comprender \acf{RDPM} es necesario introducir el concepto de divergencia de
 	
 \end{definicion}
 
-La divergencia de Bregman es una clase general de medidas de distancia, por ejemplo, tomando $\phi$ como una función cuadrática, la divergencia de Bregman es equivalente a la distancia Euclidea \cite{Banerjee:2005}.
+La divergencia de Bregman es una clase general de medidas de distancia, por ejemplo, tomando $\phi$ como una función cuadrática, la divergencia de Bregman es equivalente a la distancia Euclídea \cite{Banerjee:2005}.
 
-Existe una aplicación biyectiva entre la familia exponencial y las divergencias de Bregman, tal y como demostraron Foster y Warmuth (2002) \cite{Forster:2002}. Dada esta conexión, Banerjee et al. (2005) \cite{Banerjee:2005} construyeron un algoritmo en base a \acf{KM} que utiliza la divergencia de Bregman como medida de distancia, en lugar de la distancia Euclidea.
+Existe una aplicación biyectiva entre la familia exponencial y las divergencias de Bregman, tal y como demostraron Foster y Warmuth (2002) \cite{Forster:2002}. Dada esta conexión, Banerjee et al. (2005) \cite{Banerjee:2005} construyeron un algoritmo en base a \acf{KM} que utiliza la divergencia de Bregman como medida de distancia, en lugar de la distancia Euclídea.
 
 \begin{definicion}
 	
@@ -712,7 +751,7 @@ Existe una aplicación biyectiva entre la familia exponencial y las divergencias
 \end{definicion}
 
 
-Se puede demostrar que la función \textit{log-partition} de la familia exponencial es una función cerrada y convexa. Por tanto, existe una biyección entre el parámetro $\mu$ del conjugado de Legendre $\psi^*(\cdot)$, y el parámetro de la familia exponencial, $\theta$, en la función \textit{log-partition} definida para la familia exponencial en la ecuación \ref{eqn46}. Con esto, podemos reescribir la probabilidad definida por la ecuación \ref{eqn47} usando la divergencia de Bregman y el conjugado de Legendre:
+Se puede demostrar que la función \textit{log-partition} de la familia exponencial es una función cerrada y convexa. Por tanto, existe una biyección entre el parámetro $\mu$ del conjugado de Legendre $\psi^*(\cdot)$, y el parámetro de la familia exponencial, $\theta$, en la función \textit{log-partition} definida para la familia exponencial en la Ecuación \ref{eqn46}. Con esto, podemos reescribir la probabilidad definida por la Ecuación \ref{eqn47} usando la divergencia de Bregman y el conjugado de Legendre:
 
 \begin{equation}
 p(x|\theta) = p(x|\mu) = exp(-D_{\psi^*}(x, \mu)) f_{\psi^*}(x)
@@ -721,7 +760,7 @@ p(x|\theta) = p(x|\mu) = exp(-D_{\psi^*}(x, \mu)) f_{\psi^*}(x)
 
 donde $f_{\psi^*}(x) = exp(\psi^*(x) - h(x))$. Una consecuencia de esta nueva parametrización es que la probabilidad asociada a cualquier instancia $x$ está relacionada con cómo de \textit{lejos} está la misma del cluster parametrizado con $\mu$, midiendo la distancia según la divergencia de Bregman $D_{\psi^*}(x, \mu)$.
 
-De manera similar podemos reescribir la ecuación \ref{eqn49} en términos de la divergencia de Bregman y el conjugado de Legendre:
+De manera similar podemos reescribir la Ecuación \ref{eqn49} en términos de la divergencia de Bregman y el conjugado de Legendre:
 
 \begin{equation}
 p(\theta|\tau, \eta) = p(\mu|\tau, \eta) = exp \left(-\eta D_{\psi^*}(\frac{\tau}{\eta}, \mu)\right) g_{\psi^*}(\tau, \eta)
@@ -734,7 +773,7 @@ donde $g_{\psi^*}(\tau, \eta) = exp(\eta \psi(\theta) - m(\tau, \eta))$
 
 \begin{lema}
 
-	\textbf{Jiang et al (2012)} \cite{DPM:2012}: Dada la familia exponencial definida en la ecuación \ref{eqn46}, definimos otra distribución de probabilidad con parámetro $\widetilde{\theta}$ y la función \textit{log-partition} $\widetilde{\psi}(\cdot)$, donde $\widetilde{\theta} = \gamma\theta$ y $\widetilde{\psi}(\widetilde{\theta}) = \gamma \psi (\widetilde{\theta}/\gamma)$, entonces:
+	\textbf{Jiang et al (2012)} \cite{DPM:2012}: Dada la familia exponencial definida en la Ecuación \ref{eqn46}, definimos otra distribución de probabilidad con parámetro $\widetilde{\theta}$ y la función \textit{log-partition} $\widetilde{\psi}(\cdot)$, donde $\widetilde{\theta} = \gamma\theta$ y $\widetilde{\psi}(\widetilde{\theta}) = \gamma \psi (\widetilde{\theta}/\gamma)$, entonces:
 	
 	\begin{enumerate}
 		
@@ -750,9 +789,9 @@ donde $g_{\psi^*}(\tau, \eta) = exp(\eta \psi(\theta) - m(\tau, \eta))$
 	\label{lema:1}
 \end{lema}
 
-El resultado más importante derivado del lema \ref{lema:1} es que la covarianza $Cov_p(x)$ escala con $1/\gamma$, que tiende a $0$ para valores grandes de $\gamma$, mientras que la media $\mathbb{E}_{p}(x)$ se mantiene invariante. Por tanto podemos obtener un algoritmo determinista cuando $\gamma$ tiende a infinito.
+El resultado más importante derivado del Lema \ref{lema:1} es que la covarianza $Cov_p(x)$ escala con $1/\gamma$, que tiende a $0$ para valores grandes de $\gamma$, mientras que la media $\mathbb{E}_{p}(x)$ se mantiene invariante. Por tanto podemos obtener un algoritmo determinista cuando $\gamma$ tiende a infinito.
 
-Con esto, las ecuaciones \ref{eqn54} y \ref{eqn55} pueden ser escritas como:
+Con esto, las Ecuaciones \ref{eqn54} y \ref{eqn55} pueden ser escritas como:
 
 \begin{equation}
 \begin{split}
@@ -764,7 +803,7 @@ Con esto, las ecuaciones \ref{eqn54} y \ref{eqn55} pueden ser escritas como:
 
 \subsection{Asintóticos de TVClust}
 
-Usando la distribución escalada definida en la ecuación \ref{eqn56} podemos reescribir la regla de actualización de Gibbs descrita en la ecuación \ref{eqn53} como sigue:
+Usando la distribución escalada definida en la Ecuación \ref{eqn56} podemos reescribir la regla de actualización de Gibbs descrita en la Ecuación \ref{eqn53} como sigue:
 
 \begin{equation}
 \begin{cases}
@@ -774,7 +813,7 @@ p(z_i = k_{nuevo}) \varpropto \alpha \int \widetilde{p}(x_i|\theta)\widetilde{p}
 \label{eqn57}
 \end{equation}
 
-Siguiendo el proceso de cálculo y simplificación detallado por Daniel Khashabi et al. (2015) \cite{RDPM:2015}, podemos transformar la ecuación \ref{eqn57} en:
+Siguiendo el proceso de cálculo y simplificación detallado en le trabajo de Daniel Khashabi et al. (2015) \cite{RDPM:2015}, podemos transformar la Ecuación \ref{eqn57} en:
 
 \begin{equation}
 \begin{cases}
@@ -804,6 +843,8 @@ Daniel Khashabi et al. (2015) \cite{RDPM:2015} demuestran que la función que mu
 \label{eqn61}
 \end{equation}
 
+Ésto completa el algoritmo \acf{RDPM}, podemos resumir el proceso de cálculo que este lleva a cabo en el Algoritmo \ref{alg:rdpm}:
+
 \subsection{Función objetivo de RDP-means}
 
 \begin{teorema}
@@ -823,16 +864,11 @@ Daniel Khashabi et al. (2015) \cite{RDPM:2015} demuestran que la función que mu
 
 Tomando $\xi_1, \xi_2 \rightarrow 0$, el algoritmo \acs{RDPM} se comporta de manera idéntica a \acs{DPM}, esto es, no se tiene en consideración la información proporcionada por las restricciones. Por otra parte, si $\xi_1, \xi_2 \rightarrow \infty$ se pone todo el peso en las restricciones y no se consideran las instancias para el proceso de clustering, en otras palabras, el conjunto de cluster se genera de acuerdo a la matriz $R$ unicamente. De manera similar, podemos escoger poner más peso en las restricciones \textit{may-link} sobre las \textit{may-not-link} estableciendo $\xi_1 > \xi_2$ y viceversa.
 
-A pesar del control que $\xi_1$ y $\xi_2$ permiten sobre el proceso de clustering, la función objetivo de \acs{RDPM} (ecuación \ref{eqn60}) posee un gran número de mínimos locales, y dado que el algoritmo la minimiza con un proceso \textit{greedy}, corremos el riesgo caer en un mínimo local. Los autores Daniel Khashabi et al. (2015) \cite{RDPM:2015} muestran experimentalmente que establecer $\xi_1 = \xi_2 = \xi$, con un valor pequeño para $\xi_0$, que se incrementará con el paso de las iteraciones en función de un ratio dado, proporciona mejores resultados que un esquema de libre configuración para $\xi_1$ y $\xi_2$.
-
-\section{El algoritmo RDP-means}
-
-Con todo lo estudiado en la la sección \ref{rdpmYtvc}, podemos resumir el proceso de cálculo del algoritmo \acf{RDPM}  el el Algoritmo \ref{alg:rdpm}:
+A pesar del control que $\xi_1$ y $\xi_2$ permiten sobre el proceso de clustering, la función objetivo de \acs{RDPM} (Ecuación \ref{eqn60}) posee un gran número de mínimos locales, y dado que el algoritmo la minimiza con un proceso \textit{greedy}, corremos el riesgo caer en un mínimo local. Los autores Daniel Khashabi et al. (2015) \cite{RDPM:2015} muestran experimentalmente que establecer $\xi_1 = \xi_2 = \xi$, con un valor pequeño para $\xi_0$, que se incrementará con el paso de las iteraciones en función de un ratio dado, proporciona mejores resultados que un esquema de libre configuración para $\xi_1$ y $\xi_2$.
 
 \begin{algorithm}
-	
-	\BlankLine
 	\KwIn{Conjunto de datos $X$, matriz de restricciones $R$, parámetro de la divergencia de Bregman $\psi*$, los parámetros $\lambda$, $\xi_0$, y el ratio de incremento $\xi_{rate}$}
+	\BlankLine
 	\KwOut{La asignación $z = [z_1, z_1, \cdots, z_n]$}
 	\BlankLine
 	\textbf{función} RDPM($X$, $R$, $\psi*$, $\lambda$, $\xi_0$, $\xi_{rate}$) \Begin{
@@ -856,8 +892,7 @@ Con todo lo estudiado en la la sección \ref{rdpmYtvc}, podemos resumir el proce
 				\eIf{$d_{min} < \lambda$}{
 					$z_i \leftarrow i_{min}$
 				}{
-					\texttt{//Crear un nuevo cluster}\\
-					$C \leftarrow \{C \cup \{x_i\}\}$\\
+					$C \leftarrow \{C \cup \{x_i\}\}$ \texttt{//Crear un nuevo cluster}\\
 					$K \leftarrow K + 1$
 				}
 				
@@ -878,9 +913,8 @@ Con todo lo estudiado en la la sección \ref{rdpmYtvc}, podemos resumir el proce
 			$\xi \leftarrow \xi \times \xi_{rate}$
 			
 		}
-		
+		\BlankLine
 		\KwRet $C$
-		\BlankLine 
 	}
 	\caption{\acf{RDPM}}
 	\label{alg:rdpm}

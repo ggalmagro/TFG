@@ -10,11 +10,11 @@
 
 Una de las habilidades más básicas y primitivas de la que están dotados los seres humanos es la de agrupar objetos similares para producir una clasificación que les resulte útil. Habilidad que ya nuestros más antiguos ancestros debieron poseer, por ejemplo, debieron ser capaces de darse cuenta de qué objetos eran comestibles, cuales eran venenosos y cuales intentarían matarles.
 
-La capacidad de clasificación, en su sentido mas amplio, es necesaria para el desarrollo del lenguaje, que esta formado por palabras que nos ayudan a reconocer diferentes tipos de eventos, acciones y entidades. En esencia, cada sustantivo es una etiqueta que empleamos para agrupar un colectivo de seres u objetos con características similares, de manera que podemos hacer referencia a todos ellos empleando la palabra que los une.
+La capacidad de clasificación, en su sentido más amplio, es necesaria para el desarrollo del lenguaje, que esta formado por palabras que nos ayudan a reconocer diferentes tipos de eventos, acciones y entidades. En esencia, cada sustantivo es una etiqueta que empleamos para agrupar un colectivo de seres u objetos con características similares, de manera que podemos hacer referencia a todos ellos empleando la palabra que los une.
 
 De igual forma que la clasificación es una habilidad básica para las personas en su vida cotidiana, es también esencial en la mayoría de las ramas de la ciencia. En biología, por ejemplo, la clasificación de los diferentes tipos de organismos ha sido objeto de estudio desde el comienzo de su existencia. Aristóteles construyó un elaborado sistema de clasificación animal que dividía a todas las criaturas en dos grupos, aquellos con sangre roja y aquellos que carecían de ella. Más tarde propuso una subdivisión que los clasificaba según la forma en la que nuevos individuos venían al mundo, ya sea vivos, mediante huevos, crisálidas, etc.
 
-Siguiendo a Aristóteles, Teoprastos escribió el primer documento que recopilaba las directrices para la clasificación de las plantas. Los trabajos resultantes fueron tan amplios y detallados que sentaron las bases para la investigación en biología durante los siguientes siglos. Este trabajo no fúe sustituido hasta 1737, cuando Carlos Linneo publicó su trabajo \textit{Genera Plantarum}, del que el siguiente fragmento ha sido extraído:
+Siguiendo a Aristóteles, Teofrasto escribió el primer documento que recopilaba las directrices para la clasificación de las plantas. Los trabajos resultantes fueron tan amplios y detallados que sentaron las bases para la investigación en biología durante los siguientes siglos. Este trabajo no fúe sustituido hasta 1737, cuando Carlos Linneo publicó su obra \textit{Genera Plantarum}, de la que extraemos el siguiente fragmento:
 
 \begin{quotation}{\slshape
 		All the real knowledge which we possess, depends on methods by which we distinguish the similar from the dissimilar. The greater the number of natural distinctions this method comprehends the clearer becomes our idea of things. The
@@ -35,43 +35,43 @@ La clasificación de los animales y las plantas ha sido de gran importancia en c
 
 \section{El problema del Aprendizaje Automático}
 
-El \acf{AA}, del inglés \textit{Machine Learning}, es una campo derivado de las ciencias de la computación, y una rama de la inteligencia artificial, que tiene como último objetivo desarrollar métodos que hagan posible que las máquinas aprendan. En otras palabras, las técnicas que se enmarcan dentro del \acs{AA} tiene como objetivo desarrollar programas que guíen a las computadoras para que aprendan a partir de un conjunto de ejemplos.
+El \acf{AA}, del inglés \textit{Machine Learning}, es una campo derivado de las ciencias de la computación, y una rama de la inteligencia artificial, que tiene como último objetivo desarrollar métodos que hagan posible que las máquinas aprendan. En otras palabras, las técnicas que se enmarcan dentro del \acs{AA} tienen como objetivo desarrollar programas que guíen a las computadoras para que aprendan a partir de un conjunto de ejemplos.
 
-\subsection{¿Qué es realmente el aprendizaje?}
+\subsection{¿Qué es el aprendizaje?}
 
-La Real Academia Española define el aprendizaje de la siguiente manera: ``Adquisición por la práctica de una conducta duradera''. Si bien esta definición es plenamente aplicable al objetivo del \acf{AA}, es algo general como para abarcar lo que este realmente pretende. De ahora en adelante, en lo que a este trabajo respecta, entenderemos aprendizaje como: ``Cambios en un sistema adaptativo que hacen posible que el mismo realice una tarea conocida de manera mas efectiva y eficiente'' \cite{Michalski:2013}.
+La Real Academia Española define el aprendizaje de la siguiente manera: ``Adquisición por la práctica de una conducta duradera''. Si bien esta definición es plenamente aplicable al objetivo del \acs{AA}, es demasiado general como para abarcar lo que este realmente pretende. De ahora en adelante, en lo que a este trabajo respecta, entenderemos el aprendizaje como: ``Cambios en un sistema adaptativo que hacen posible que el mismo realice una tarea conocida de manera más efectiva y eficiente'' \cite{Michalski:2013}.
 
 \subsection{Tipos de Aprendizaje Automático}
 
-Existen varios enfoques dentro del campo del \acf{AA}, estos se clasifican en función de la información que se le proporciona a la máquina para que aprenda. Así, encontramos cuatro tipos de aprendizaje distintos: 
+Existen varios enfoques dentro del campo del \acs{AA}, estos se clasifican en función de la información que se le proporciona a la máquina para que aprenda. Así, encontramos cuatro tipos de aprendizaje distintos: 
 
 \begin{itemize}
 	
-	\item \textbf{\acf{AS}}: del inglés \textit{Supervised Learning}, en él, la máquina dispone del conjunto de datos así como de la clase a la que pertenecen los mismos. El objetivo es aprender una función que permita predecir la clase de ejemplos que no se encontraban en el conjunto entrenamiento. Podemos entender este tipo de aprendizaje comparando el conjunto de entrenamiento con un profesor y la máquina como un alumno.
+	\item \textbf{\acf{AS}}: del inglés \textit{Supervised Learning}. En él, la máquina dispone del conjunto de datos así como de la clase a la que pertenecen los mismos. El objetivo es aprender una función que permita predecir la clase de ejemplos que no se encontraban en el conjunto que se ha empleado para el aprendizaje. Podemos entender este tipo de aprendizaje comparando el conjunto de entrenamiento con un profesor y la máquina como un alumno.
 	
-	\item \textbf{\acf{ANS}}: del ingles \textit{Unsupervised Learning}, a diferencia del caso anterior, la máquina solo dispone del conjunto de datos, y no de la clase a la que estos pertenecen. El objetivo es obtener la clase a la que pertenecen los ejemplos que se encuentran en el conjunto de entrenamiento, y en algunas ocasiones también obtener una función que prediga las clases de nuevos ejemplos. Retomando la analogía del aluno y el profesor, podemos entender que en \acs{ANS} es el alumno el que aprende por si mismo y enseña al profesor, dado que este último no conoce nada sobre los datos.
+	\item \textbf{\acf{ANS}}: del ingles \textit{Unsupervised Learning}. A diferencia del caso anterior, la máquina sólo dispone del conjunto de datos, y no de la clase a la que estos pertenecen. El objetivo es obtener la clase a la que pertenecen los ejemplos que se encuentran en el conjunto de entrenamiento, y en algunas ocasiones extraer también una función que prediga las clases de nuevos ejemplos. Retomando la analogía del alumno y el profesor, podemos entender que en \acs{ANS} es el alumno el que aprende por sí mismo y enseña al profesor, dado que este último no conoce nada sobre los datos.
 	
-	\item \textbf{\acf{ASS}}: del ingles \textit{Semi Supervised Learning}. Este tipo de aprendizaje se encuentra entre los dos anteriores, la máquina dispone del conjunto de datos y de información parcial sobre los mismos. El objetivo es el mismo que en \acs{ANS}, pero las técnicas empleadas para lograrlo son diferentes. Ahora, tanto profesor como alumno aprenden, ya que ninguno de los dos disponen de toda la información. El alumno aprenderá primero del profesor y desarrollará ese nuevo conocimiento para más tarde mostrárselo.
+	\item \textbf{\acf{ASS}}: del ingles \textit{Semi Supervised Learning}. Este tipo de aprendizaje se encuentra entre los dos anteriores, la máquina dispone del conjunto de datos y de información parcial sobre los mismos. El objetivo es el igual que en \acs{ANS}, pero las técnicas empleadas para lograrlo son diferentes. Ahora, tanto profesor como alumno aprenden, ya que ninguno de ellos dispone de toda la información. El alumno aprenderá primero del profesor y desarrollará ese nuevo conocimiento para más tarde mostrárselo a éste.
 	
-	\item \textbf{\acf{AR}}: del inglés \textit{Reinforcement Learning}, en este caso la máquina dispone solo del conjunto de datos, pero el esquema de aprendizaje es distinto a los anteriores. Este se basa en el método ensayo-error, esto es, la máquina (el alumno) lleva a cabo acciones sobre los datos y estas se ven recompensadas o castigadas por el entorno (el profesor).
+	\item \textbf{\acf{AR}}: del inglés \textit{Reinforcement Learning}. En este caso la máquina dispone sólo del conjunto de datos, pero el esquema de aprendizaje es distinto a los anteriores. Éste se basa en el método ensayo-error, esto es, la máquina (el alumno) lleva a cabo acciones sobre los datos y éstas se ven recompensadas o castigadas por el entorno (el profesor).
 	
 \end{itemize}
 
 \section{Objetivos}
 
-Este trabajo tiene como objetivo abordar el aprendizaje semi-supervisado desde el marco de las restricciones a nivel de instancia sobre el problema. Aunque existen multitud de estudios y bibliografía sobre esta área, no existen publicaciones recientes que lo aborden de manera práctica y unificada.
+Este trabajo tiene como objetivo abordar el aprendizaje semi- supervisado desde el marco de las restricciones a nivel de instancia sobre el problema. Aunque hay multitud de estudios y bibliografía sobre esta área, no existen publicaciones recientes que lo aborden de manera práctica y unificada.
 
-En este trabajo se presenta una revisión sobre las técnicas comunes para aplicar clustering con restricciones, así como se profundiza sobre el mismo y se exponen sus aplicaciones. Además, se estudian y ponen a disposición de la comunidad cinco algoritmos de clustering con restricciones a nivel de instancia. El lenguaje escogido para la implementación de dichos métodos es Python, dada su popularidad en el área del \acf{AA} y su facilidad de uso.
+En este trabajo se presenta una revisión sobre las técnicas comunes para aplicar clustering con restricciones, se profundiza sobre el mismo y se exponen sus aplicaciones. Además, se estudian y ponen a disposición de la comunidad cinco algoritmos de clustering con restricciones a nivel de instancia. El lenguaje escogido para la implementación de dichos métodos es Python, dada su popularidad en el área del \acs{AA} y su facilidad de uso.
 
-\section{Estructura de este trabajo}
+\section{Estructura}
 
-La sección \ref{ch:Breve introducción al Clustering} pretende realizar una pequeña introducción al problema de clustering, esto es, definir los conceptos básicos sobre el mismo y exponer algunas de sus aplicaciones.
+El objetivo de a Sección \ref{ch:Breve introducción al Clustering} es realizar una introducción al problema de clustering. Para ser más concretos, en ella se definen los conceptos básicos sobre el clustering y se exponen algunas de sus aplicaciones.
 
-La sección \ref{ch:Clustering con restricciones} define los conceptos relacionados con el clustering con restricciones, poniendo de manifiesto las diferencias que presenta el mismo respecto a otras técnicas. Además, aporta ejemplos de aplicación del mismo y realiza un estudio sobre las ventajas y desventajas que este presenta. Será en la sección \ref{ch:Algoritmos} en la que presentaremos cinco de los métodos de clustering con restricciones existentes, profundizando en sus bases y unificando los conceptos comunes a los mismos.
+Por su parte, la Sección \ref{ch:Clustering con restricciones} define los conceptos relacionados con el clustering con restricciones, poniendo de manifiesto las diferencias que presenta el mismo respecto a otras técnicas. Además, aporta ejemplos de aplicación del mismo y realiza un estudio sobre las ventajas y desventajas que éste presenta. Será en la Sección \ref{ch:Algoritmos} en la que analizaremos cinco de los métodos de clustering con restricciones existentes, profundizando en sus bases y unificando los conceptos comunes a los mismos.
 
-En la sección \ref{ch:Impl} encontraremos una guía y documentación para el uso del software desarrollado, que corresponde a la implementación de los cinco métodos expuestos en la sección \ref{ch:Algoritmos}. La sección \ref{ch:Experimentación} está íntimamente relacionada con la \ref{ch:Impl}, sirviendo como prueba de concepto para los métodos documentados en la misma.
+En la Sección \ref{ch:Impl} encontramos una guía y documentación para el uso del software desarrollado, que corresponde a la implementación de los cinco métodos expuestos en la Sección \ref{ch:Algoritmos}. La Sección \ref{ch:Experimentación} está íntimamente relacionada con la \ref{ch:Impl}, sirviendo como prueba de concepto para los métodos documentados en la misma.
 
-Por último, la sección \ref{ch:Conclusiones} presenta las conclusiones sobre el trabajo realizado.
+Por último, en la Sección \ref{ch:Conclusiones} presentamos las conclusiones sobre el trabajo realizado.
 
 
 

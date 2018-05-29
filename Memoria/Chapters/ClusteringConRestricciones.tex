@@ -4,9 +4,9 @@ Realizada la introducción sobre los conceptos básicos del clustering, el objet
 
 \section{Motivación para el clustering con restricciones}
 
-Tal y como hemos estudiado en secciones anteriores (\ref{ch:Breve introducción al Clustering}), los métodos de clustering no supervisado son útiles para dotar de estructura a datos referentes a un área concreta. Un ejemplo de ello lo encontramos en la clasificación de textos; Cohn et al. (2003) \cite{Cohn:2003} afrontan un problema propuesto por Yahoo!, que consiste en, dada una gran cantidad de documentos de texto, agruparlos según una taxonomía en la que los documentos con temáticas similares se encuentren cercanos. Para ello, los métodos de clustering no supervisado resultan de utilidad, ya que la información sobre el problema de la que se dispone inicialmente es limitada. Sin embargo, Wagstaff et al. (2001) mostraron que aplicando clustering no supervisado a ciertos problemas, como el de agrupar datos de GPS de forma que los clusters definan los carriles de una vía, no se obtienen resultados significativos, pues los clusters obtenidos distan mucho de la forma alargada que se esperaría como resultado. Para atajar el problema, introdujeron en el clustering un nuevo elemento, las restricciones a nivel de instancia, que permitían incluir conocimiento sobre los clusters que guiarían los métodos de clustering para obtener los resultados esperados. Bastaba con indicar que los carriles de la vía por la que circulan los vehículos miden cuatro metros de ancho, y por tanto cualquier vehículo que se encuentre a una distancia mayor de 4 metros de otro, en dirección perpendicular a la del desplazamiento, debe ser ubicado en un cluster diferente.
+Tal y como hemos estudiado en la Sección \ref{ch:Breve introducción al Clustering}, los métodos de clustering no supervisado son útiles para dotar de estructura a datos referentes a un área concreta. Un ejemplo de ello lo encontramos en la clasificación de textos; Cohn et al. (2003) \cite{Cohn:2003} afrontan un problema propuesto por Yahoo!, que consiste en, dada una gran cantidad de documentos de texto, agruparlos según una taxonomía en la que los documentos con temáticas similares se encuentren cercanos. Para ello, los métodos de clustering no supervisado resultan de utilidad, ya que la información sobre el problema de la que se dispone inicialmente es limitada. Sin embargo, Wagstaff et al. (2001) mostraron que aplicando clustering no supervisado a ciertos problemas, como el de agrupar datos de GPS de forma que los clusters definan los carriles de una vía, no se obtienen resultados significativos, pues los clusters obtenidos distan mucho de la forma alargada que se esperaría como resultado. Para atajar el problema, introdujeron en el clustering un nuevo elemento, las restricciones a nivel de instancia, que permitían incluir conocimiento sobre los clusters que guiarían los métodos de clustering para obtener los resultados esperados. Bastaba con indicar que los carriles de la vía por la que circulan los vehículos miden cuatro metros de ancho, y por tanto cualquier vehículo que se encuentre a una distancia mayor de 4 metros de otro, en dirección perpendicular a la del desplazamiento, debe ser ubicado en un cluster diferente.
 
-Nos situamos entonces en un nuevo escenario: es posible incorporar información adicional al proceso de clustering, además de la contenida en el propio conjunto de datos, para guiarlo en la formación de la partición y obtener resultados mas precisos. Esto sitúa al clustering con restricciones en el marco del aprendizaje semisupervisado, a diferencia de los métodos de clustering tradicionales que se enmarcan en el área del clustering no supervisado. 
+Nos situamos entonces en un nuevo escenario: es posible incorporar información adicional al proceso de clustering, además de la contenida en el propio conjunto de datos, para guiarlo en la formación de la partición y obtener resultados más precisos. Esto sitúa al clustering con restricciones en el marco del aprendizaje semisupervisado, a diferencia de los métodos de clustering tradicionales que se enmarcan en el área del clustering no supervisado. 
 
 \section{Definición de las restricciones}
 
@@ -36,7 +36,7 @@ De manera similar, si queremos que el diámetro de los clusters sea como mucho $
 
 \section{Uso de las restricciones}
 
-Mientras que el aprendizaje completamente supervisado implica conocer la etiqueta asociada a cada instancia, en el aprendizaje semisupervisado solo se dispone de un subconjunto de instancias etiquetadas. Por otra parte, en gran cantidad de dominios la información disponible se refiere a relaciones entre instancias, y no a la clase concreta a la que pertenecen las mismas. Es más, en montajes de clustering interactivo, un usuario no experto en el dominio del problema podrá, probablemente, aportar información en forma de restricciones de tipo \acf{ML} y \acf{CL} \cite{Cohn:2003}\cite{DavidsonRavi:2007}, antes que aportar información sobre a qué clase concreta pertenecen ciertas instancias.
+Mientras que el aprendizaje completamente supervisado implica conocer la etiqueta asociada a cada instancia, en el aprendizaje semisupervisado sólo se dispone de un subconjunto de instancias etiquetadas. Por otra parte, en gran cantidad de dominios la información disponible se refiere a relaciones entre instancias, y no a la clase concreta a la que pertenecen las mismas. Es más, en montajes de clustering interactivo, un usuario no experto en el dominio del problema podrá, probablemente, aportar información en forma de restricciones de tipo \acf{ML} y \acf{CL} \cite{Cohn:2003}\cite{DavidsonRavi:2007}, antes que aportar información sobre a qué clase concreta pertenecen ciertas instancias.
 
 Habitualmente, las restricciones se incluyen en los problemas de clustering de dos maneras. Pueden ser empleadas para modificar la regla de asignación de instancias a clusters del método en cuestión, de forma que la solución satisfaga el máximo número de restricciones posible. Alternativamente, cabe la posibilidad de entrenar la función de distancia empleada por el método en base a las restricciones, ya sea antes o durante la aplicación del mismo. En cualquier caso, la fase de inicialización puede tomar en consideración las restricciones, de forma que las instancias asociadas con restricciones \acf{ML} serán situadas en el mismo cluster, y aquellas entre las que exista una restricción \acf{CL}, quedarán en clusters diferentes. Basándonos en esta distinción, identificamos dos maneras de aproximar el problema, las basadas en restricciones (\textit{constraint-based}), y las basadas en distancias (\textit{distance-based}).
 
@@ -150,7 +150,7 @@ Las bases de datos de vídeo son uno de los ejemplos en los que las restriccione
 
 En la Figura \ref{fig:figure12}, la imagen (a) corresponde a restricciones extraídas del seguimiento de una persona durante un periodo de tiempo, la (b) corresponde a restricciones espaciales que asocian dos objetos localizados en el mismo fotograma, la imagen (c) corresponde a restricciones obtenidas mediante reconocimiento facial y la (d) a las proporcionadas por el usuario.
 
-Disponiendo de tantos métodos para extraer restricciones, cabe plantearse: ¿qué sucede si se establecen demasiadas restricciones? ¿Hace esto que el problema esté sobrerestringido? En secciones posteriores (\ref{Problemas}) abordaremos estas cuestiones.
+Disponiendo de tantos métodos para extraer restricciones, cabe plantearse: ¿qué sucede si se establecen demasiadas restricciones? ¿Hace esto que el problema esté sobrerestringido? En la Sección \ref{Problemas} abordaremos estas cuestiones.
 
 \subsection{Aplicaciones en genética}
 
@@ -207,7 +207,7 @@ Encontramos dos beneficios principales en el uso de restricciones:
 
 A continuación se analizan estos dos beneficios:
 
-Dado $X = \{x_1 \cdots x_u\}$, un gran conjunto de instancias no etiquetadas, y $L = \{(x_{u+1}, y_{u+1})\cdots (x_{u+l}, y_{u+l})\}$, un pequeño conjunto de instancias etiquetadas, es común escoger dos elementos de $L$ (con reemplazamiento) y establecer una restricción \acs{ML} entre ellos si pertenecen a la misma clase o, en caso contrario, una de tipo \acs{CL}. Un método apropiado para evaluar los resultados ofrecidos por un método de clustering es medir el nivel de exactitud de éste a la hora de predecir las etiquetas del conjunto $X$. Esto normalmente requiere que se especifique el número de clusters deseados igual al número de clases conocidas en $X$ ($k = k*$). Para medir la exactitud se emplean métodos como el \textit{Rand index} \cite{Rand:1971}.
+Dado $X = \{x_1 \cdots x_u\}$, un gran conjunto de instancias no etiquetadas, y $L = \{(x_{u+1}, y_{u+1})\cdots (x_{u+l}, y_{u+l})\}$, un pequeño conjunto de instancias etiquetadas, es común escoger dos elementos de $L$ (con reemplazamiento) y establecer una restricción \acs{ML} entre ellos si pertenecen a la misma clase o, en caso contrario, una de tipo \acs{CL}. Un método apropiado para evaluar los resultados ofrecidos por un método de clustering es medir el nivel de exactitud de éste a la hora de predecir las etiquetas del conjunto $X$. Esto normalmente requiere que se especifique el número de clusters deseados igual al número de clases conocidas en $X$ ($K = K*$). Para medir la exactitud se emplean métodos como \textit{Rand index} \cite{Rand:1971}.
 
 El trabajo de Wagstaff y Cardie \cite{WagstaffCardie:2000}, en el que generaban las restricciones de la manera descrita anteriormente, demostraba que, cuando se realiza un promedio de la exactitud de las predicciones obtenidas con algoritmos de clustering con restricciones, variando estas últimas entre experimentos, se obtienen resultados hasta un 20\% mejores que con las técnicas clásicas.
 
@@ -219,9 +219,9 @@ El trabajo de Wagstaff y Cardie \cite{WagstaffCardie:2000}, en el que generaban 
 	
 \end{observacion}
 
-Esta regla, sin embargo, no es cierta en todos los casos, pues en conjuntos de datos como \textit{Tic-Tac-Toe Endgame}, no se consigue ningún incremento en las predicciones sea cual sea el número de restricciones empleadas. La explicación dada por los autores citados para estas excepciones se basa en que establecer $k = k*$ no es apropiado en este caso.
+Esta regla, sin embargo, no es cierta en todos los casos, pues en conjuntos de datos como \textit{Tic-Tac-Toe Endgame}, no se consigue ningún incremento en las predicciones sea cual sea el número de restricciones empleadas. La explicación dada por los autores citados para estas excepciones se basa en que establecer $K = K*$ no es apropiado en este caso.
 
-El otro beneficio que reporta el uso de restricciones es la posibilidad de obtener clusters con la geometría deseada, como el ejemplo de aplicar clustering a datos \acs{GPS}, analizado en la sección \ref{EjemploGPS} de este trabajo.
+El otro beneficio que reporta el uso de restricciones es la posibilidad de obtener clusters con la geometría deseada, como el ejemplo de aplicar clustering a datos \acs{GPS}, analizado en la Sección \ref{EjemploGPS} de este trabajo.
 
 \section{Problemas del uso de restricciones} \label{Problemas}
 
@@ -229,11 +229,11 @@ Aunque, tal y como hemos comprobado, la incorporación de restricciones a los m�
 
 \subsection{El problema de la factibilidad}
 
-La introducción de restricciones en el clustering cambia el problema al que éste da solución, que pasa a ser: \textit{Encontrar la mejor partición que satisfaga todas las restricciones}. De esta manera, si aquellas no están bien especificadas o si los métodos de extracción son inadecuados, podemos encontrar que las restricciones se contradicen, lo que deriva en que no existe una asignación de instancias a clusters que las satisfaga todas. Por ejemplo, no existe asignación que satisfaga las restricciones $ML(x_1,x_2)$ y $CL(x_1,x_2)$, independientemente del valor de $k$. Lo mismo sucede para $k = 2$, y las restricciones $CL(x_1, x_2)$, $CL(x_2, x_3)$ y $CL(x_1, x_3)$. Formalizando, el problema de la factibilidad para problemas de clustering (no jerárquico) con restricciones viene definido por:
+La introducción de restricciones en el clustering cambia el problema al que éste da solución, que pasa a ser: \textit{Encontrar la mejor partición que satisfaga todas las restricciones}. De esta manera, si aquellas no están bien especificadas o si los métodos de extracción son inadecuados, podemos encontrar que las restricciones se contradicen, lo que deriva en que no existe una asignación de instancias a clusters que las satisfaga todas. Por ejemplo, no existe asignación que satisfaga las restricciones $ML(x_1,x_2)$ y $CL(x_1,x_2)$, independientemente del valor de $K$. Lo mismo sucede para $K = 2$, y las restricciones $CL(x_1, x_2)$, $CL(x_2, x_3)$ y $CL(x_1, x_3)$. Formalizando, el problema de la factibilidad para problemas de clustering (no jerárquico) con restricciones viene definido por:
 
 \begin{definicion}
 	
-	\textbf{Problema de la factibilidad para clustering con restricciones:} Dado un conjunto de datos $X$, un conjunto de restricciones $R$, un umbral superior $K_l$ y un umbral superior $K_u$ para el número de clusters resultantes, ¿Existe una partición de $X$ en bloques tal que $K_l \le k \le K_u$ y todas las restricciones en $R$ se satisfacen? \cite{DavidsonRavi:2005a} \cite{Survey:2007}
+	\textbf{Problema de la factibilidad para clustering con restricciones:} Dado un conjunto de datos $X$, un conjunto de restricciones $R$, un umbral superior $K_l$ y un umbral superior $K_u$ para el número de clusters resultantes, ¿Existe una partición de $X$ en bloques tal que $K_l \le K \le K_u$ y todas las restricciones en $R$ se satisfacen? \cite{DavidsonRavi:2005a} \cite{Survey:2007}
 	
 \end{definicion}
 
@@ -275,11 +275,11 @@ Tal y como queda reflejado en la Tabla \ref{tab:tabla1}, la utilización de rest
 	
 \end{observacion} 
 
-Los autores Wagstaff \cite{Wagstaff:2002} y Davidson y Ravi \cite{DavidsonRavi:2007} muestran que aun especificando el número de clusters de salida igual al de clases verdaderas ($k = k*$), cosa que garantiza que existe una solución factible, algoritmos simples como la adaptación de K-medias (\acs{KM}, apéndice \ref{ap:kmeans}) al clustering con restricciones (\textit{COP-K-means} \cite{Wagstaff:2001b}, sección \ref{copkm}), pueden no converger debido al problema de la factibilidad.
+Los autores Wagstaff \cite{Wagstaff:2002} y Davidson y Ravi \cite{DavidsonRavi:2007} muestran que aun especificando el número de clusters de salida igual al de clases verdaderas ($K = K*$), cosa que garantiza que existe una solución factible, algoritmos simples como la adaptación de K-medias (\acs{KM}, Apéndice \ref{ap:kmeans}) al clustering con restricciones (\textit{COP-K-means} \cite{Wagstaff:2001b}, Sección \ref{copkm}), pueden no converger debido al problema de la factibilidad.
 
 \subsection{El problema de la utilidad de conjuntos de restricciones} \label{ProbRestr}
 
-En el clustering con restricciones se asume que éstas son indicaciones que guían al algoritmo para encontrar la partición de los datos deseada. Entonces, está justificado pensar que, de cuanta más información adicional (restricciones) dispongamos, más cercano estará el resultado que obtengamos al que buscamos, tal y como la observación \ref{ob:observacion33} afirmaba. Sin embargo, y a pesar de lo dispuesto en dicha observación, existen casos en los que, aun generando las restricciones sin ruido y en base a las etiquetas verdaderas, existen conjuntos de restricciones que, lejos de mejorar los resultados, los empeoran considerablemente \cite{DavidsonRaviWagstaff:2006}. Esto parece estar en desacuerdo con la observación \ref{ob:observacion33}, sin embargo, recordemos que en ella se hace referencia al caso medio, y no a casos particulares.
+En el clustering con restricciones se asume que éstas son indicaciones que guían al algoritmo para encontrar la partición de los datos deseada. Entonces, está justificado pensar que, de cuanta más información adicional (restricciones) dispongamos, más cercano estará el resultado que obtengamos al que buscamos, tal y como la Observación \ref{ob:observacion33} afirmaba. Sin embargo, y a pesar de lo dispuesto en dicha observación, existen casos en los que, aun generando las restricciones sin ruido y en base a las etiquetas verdaderas, existen conjuntos de restricciones que, lejos de mejorar los resultados, los empeoran considerablemente \cite{DavidsonRaviWagstaff:2006}. Esto parece estar en desacuerdo con la Observación \ref{ob:observacion33}, sin embargo, recordemos que en ella se hace referencia al caso medio, y no a casos particulares.
 
 \begin{observacion}
 	
@@ -289,7 +289,7 @@ En el clustering con restricciones se asume que éstas son indicaciones que guí
 
 \subsection{Soluciones al problema de la factibilidad}
 
-El problema de la factibilidad puede ser abordado de varias maneras. La más inmediata quizá sea mantener el número de restricciones bajo, en proporción al número de instancias totales, para minimizar la probabilidad de que surjan inconsistencias. Sin embargo, no poder aumentar el número de restricciones si el problema lo requiere no es el escenario ideal. Por ello se debe poner interés en analizar cuando un problema pasa a estar sobrerestringido, ya que, como hemos estudiado en secciones anteriores de este trabajo (\ref{ProbRestr}), incluso generando las restricciones en base a las etiquetas verdaderas, algoritmos como COP-K-medias (sección \ref{copkm}) dejan de ser efectivos conforme aumenta el número de restricciones a satisfacer, incluso reiniciado de manera aleatoria el algoritmo varias veces.
+El problema de la factibilidad puede ser abordado de varias maneras. La más inmediata quizá sea mantener el número de restricciones bajo, en proporción al número de instancias totales, para minimizar la probabilidad de que surjan inconsistencias. Sin embargo, no poder aumentar el número de restricciones si el problema lo requiere no es el escenario ideal. Por ello se debe poner interés en analizar cuando un problema pasa a estar sobrerestringido, ya que, como hemos estudiamos en la Sección \ref{ProbRestr}, incluso generando las restricciones en base a las etiquetas verdaderas, algoritmos como COP-K-medias (Sección \ref{copkm}) dejan de ser efectivos conforme aumenta el número de restricciones a satisfacer, incluso reiniciado de manera aleatoria el algoritmo varias veces.
 
 El fenómeno de la sobrerestricción de problemas mediante el uso de restricciones \acf{CL} está íntimamente relacionado con el problema del coloreado de grafos; de hecho, ha sido demostrado que éste es equivalente al problema del clustering con restricciones \acs{CL} \cite{DavidsonRavi:2006}. Así, encontramos que resolver un problema con restricciones \acs{CL} mediante algoritmos como COP-K-medias es, a efectos prácticos, resolver el problema del coloreado de grafos.
 
@@ -299,22 +299,22 @@ El fenómeno de la sobrerestricción de problemas mediante el uso de restriccion
 	
 \end{observacion}
 
-Este resultado permite trasladar muchas de las propiedades del problema del coloreado de grafos al problema de clustering con restricciones. Por ejemplo, el teorema de Brook establece que el coloreado de grafos es sencillo cuando el número de colores disponibles ($k$ en nuestro caso), es mayor que el máximo grado del grafo. 
+Este resultado permite trasladar muchas de las propiedades del problema del coloreado de grafos al problema de clustering con restricciones. Por ejemplo, el teorema de Brook establece que el coloreado de grafos es sencillo cuando el número de colores disponibles ($K$ en nuestro caso), es mayor que el máximo grado del grafo. 
 
 \begin{observacion}
 	
 	\textbf{El teorema de Brook es aplicable al problema del clustering con restricciones.}
-	Si $ k > $ (Mayor número de restricciones \acs{CL} sobre una instancia), entonces siempre existirá una partición factible. \cite{Survey:2007} \label{ob:observacion37}
+	Si $ K > $ (Mayor número de restricciones \acs{CL} sobre una instancia), entonces siempre existirá una partición factible. \cite{Survey:2007} \label{ob:observacion37}
 	
 \end{observacion}
 
-Con esto, y aunque la observación \ref{ob:observacion34} indique lo contrario, cuando el problema del clustering cumple la condición expuesta en la observación \ref{ob:observacion37}, podemos garantizar que siempre se encontrará una solución al problema en tiempo polinómico. Para asegurar la condición de Brook, es posible construir el conjunto de restricciones de manera que ninguna instancia tome partido en más de $k$ restricciones \acf{CL}. \cite{DavidsonRavi:2006}
+Con esto, y aunque la Observación \ref{ob:observacion34} indique lo contrario, cuando el problema del clustering cumple la condición expuesta en la Observación \ref{ob:observacion37}, podemos garantizar que siempre se encontrará una solución al problema en tiempo polinómico. Para asegurar la condición de Brook, es posible construir el conjunto de restricciones de manera que ninguna instancia tome partido en más de $K$ restricciones \acf{CL}. \cite{DavidsonRavi:2006}
 
 \subsection{Soluciones al problema de la utilidad de conjuntos de restricciones}
 
 La solución al problema es simple: identificar aquellos conjuntos de restricciones verdaderamente útiles. Sin embargo, esto involucra aplicar algún tipo de métrica que permita evaluar cuándo un conjunto de restricciones dado cumple esta condición. A tal fin, Davidson, Wagstaff y Basu propusieron dos medidas: informatividad y coherencia.\\
 
-La \textbf{informatividad} es una medida referida a la cantidad de información presente en el conjunto de restricciones que el algoritmo no puede determinar por sí mismo. Por ejemplo, en la Figura \ref{fig:figure16}, un algoritmo como COP-K-medias (sección \ref{copkm}) se vería inclinado a agrupar instancias cercanas en el espacio y colocar en clusters separados aquellas que se encuentren lejanas; sin embargo, las restricciones sesgan el espacio de soluciones evitando que esto suceda. 
+La \textbf{informatividad} es una medida referida a la cantidad de información presente en el conjunto de restricciones que el algoritmo no puede determinar por sí mismo. Por ejemplo, en la Figura \ref{fig:figure16}, un algoritmo como COP-K-medias (Sección \ref{copkm}) se vería inclinado a agrupar instancias cercanas en el espacio y colocar en clusters separados aquellas que se encuentren lejanas; sin embargo, las restricciones sesgan el espacio de soluciones evitando que esto suceda. 
 
 \begin{figure}[!h]
 	\centering

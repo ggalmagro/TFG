@@ -2,16 +2,16 @@
 % Appendix
 \chapter{El algoritmo k-medias}\label{ap:kmeans}
 
-El algoritmo \acf{KM} es el método básico para aplicar clustering, fue ideado por  Hugo Steinhaus en 1957, aunque no fue aplicado a un caso real hasta 1967, por James MacQueen \cite{KMEANS:1967}. 
+El algoritmo \acf{KM} es uno de los métodos más básicos para aplicar clustering. Fue ideado por  Hugo Steinhaus en 1957, aunque no fue aplicado a un caso real hasta 1967, por James MacQueen \cite{KMEANS:1967}. 
 
-El procedimiento que aplica K-medias es simple: asignar cada instancia al cluster cuyo centroide se encuentre mas cercano a ella, y calcular los centroides en base a las instancias asignadas al cluster asociado a cada uno. De esta manera, siguiendo la notación introducida en la sección \ref{ch:Algoritmos}, la regla de actualización de los centroides es:
+El procedimiento que aplica K-medias es simple: asignar cada instancia al cluster cuyo centroide se encuentre más cercano a ella, y calcular los centroides en base a las instancias asignadas al cluster asociado al mismo. De esta manera, siguiendo la notación introducida en la sección \ref{ch:Algoritmos}, la regla de actualización de los centroides es:
 
 \begin{equation}
 v_i = \frac{1}{|c_i|} \sum_{x_i \in c_i} x_i
 \label{a1}
 \end{equation}
 
-Así, si cada instancia se asigna al cluster correspondiente al centroide mas cercano, la función de error que minimiza K-medias es:
+Así, si cada instancia se asigna al cluster correspondiente al centroide más cercano, la función de error que minimiza K-medias es:
 
 \begin{equation}
 ERR = \frac{1}{2} \sum_{j = i}^{k} \sum_{x_i \in c_i} (v_j - x_i)^2

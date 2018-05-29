@@ -67,7 +67,7 @@
 
 \chapter{Implementación}\label{ch:Impl}
 
-El objetivo de esta sección es dar una visión general de los métodos y herramientas empleadas para la implementación de los algoritmos expuestos en la sección \ref{ch:Algoritmos}, así como servir de guía para su utilización. Para ello tomamos como referencia la implementación de estos métodos en Matlab, resultado de un trabajo colaborativo en el que participan varios de los autores citados en este trabajo (citar github).
+El objetivo de esta sección es dar una visión general de los métodos y herramientas empleadas para la implementación de los algoritmos expuestos en la Sección \ref{ch:Algoritmos}, así como servir de guía para su utilización. Para ello tomamos como referencia la implementación de estos métodos en Matlab, resultado de un trabajo colaborativo en el que participan varios de los autores citados en este trabajo (citar github).
 
 \section{Entorno de desarrollo}
 
@@ -93,9 +93,9 @@ Por último, y aunque no sea estrictamente necesaria para la implementación, em
 
 \section{Funcionalidades desarrolladas}
 
-Uno de los objetivos de este trabajo es poner a disposición de la comunidad algunos de los métodos de clustering con restricciones que existen en la actualidad. A continuación se ofrece la documentación de los métodos implementados:
+Uno de los objetivos de este trabajo es poner a disposición de la comunidad algunos de los métodos de clustering con restricciones que existen en la actualidad. A continuación se ofrece la documentación de los métodos implementados.
 
-\subsection{Función para generar restricciones}
+\subsection{Función para generar restricciones} \label{genConst}
 
 La función \texttt{gen\_rand\_const} crea un conjunto de restricciones en base a un conjunto de datos. La función que sigue para ello es simple, basta con seleccionar de forma aleatoria dos instancias y establecer una restricción de tipo \acs{ML} o \acs{CL} en función de si las instancias pertenecen o no a la misma clase. Dado que el método necesita como argumento las etiquetas (un oráculo) puede no ser de utilidad en un caso real, en el que no conozcamos la clase a la que pertenece cada objeto; sin embargo es válido para realizar experimentos. A continuación se muestra el prototipo del método:
 
@@ -124,7 +124,7 @@ La función devuelve una matriz de $n \times n$ que contiene \texttt{nb\_const} 
 
 \subsection{Función para aplicar COP-K-Medias}
 
-La función \texttt{COPKM} es la encargada de aplicar el algoritmo COP-k-medias (sección \ref{copkm}) a un conjunto de datos dado. La implementación de esta función esta basada en el trabajo de Behrouz Babaki \cite{behrouz}. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
+La función \texttt{COPKM} es la encargada de aplicar el algoritmo COP-k-medias (Sección \ref{copkm}) a un conjunto de datos dado. La implementación de esta función esta basada en el trabajo de Behrouz Babaki \cite{Behrouz:2017}. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \COPK{code.py}
 
@@ -148,7 +148,7 @@ La función devuelve la lista de longitud $n$ que indica la pertenencia de cada 
 
 \subsection{Función para aplicar CEKM}
 
-La función \texttt{CEKM} aplica el algoritmo \acs{CEKM} (sección \ref{cekm}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
+La función \texttt{CEKM} aplica el algoritmo \acs{CEKM} (Sección \ref{cekm}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \CECM{code.py}
 
@@ -174,11 +174,11 @@ La función \texttt{CEKM} aplica el algoritmo \acs{CEKM} (sección \ref{cekm}) a
 	
 \end{itemize}
 
-La función devuelve la partición difusa resultado de aplicar la función $BetP(c)$ (ecuación \ref{eqn7}) a la partición de creencia, los centroides $V$, la matriz que contiene los valores de la función de masa $M$, y el valor de la función $J_{CEKM}$.
+La función devuelve la partición difusa resultado de aplicar la función $BetP(c)$ (Ecuación \ref{eqn7}) a la partición de creencia, los centroides $V$, la matriz que contiene los valores de la función de masa $M$, y el valor de la función $J_{CEKM}$.
 
 \subsection{Función para aplicar LCVQE}
 
-La función \texttt{LCVQE} es la encargada de aplicar el algoritmo \acs{LCVQE} (sección \ref{lcvqe}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
+La función \texttt{LCVQE} es la encargada de aplicar el algoritmo \acs{LCVQE} (Sección \ref{lcvqe}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \LCVQE{code.py}
 
@@ -200,7 +200,7 @@ La función devuelve la lista de longitud $n$ que indica la pertenencia de cada 
 
 \subsection{Función para aplicar RDPM}
 
-La función \texttt{RDPM} es la encargada de aplicar el algoritmo \acs{RDPM} (sección \ref{rdpmYtvc}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
+La función \texttt{RDPM} es la encargada de aplicar el algoritmo \acs{RDPM} (Sección \ref{rdpmYtvc}) a un conjunto de datos dado. A continuación se muestra el prototipo de la función y se detallan sus parámetros:
 
 \RDPM{code.py}
 
@@ -214,9 +214,9 @@ La función \texttt{RDPM} es la encargada de aplicar el algoritmo \acs{RDPM} (se
 	
 	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
 	
-	\item \textbf{\texttt{xi\_0}} {$\longrightarrow$ parámetro $\xi_0$ del algoritmo \ref{alg:rdpm}, controla el compromiso entre el peso de el conjunto de datos y el de el conjunto de restricciones.}
+	\item \textbf{\texttt{xi\_0}} {$\longrightarrow$ parámetro $\xi_0$ del Algoritmo \ref{alg:rdpm}, controla el compromiso entre el peso de el conjunto de datos y el de el conjunto de restricciones.}
 	
-	\item \textbf{\texttt{xi\_rate}} {$\longrightarrow$ parámetro $\xi_{rate}$ del algoritmo \ref{alg:rdpm}, controla el ratio de incremento de $\xi_0$.}
+	\item \textbf{\texttt{xi\_rate}} {$\longrightarrow$ parámetro $\xi_{rate}$ del Algoritmo \ref{alg:rdpm}, controla el ratio de incremento de $\xi_0$.}
 	
 \end{itemize}
 
@@ -238,7 +238,7 @@ La función devuelve la lista de longitud $n$ que indica la pertenencia de cada 
 	
 	\item \textbf{\texttt{is\_keep\_l}} {$\longrightarrow$ booleano que indica si se debe o no monitorizar la métrica de convergencia.}
 	
-	\item \textbf{\texttt{alpha}} {$\longrightarrow$ parámetro $\alpha$ involucrado en el Proceso de Dirichlet (para mas detalles consultar sección \ref{rdpmYtvc}).}
+	\item \textbf{\texttt{alpha}} {$\longrightarrow$ parámetro $\alpha$ involucrado en el Proceso de Dirichlet (para más detalles consultar Sección \ref{rdpmYtvc}).}
 	
 	\item \textbf{\texttt{stop\_thr}} {$\longrightarrow$ umbral por debajo del cual la mejora en la función objetivo de \acs{TVClust} no se considera significativa y se detiene el proceso de iteración.}
 	
