@@ -73,23 +73,21 @@ El objetivo de esta sección es dar una visión general de los métodos y herram
 
 Para la implementación es esencial disponer de un entorno de desarrollo que permita manejar de manera eficiente los múltiples archivos que contendrán el código. De igual forma debemos disponer de herramientas de depuración de fácil uso. Por ello el entorno recomendado es PyCharm, desarrollado por la empresa JetBrains.
 
-PyCharm ofrece multitud de herramientas que hacen de desarrollo de grandes cantidades de código una tarea asequible, ayudándonos a seguir el estándar de programación de Python y poniendo a nuestra disposición un depurador de código completo.
+PyCharm ofrece multitud de herramientas que hacen el desarrollo de grandes cantidades de código una tarea asequible, ayudándonos a seguir el estándar de programación de Python y poniendo a nuestra disposición un depurador de código completo.
 
 \section{Bibliotecas empleadas en el desarrollo}
 
-(Incluir referencias para todas las bibliotecas)
-
 Para la implementación de las funcionalidades será necesario hacer uso de algunas bibliotecas de Python que nos permitan realizar cálculos y procedimientos básicos de forma sencilla.
 
-Como no podía ser de otra manera, haremos uso de Numpy, una de las bibliotecas más completas y  básicas de Python. Numpy nos permite trabajar con matrices de manera eficiente, lo que es esencial para trabajar con grandes cantidades de datos que, a menudo, viene especificados en forma de matriz. Numpy integra operaciones con matrices, como la suma, la resta o la multiplicación y el cálculo de la inversa o del determinante de manera sencilla.
+Como no podía ser de otra manera, haremos uso de \texttt{NumPy}, una de las bibliotecas más completas y  extendidas de Python. \texttt{NumPy} nos permite trabajar con matrices de manera eficiente, lo que es esencial para trabajar con grandes cantidades de datos que, a menudo, viene especificados en forma de matriz. \texttt{NumPy} integra operaciones con matrices, como la suma, la resta o la multiplicación y el cálculo de la inversa o del determinante de manera sencilla.
 
-Emplearemos también la biblioteca math, que pone a nuestra disposición multitud de operaciones que no viene definidas en el lenguaje, como pueden ser el cálculo del factorial o el logaritmo.
+Emplearemos también la biblioteca \texttt{math}, que pone a nuestra disposición multitud de operaciones que no viene definidas en el lenguaje, como pueden ser el cálculo del factorial o el logaritmo.
 
-La biblioteca Scipy es una de las bibliotecas para Python que integra métodos numéricos. Scipy ofrece una API sencilla de usar para el usuario, con funcionalidades como el cálculo de distintas medidas de distancia en un espacio dado, o el de funciones complejas. Un ejemplo de estas últimas pueden ser: el valor absoluto del logaritmo de la función Gamma para entradas reales (\texttt{gammaln}), o el de la derivada logarítmica de la función Gamma (\texttt{digamma}), cálculos necesarios para la implementación de algunos métodos.
+La biblioteca \texttt{SciPy} es una de las bibliotecas para Python que integra métodos numéricos. \texttt{SciPy} ofrece una API sencilla de usar para el usuario, con funcionalidades como el cálculo de distintas medidas de distancia en un espacio dado, o el de funciones complejas. Un ejemplo de estas últimas pueden ser: el valor absoluto del logaritmo de la función Gamma para entradas reales (\texttt{gammaln}), o el de la derivada logarítmica de la función Gamma (\texttt{digamma}), cálculos necesarios para la implementación de algunos métodos.
 
-Otra de las bibliotecas que podemos encontrar de utilidad para el desarrollo puede ser scikit-learn, una de las más ampliamente usadas por la comunidad para el desarrollo de aplicaciones de aprendizaje automático de cualquier tipo. Scikit-learn pone a nuestra disposición métodos clásicos, como \acf{KM}, o \acf{FKM}, que a menudo se emplean como métodos de inicialización en funcionalidades más complejas.
+Otra de las bibliotecas que podemos encontrar de utilidad para el desarrollo puede ser \texttt{scikit-learn}, una de las más ampliamente usadas por la comunidad para el desarrollo de aplicaciones de aprendizaje automático de cualquier tipo. Scikit-learn pone a nuestra disposición métodos clásicos, como \acf{KM}, o \acf{FKM}, que a menudo se emplean como métodos de inicialización en funcionalidades más complejas.
 
-Por último, y aunque no sea estrictamente necesaria para la implementación, emplearemos la biblioteca matplotlib para obtener representaciones de los resultados obtenidos con los métodos implementados. Matplotlib permite un alto nivel de personalización en representaciones, haciendo posible incluir toda la información que sea necesaria para su comprensión. 
+Por último, y aunque no sea estrictamente necesaria para la implementación, emplearemos la biblioteca \texttt{Matplotlib} para obtener representaciones de los resultados obtenidos con los métodos implementados. \texttt{Matplotlib} permite un alto nivel de personalización en representaciones, haciendo posible incluir toda la información que sea necesaria para su comprensión. 
 
 \section{Funcionalidades desarrolladas}
 
@@ -97,7 +95,7 @@ Uno de los objetivos de este trabajo es poner a disposición de la comunidad alg
 
 \subsection{Función para generar restricciones} \label{genConst}
 
-La función \texttt{gen\_rand\_const} crea un conjunto de restricciones en base a un conjunto de datos. La función que sigue para ello es simple, basta con seleccionar de forma aleatoria dos instancias y establecer una restricción de tipo \acs{ML} o \acs{CL} en función de si las instancias pertenecen o no a la misma clase. Dado que el método necesita como argumento las etiquetas (un oráculo) puede no ser de utilidad en un caso real, en el que no conozcamos la clase a la que pertenece cada objeto; sin embargo es válido para realizar experimentos. A continuación se muestra el prototipo del método:
+La función \texttt{gen\_rand\_const} crea un conjunto de restricciones en base a un conjunto de datos. La función que sigue para ello es simple: basta con seleccionar de forma aleatoria dos instancias y establecer una restricción de tipo \acs{ML} o \acs{CL} en función de si las instancias pertenecen o no a la misma clase. Dado que el método necesita como argumento las etiquetas (un oráculo), puede no ser de utilidad en un caso real en el que no conozcamos la clase a la que pertenece cada objeto; sin embargo es válido para realizar experimentos. A continuación se muestra el prototipo del método:
 
 
 \MakeConst{code.py}
@@ -120,7 +118,7 @@ Los parámetros de la función se detallan a continuación:
 
 \end{itemize}
 
-La función devuelve una matriz de $n \times n$ que contiene \texttt{nb\_const} nuevas restricciones. Cada elemento de la matriz indica si existe una restricción entre dos instancias y de que tipo es, esto es, $0$ indica que no existe restricción, $1$ indica que existe una de tipo \acs{ML}, y $-1$ una de tipo \acs{CL}.
+La función devuelve una matriz de $n \times n$ que contiene \texttt{nb\_const} nuevas restricciones. Cada elemento de la matriz indica si existe una restricción entre dos instancias y de qué tipo es, esto es, $0$ indica que no existe restricción, $1$ indica que existe una de tipo \acs{ML}, y $-1$ una de tipo \acs{CL}.
 
 \subsection{Función para aplicar COP-K-Medias}
 
@@ -214,7 +212,7 @@ La función \texttt{RDPM} es la encargada de aplicar el algoritmo \acs{RDPM} (Se
 	
 	\item \textbf{\texttt{max\_iter}} {$\longrightarrow$ límite de iteraciones para el algoritmo}
 	
-	\item \textbf{\texttt{xi\_0}} {$\longrightarrow$ parámetro $\xi_0$ del Algoritmo \ref{alg:rdpm}, controla el compromiso entre el peso de el conjunto de datos y el de el conjunto de restricciones.}
+	\item \textbf{\texttt{xi\_0}} {$\longrightarrow$ parámetro $\xi_0$ del Algoritmo \ref{alg:rdpm}, controla el compromiso entre el peso del conjunto de datos y el del conjunto de restricciones.}
 	
 	\item \textbf{\texttt{xi\_rate}} {$\longrightarrow$ parámetro $\xi_{rate}$ del Algoritmo \ref{alg:rdpm}, controla el ratio de incremento de $\xi_0$.}
 	

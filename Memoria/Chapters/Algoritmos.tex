@@ -164,10 +164,10 @@ Para ilustrar estas ideas se propone el siguiente ejemplo: consideramos un conju
 		\hline
 		\rowcolor{gray!50}
 		\textbf{$A$} & \textbf{$m_1(A)$} & \textbf{$m_2(A)$} & \textbf{$m_3(A)$} & \textbf{$m_4(A)$} \\
-		$\emptyset$ & 0 & 0 & 0 & 1 \\
-		$\{c_1\}$ & 1 & 0 & 0.3 & 0 \\
-		$\{c_2\}$ & 0 & 0 & 0.7 & 0 \\
-		$C$ & 0 & 1 & 0 & 0 \\
+		$\emptyset$ & $0$ & $0$ & $0$ & $1$ \\
+		$\{c_1\}$ & $1$ & $0$ & $0.3$ & $0$ \\
+		$\{c_2\}$ & $0$ & $0$ & $0.7$ & $0$ \\
+		$C$ & $0$ & $1$ & $0$ & $0$ \\
 		\hline
 		
 	\end{tabular}
@@ -604,7 +604,7 @@ Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de 
 
 \section{Relational Dirichlet Process - Means (RDP - Means)} \label{rdpmYtvc}
 
-Tomamos como referencia principal el trabajo de Daniel Khashabi et al. (2015) \cite{RDPM:2015}. En él, los autores incorporan las restricciones desde una perspectiva distinta a las anteriores. Así, modelan el conjunto de instancias y el conjunto de restricciones de manera diferente, es por ello que llaman \acf{TVClust} al método base para \acf{RDPM}.
+Tomamos como referencia principal el trabajo de Daniel Khashabi et al. (2015) \cite{RDPM:2015}. En él, los autores incorporan las restricciones desde una perspectiva distinta a las anteriores. Así, modelan el conjunto de instancias y el conjunto de restricciones de manera diferente; es por ello que llaman \acf{TVClust} al método base para \acf{RDPM}.
 
 Para ser más específicos, \acs{TVClust} combina una mezcla de Procesos de Dirichlet, aplicados sobre el conjunto de instancias, y una interpretación del conjunto de restricciones que las considera como un grafo aleatorio. Además, los autores derivan este modelo, basándose en el algoritmo \acf{DPM} \cite{DPM:2012} combinado con el modelo de las restricciones, para obtener un algoritmo determinista que incorpora las mismas a \acs{DPM}, esto es, el algoritmo \acf{RDPM}.
 
@@ -718,7 +718,7 @@ Retomando la analogía del restaurante chino, podemos interpretar la distribuci�
 
 Tal y como hemos visto, los valores $p$ y $q$ representan la credibilidad de las restricciones, esto es, el nivel de confianza en que son correctas. Para representar un grado de confianza alto generalmente estableceremos que $p > 1 - q$. Con esto, y tomando en consideración la Ecuación \ref{eqn51}, la probabilidad de que una persona sea asignada a una mesa no sólo aumenta con la popularidad de la misma, sino que también lo hace con el número de amigos de la instancia en la mesa ($f_{i}^k$) y disminuye con el número de desconocidos ($s_{i}^k$).
 
-Una mejora aplicable al modelo consiste en modificar la regla de actualización del conjunto de parámetros $ \{\theta_1, \cdots, \theta_n\}$, de manera que, en lugar de actualizar los paramétros particulares de cada instancia de manera secuencial, se actualiza un conjunto de parámetros asociados a los clusters $\{\theta_i^*, \cdots, \theta_K^*\}$, así como los indicadores de asignación de instancias a clusters (las etiquetas) $\{z_i, \cdots, z_n\}$ donde $z_i\in \{1, \cdots, K\}$ indica el cluster al que esta asignado la instancia $i$. Entonces la nueva regla de actualización es:
+Una mejora aplicable al modelo consiste en modificar la regla de actualización del conjunto de parámetros $ \{\theta_1, \cdots, \theta_n\}$, de manera que, en lugar de actualizar los parámetros particulares de cada instancia de manera secuencial, se actualiza un conjunto de parámetros asociados a los clusters $\{\theta_i^*, \cdots, \theta_K^*\}$, así como los indicadores de asignación de instancias a clusters (las etiquetas) $\{z_i, \cdots, z_n\}$ donde $z_i\in \{1, \cdots, K\}$ indica el cluster al que esta asignado la instancia $i$. Entonces la nueva regla de actualización es:
 
 \begin{equation}
 \begin{cases}
@@ -813,7 +813,7 @@ p(z_i = k_{nuevo}) \varpropto \alpha \int \widetilde{p}(x_i|\theta)\widetilde{p}
 \label{eqn57}
 \end{equation}
 
-Siguiendo el proceso de cálculo y simplificación detallado en le trabajo de Daniel Khashabi et al. (2015) \cite{RDPM:2015}, podemos transformar la Ecuación \ref{eqn57} en:
+Siguiendo el proceso de cálculo y simplificación detallado en el trabajo de Daniel Khashabi et al. (2015) \cite{RDPM:2015}, podemos transformar la Ecuación \ref{eqn57} en:
 
 \begin{equation}
 \begin{cases}
@@ -825,7 +825,7 @@ p(z_i = k_{nuevo}) \varpropto \nu(x_i; \tau, \eta, \gamma) exp(-\gamma \lambda)
 
 Donde $\xi_1 = ln\left(\frac{p}{1-q}\right)$ y $\xi_2 = ln\left(\frac{q}{1-p}\right)$, esto es, $\xi_1$ y $\xi_2$ representan, respectivamente, la probabilidad de que exista o no exista una restricción.
 
-Cuando $\gamma$ tiende a infinito, el muestreador de Gibbs degenera en un algoritmo determinista, en el que, en cada iteración, la asignación de $x_i$ a un cluster se determina comparando los $K+1$ valores descritos por:
+Cuando $\gamma$ tiende a infinito, el muestreador de Gibbs deriva en un algoritmo determinista, en el que, en cada iteración, la asignación de $x_i$ a un cluster se determina comparando los $K+1$ valores descritos por:
 
 \begin{equation}
 \{D_{\psi*}(x_i, \mu_1) - \xi_1 f_{1}^i  + \xi_2 s_{1}^i, \cdots, D_{\psi*}(x_i, \mu_K) - \xi_1 f_{K}^i + \xi_2 s_{K}^i, \;\; \lambda \}
@@ -836,14 +836,14 @@ Si el valor k-ésimo (con $k = 1, \cdots, K$) es el más pequeño, entonces $x_i
 
 \subsection{Muestreo de los parámetros de los clusters}
 
-Daniel Khashabi et al. (2015) \cite{RDPM:2015} demuestran que la función que muestrea los parámetros para los clusters es equivalente a una media de las instancias que estos contiene bajo las condiciones adecuadas, esto es, tomando $\gamma \rightarrow \infty$ y argumentos iguales para la divergencia de Bregman. De esta manera, la ecuación de actualización de los parámetros para los clusters es:
+Daniel Khashabi et al. (2015) \cite{RDPM:2015} demuestran que la función que muestrea los parámetros para los clusters es equivalente a una media de las instancias que éstos contienen bajo las condiciones adecuadas, esto es, tomando $\gamma \rightarrow \infty$ y argumentos iguales para la divergencia de Bregman. De esta manera, la ecuación de actualización de los parámetros para los clusters es:
 
 \begin{equation}
 \mu_k = \frac{1}{n_k} \sum_{i:z_i = k} x_i
 \label{eqn61}
 \end{equation}
 
-Ésto completa el algoritmo \acf{RDPM}, podemos resumir el proceso de cálculo que este lleva a cabo en el Algoritmo \ref{alg:rdpm}:
+Esto completa el algoritmo \acf{RDPM}; podemos resumir el proceso de cálculo que éste lleva a cabo en el Algoritmo \ref{alg:rdpm}:
 
 \subsection{Función objetivo de RDP-means}
 
@@ -862,9 +862,9 @@ Daniel Khashabi et al. (2015) \cite{RDPM:2015} demuestran que la función que mu
 
 \subsection{Efectos de los cambios sobre $\xi_1$ y $\xi_2$}
 
-Tomando $\xi_1, \xi_2 \rightarrow 0$, el algoritmo \acs{RDPM} se comporta de manera idéntica a \acs{DPM}, esto es, no se tiene en consideración la información proporcionada por las restricciones. Por otra parte, si $\xi_1, \xi_2 \rightarrow \infty$ se pone todo el peso en las restricciones y no se consideran las instancias para el proceso de clustering, en otras palabras, el conjunto de cluster se genera de acuerdo a la matriz $R$ unicamente. De manera similar, podemos escoger poner más peso en las restricciones \textit{may-link} sobre las \textit{may-not-link} estableciendo $\xi_1 > \xi_2$ y viceversa.
+Tomando $\xi_1, \xi_2 \rightarrow 0$, el algoritmo \acs{RDPM} se comporta de manera idéntica a \acs{DPM}, esto es, no se tiene en consideración la información proporcionada por las restricciones. Por otra parte, si $\xi_1, \xi_2 \rightarrow \infty$ se pone todo el peso en las restricciones y no se consideran las instancias para el proceso de clustering; en otras palabras, el conjunto de cluster se genera de acuerdo a la matriz $R$ únicamente. De manera similar, podemos escoger poner más peso en las restricciones \textit{may-link} sobre las \textit{may-not-link} estableciendo $\xi_1 > \xi_2$ y viceversa.
 
-A pesar del control que $\xi_1$ y $\xi_2$ permiten sobre el proceso de clustering, la función objetivo de \acs{RDPM} (Ecuación \ref{eqn60}) posee un gran número de mínimos locales, y dado que el algoritmo la minimiza con un proceso \textit{greedy}, corremos el riesgo caer en un mínimo local. Los autores Daniel Khashabi et al. (2015) \cite{RDPM:2015} muestran experimentalmente que establecer $\xi_1 = \xi_2 = \xi$, con un valor pequeño para $\xi_0$, que se incrementará con el paso de las iteraciones en función de un ratio dado, proporciona mejores resultados que un esquema de libre configuración para $\xi_1$ y $\xi_2$.
+A pesar del control que $\xi_1$ y $\xi_2$ permiten sobre el proceso de clustering, la función objetivo de \acs{RDPM} (Ecuación \ref{eqn60}) posee un gran número de mínimos locales y, dado que el algoritmo la minimiza con un proceso \textit{greedy}, corremos el riesgo de caer en un mínimo local. Los autores Daniel Khashabi et al. (2015) \cite{RDPM:2015} muestran experimentalmente que establecer $\xi_1 = \xi_2 = \xi$, con un valor pequeño para $\xi_0$, que se incrementará con el paso de las iteraciones en función de un ratio dado, proporciona mejores resultados que un esquema de libre configuración para $\xi_1$ y $\xi_2$.
 
 \begin{algorithm}
 	\KwIn{Conjunto de datos $X$, matriz de restricciones $R$, parámetro de la divergencia de Bregman $\psi*$, los parámetros $\lambda$, $\xi_0$, y el ratio de incremento $\xi_{rate}$}

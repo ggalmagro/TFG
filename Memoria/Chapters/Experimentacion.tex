@@ -14,7 +14,7 @@ Consideraremos 4 conjuntos de datos correspondientes a casos reales de aplicaci�
 
 \begin{itemize}
 	
-	\item \textbf{Conjunto de datos \textit{Iris}}: el conjunto de datos Iris (\textit{Iris dataset}) es uno de los más empleados en \acs{AA}. Famoso por ser objeto del primer intento de aplicación de métodos de clustering por el biólogo Ronald Fisher en 1936, quien intentaba obtener un método para clasificar flores de la especie Iris en sus tres subespecies: \textit{iris setosa}, \textit{iris virginica} e \textit{iris versicolor}. Compuesto por un total de 150 muestras de 3 clases distintas, caracterizadas cada una por 4 atributos en el dominio de los números reales positivos, a saber: altura del sépalo, anchura del sépalo, altura del pétalo y anchura del pétalo.
+	\item \textbf{Conjunto de datos \textit{Iris}}: el conjunto de datos Iris (\textit{Iris dataset}) es uno de los más empleados en \acs{AA}. Famoso por ser objeto del primer intento de aplicación de métodos de clustering por el biólogo Ronald Fisher en 1936, quien intentaba obtener un método para clasificar flores de la especie Iris en sus tres subespecies: \textit{iris setosa}, \textit{iris virginica} e \textit{iris versicolor}. Compuesto por un total de 150 muestras de 3 clases distintas, caracterizadas cada una por 4 atributos en el dominio de los números reales positivos, a saber: altura del sépalo, anchura del sépalo, altura del pétalo y anchura del pétalo. Por facilidad de representación solo consideraremos las dos primeras características, la figura \ref{fig:figure27} muestra la distribución de las mismas.
 	
 	\item \textbf{Conjunto de datos \textit{Wine}}: el conjunto de datos Wine (\textit{Wine dataset}) recoge 178 muestras de 3 clases de vinos distintas, caracterizadas cada una por 13 atributos en el dominio de los números reales positivos. Algunos de estos atributos son: contenido de alcohol, contenido de ácido málico, contenido de magnesio, etc.
 	
@@ -22,7 +22,43 @@ Consideraremos 4 conjuntos de datos correspondientes a casos reales de aplicaci�
 	
 	\item \textbf{Conjunto de datos \textit{Glass}}: el conjunto de datos Glass (\textit{Glass dataset}) recoge 214 muestras de 6 clases de cristal distintas, caracterizadas cada una por 10 atributos en multitud de dominios. Algunos de estos atributos son: indice reactivo, contenido en magnesio, contenido en aluminio, finalidad de uso, etc.
 	
+	\item \textbf{Conjunto de datos \textit{Digits}}: el conjunto de datos Digits (\textit{Digits dataset}) recoge 1797 muestras de 10 clases de distintas, correspondientes a los dígitos manuscritos del 0 al 9. Cada muestra viene caracterizada por 64 atributos en el dominio de los enteros del 1 al 16.
+	
 \end{itemize}
+
+La tabla \ref{tab:tabla7} muestra de manera resumida las características de los estos 5 conjuntos de datos.
+
+\begin{table}[h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{0.8}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.5cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{5}{c}{\bf \color{white}{Conjuntos de datos reales}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Nombre} & \textbf{Muestras} & \textbf{Atributos} & \textbf{Clases} & \textbf{Dominio} \\
+		Iris & $150$ & $4$ & $3$ & $\mathbb{R}^+$ \\
+		Wine & $178$ & $13$ & $3$ & $\mathbb{R}^+$ \\
+		Breast Cancer & $569$ & $30$ & $2$ & $\mathbb{R}^+$ \\
+		Glass & $214$ & $10$ & $6$ & Variados \\
+		Digits & $1797$ & $64$ & $10$ & $\{0-16\}$ \\
+		\hline
+		
+	\end{tabular}
+	\caption{Características de los conjuntos de datos reales considerados}
+	\label{tab:tabla7}
+\end{table}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.32]{imagenes/c6/IrisSet}
+	\caption{Distribución de las dos primeras características de \textit{Iris Dataset}}\label{fig:figure27}
+\end{figure}
 
 \subsection{Conjuntos de datos artificiales}
 
@@ -64,8 +100,6 @@ Esta será la medida del error que emplearemos en todos los experimentos.
 
 Para generar las restricciones haremos uso de la función propuesta para ello en la Sección \ref{genConst}. La cantidad de restricciones viene definida como un porcentaje aplicado sobre el cardinal de conjunto de datos. Dicho porcentaje se especificará en la sección correspondiente al análisis de cada algoritmo. No obstante, podemos obtener una representación gráfica de las restricciones haciendo uso de las funcionalidades de la biblioteca Matplotlib, la Figura \ref{fig:figure23} muestra las restricciones generadas sobre los conjuntos de datos \textit{Rand Dataset} e \textit{Rand Dataset}, especificando que el número de restricciones debe ser un $30\%$ del total de los datos disponibles en cada caso.
 
-\clearpage
-
 \begin{figure}[bth]
 	\myfloatalign
 	\subfloat[\textit{Iris Dataset}]
@@ -83,7 +117,7 @@ Para generar las restricciones haremos uso de la función propuesta para ello en
 	\caption{Visualización de las restricciones.}\label{fig:figure23}
 \end{figure} 
 
-\section{Resultados de COP-K-Medias}
+\section{Resultados obtenidos con COP-K-Medias}
 
 La Tabla \ref{tab:tabla5} muestra los resultados obtenidos al aplicar el algoritmo COP-K-Medias (Sección \ref{copkm}) a los conjuntos de datos presentados en la Sección \ref{datasets}. En ella se indican: el valor para \textit{Rand Index}, el tiempo que tarda el algoritmo en proporcionar salida, y el porcentaje de restricciones \acs{ML} y \acs{CL}. El número de restricciones generado para cada conjunto de datos es un $10\%$ del total de datos disponibles en cada caso, por tanto la suma del porcentaje de restricciones de los dos tipos debe ser aproximadamente $0.1$.
 
@@ -91,7 +125,7 @@ La Tabla \ref{tab:tabla5} muestra los resultados obtenidos al aplicar el algorit
 	\centering
 	\setlength{\arrayrulewidth}{1mm}
 	\setlength{\tabcolsep}{10pt}
-	\renewcommand{\arraystretch}{1}
+	\renewcommand{\arraystretch}{0.75}
 	
 	\rowcolors{2}{gray!25}{white}
 	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{1.2cm}}
@@ -117,13 +151,13 @@ La Tabla \ref{tab:tabla5} muestra los resultados obtenidos al aplicar el algorit
 	\label{tab:tabla5}
 \end{table}
 
-De entre los resultados obtenidos destacan los asociados a los conjuntos de datos \textit{Glass Dataset} y \textit{Moons Dataset}. Encontramos que en ninguno de los dos casos el algoritmo COP-K-Medias es capaz de encontrar una solución factible, a pesar de que es seguro que esta existe, ya que las restricciones se generan en base a las etiquetas verdaderas. Esto es consecuencia directa de lo expuesto en la Observación \ref{ob:observacion34}, puesto que en la resolución del problema se emplean tanto restricciones de tipo \acs{ML} como \acs{CL}. Para obtener resultados para \textit{GlassDataset} y \textit{MoonsDataset} podemos aplicar la solución más simple propuesta en la sección \ref{problemaFactib}, esto es, suprimir las restricciones de tipo \acs{CL} y aumentar las de tipo \acs{ML}. La Tabla \ref{tab:tabla6} muestra los resultados con esta nueva configuración.
+De entre los resultados obtenidos destacan los asociados a los conjuntos de datos \textit{Glass Dataset} y \textit{Moons Dataset}. Encontramos que en ninguno de los dos casos el algoritmo COP-K-Medias es capaz de encontrar una solución factible, a pesar de que es seguro que esta existe, ya que las restricciones se generan en base a las etiquetas verdaderas. Esto es consecuencia directa de lo expuesto en la Observación \ref{ob:observacion34}, puesto que en la resolución del problema se emplean tanto restricciones de tipo \acs{ML} como \acs{CL}. Para obtener resultados para \textit{Glass Dataset} y \textit{Moons Dataset} podemos aplicar la solución más simple propuesta en la sección \ref{problemaFactib}, esto es, suprimir las restricciones de tipo \acs{CL} y aumentar las de tipo \acs{ML}. La Tabla \ref{tab:tabla6} muestra los resultados con esta nueva configuración.
 
 \begin{table}[!h]
 	\centering
 	\setlength{\arrayrulewidth}{1mm}
 	\setlength{\tabcolsep}{10pt}
-	\renewcommand{\arraystretch}{1}
+	\renewcommand{\arraystretch}{0.75}
 	
 	\rowcolors{2}{gray!25}{white}
 	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{1.2cm}}
@@ -156,17 +190,311 @@ Además de obtener los resultados numéricos podemos representar algunas de las 
 \begin{figure}[bth]
 	\myfloatalign
 	\subfloat[]
-	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/Iris01}}
+	{\includegraphics[width=.45\linewidth]{imagenes/c6/COPKM/Iris01}}
 	\subfloat[]
-	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/Rand01}}\\
+	{\includegraphics[width=.45\linewidth]{imagenes/c6/COPKM/Rand01}}\\
 	\subfloat[]
-	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/IrisSoloML}}
+	{\includegraphics[width=.45\linewidth]{imagenes/c6/COPKM/IrisSoloML}}
 	\subfloat[]
-	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/RandSoloMl}}\\
+	{\includegraphics[width=.45\linewidth]{imagenes/c6/COPKM/RandSoloMl}}\\
 	\caption{Visualización de los resultados de COP-K-Medias}\label{fig:figure24}
 \end{figure}
 
-\section{Resultados de CEKM}
+En la Figura \ref{fig:figure24} destacan las instancias del conjunto de datos \textit{Iris Dataset} que parecen estar dentro de un cluster distinto al que pertenecen. Es en estos casos en los que destaca la influencia de las restricciones en el proceso de asignación de instancias a clusters, el algoritmo K-Medias (Apéndice \ref{ap:kmeans}) nunca proporcionaría esta partición como resultado.
+
+\clearpage
+
+\section{Resultados obtenidos con CEKM}
+
+La Tabla \ref{tab:tabla8} muestra los resultados obtenidos al aplicar el algoritmo \acf{CEKM} (Sección \ref{cekm}) a los conjuntos de datos presentados en la Sección \ref{datasets}. Emplearemos un número de restricciones igual al $25\%$ del total de ejemplos disponibles para cada conjunto de datos.
+
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{0.9}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{3}{c}{\bf \color{white}{Resultados obtenidos con CEKM}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{RandIndex} & \textbf{Tiempo}  \\
+		Iris & $0.554$ & $9.567$  \\
+		Wine & $0.395$ & $14.48$  \\
+		Glass & NA & NA  \\
+		Breast Cancer & $0.491$ & $64.22$  \\
+		Digits & NA & NA  \\
+		Rand & $0.950$ & $9.411$  \\
+		Spirals & $0.061$ & $9.839$  \\
+		Circles & $-0.0030$ & $12.588$  \\
+		Moons & $0.247$ & $11.191$  \\
+		\hline
+		
+	\end{tabular}
+	\caption{Resultados obtenidos con \acs{CEKM}}
+	\label{tab:tabla8}
+\end{table}
+
+En ella destacan los resultados obtenidos para los conjuntos de datos \textit{Glass Dataset} y \textit{Breast Cancer Dataset}. El algoritmo \acs{CEKM} no es capaz de dar resultado para estos dos conjuntos de datos, debido a que las estructuras de memoria que lo soportan crecen de manera exponencial con $K$. La figura \ref{fig:figure25} muestra los resultados obtenidos con \acs{CEKM} para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}.
+
+\begin{figure}[bth]
+	\myfloatalign
+	\subfloat[Resultados para \textit{Iris Dataset}]
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/CEKM/CEKMIrisResult}}
+	\subfloat[Resultados para \textit{Rand Dataset}]
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/CEKM/CEKMRandResult}}
+	\caption{Visualización de los resultados de \acs{CEKM}}\label{fig:figure25}
+\end{figure}
+
+\clearpage
+
+\section{Resultados obtenidos con LCVQE}
+
+La Tabla \ref{tab:tabla8} muestra los resultados obtenidos al aplicar el algoritmo \acf{LCVQE} (Sección \ref{lcvqe}) a los conjuntos de datos presentados en la Sección \ref{datasets}. Daremos como parámetro para los centroides iniciales los calculados con el algoritmo K-Medias (Apéndice \ref{ap:kmeans}). Respecto al número de restricciones empleadas, será un $25\%$ del total de ejemplos disponibles para cada conjunto de datos.
+
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{0.9}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{3}{c}{\bf \color{white}{Resultados obtenidos con LCVQE}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{RandIndex} & \textbf{Tiempo}  \\
+		Iris & $0.663$ & $0.141$  \\
+		Wine & $0.390$ & $0.002$  \\
+		Glass & $0.197$ & $0.002$  \\
+		Breast Cancer & $0.616$ & $0.003$  \\
+		Digits & $0.680$ & $0.062$  \\
+		Rand & $0.989$ & $0.001$  \\
+		Spirals & $0.057$ & $0.002$  \\
+		Circles & $-0.003$ & $0.005$  \\
+		Moons & $0.215$ & $0.002$  \\
+		\hline
+		
+	\end{tabular}
+	\caption{Resultados obtenidos con \acs{LCVQE}}
+	\label{tab:tabla9}
+\end{table}
+
+De nuevo, podemos obtener una representación de algunos de los mejores resultados obtenidos con \acs{LCVQE}. La figura \ref{fig:figure26} muestra los resultados obtenidos con \acs{LCVQE} para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}. 
 
 
+\begin{figure}[bth]
+	\myfloatalign
+	\subfloat[Resultados para \textit{Iris Dataset}]
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/LCVQE/LCVQEIris}}
+	\subfloat[Resultados para \textit{Rand Dataset}]
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/LCVQE/LCVQERand}}
+	\caption{Visualización de los resultados de \acs{LCVQE}}\label{fig:figure26}
+\end{figure}
+
+\clearpage
+
+\section{Resultados obtenidos con RDP-Means}
+
+La Tabla \ref{tab:tabla10} muestra los resultados obtenidos al aplicar el algoritmo \acf{RDPM} (Sección \ref{rdpmYtvc}) a los conjuntos de datos presentados en la Sección \ref{datasets}. Para aplicar \acs{RDPM} es necesario especificar el parámetro $\lambda$, en este caso este parámetro se calcula de manera experimental y en base a las distancia medias entre instancias dentro del conjunto de datos. De igual forma que en el caso anterior, especificaremos el número de restricciones como un $25\%$ del total de ejemplos disponibles para cada conjunto de datos.
+
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{0.85}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1cm}>{\centering\arraybackslash}m{1cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{5}{c}{\bf \color{white}{Resultados obtenidos con RDPM}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{RandIndex} & \textbf{Tiempo} & \textbf{$\lambda$} & \textbf{$K_{out}$}  \\
+		Iris & $0.479$ & $0.508$ & $1.7$ & $3$ \\
+		Wine & $0.342$ & $0.598$ & $438.11$ & $3$ \\
+		Glass & $0.255$ & $0.785$ & $2.214$ & $6$ \\
+		Breast Cancer & $0.501$ & $14.096$ & $2833.35$ & $3$ \\
+		Digits & $0.665$ & $177.12$ & $44.14$ & $17$ \\
+		Rand & $0.98$ & $0.365$ & $4$ & $3$ \\
+		Spirals & $0.0147$ & $2.683$ & $13.83$ & $3$ \\
+		Circles & $-0.003$ & $1.27$ & $1.5$ & $2$  \\
+		Moons & $0.234$ & $1.563$ & $2$ & $2$ \\
+		\hline
+		
+	\end{tabular}
+	\caption{Resultados obtenidos con \acs{RDPM}}
+	\label{tab:tabla10}
+\end{table}
+
+En la Tabla \ref{tab:tabla10} la columna $K_{out}$ representa el número de clases de la partición de salida proporcionada por \acs{LCVQE}. Podemos estudiar la influencia del parámetro $\lambda$ sobre este resultado, para ello ejecutamos el algoritmo especificando en cada cas un $\lambda$ mayor. La Tabla \ref{tab:tabla11} muestra los resultados obtenidos con esta nueva configuración.
+
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{0.85}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1cm}>{\centering\arraybackslash}m{1cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{5}{c}{\bf \color{white}{Resultados obtenidos con RDPM}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{RandIndex} & \textbf{Tiempo} & \textbf{$\lambda_{mayor}$} & \textbf{$K_{out}$}  \\
+		Iris & $0.321$ & $0.683$ & $2$ & $2$ \\
+		Wine & $0.313$ & $0.691$ & $538.11$ & $3$ \\
+		Glass & $0$ & $0.505$ & $4.214$ & $3$ \\
+		Breast Cancer & $0.491$ & $11.236$ & $3833.35$ & $2$ \\
+		Digits & $0.268$ & $144.96$ & $60.14$ & $4$ \\
+		Rand & $0$ & $0.26$ & $7$ & $1$ \\
+		Spirals & $0$ & $0.969$ & $20.5$ & $1$ \\
+		Circles & $0$ & $0.965$ & $4.5$ & $1$  \\
+		Moons & $0$ & $0.97$ & $5$ & $1$ \\
+		\hline
+		
+	\end{tabular}
+	\caption{Resultados obtenidos con \acs{RDPM} especificando un mayor para $\lambda$}
+	\label{tab:tabla11}
+\end{table}
+
+A la vista de los resultados expuestos en la Tabla \ref{tab:tabla11} podemos decir que escoger $\lambda$ es equivalente a escoger $K$ en los algoritmos que toman como parámetro el número de clusters de la partición de salida. Por tanto es crucial realizar un estudio sobre este parámetro para resolver el problema concreto al que nos enfrentemos. En la Figura \ref{fig:figure28} representamos los resultados obtenidos con las diferentes elecciones de $\lambda$ para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}. 
+
+\begin{figure}[bth]
+	\myfloatalign
+	\subfloat[ \textit{Iris Dataset} con $\lambda = 1.7$]
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/RDPM/RDPMIris1}}
+	\subfloat[ \textit{Iris Dataset} con $\lambda = 2$]
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/RDPM/RDPMIris2}}\\
+	\subfloat[ \textit{Rand Dataset} con $\lambda = 4$]
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/RDPM/RDPMRand1}}
+	\subfloat[ \textit{Rand Dataset} con $\lambda = 7$]
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/RDPM/RDPMRand2}}\\
+	\caption{Visualización de los resultados de RDPM con diferentes valores de $\lambda$}\label{fig:figure28}
+\end{figure}
+
+La Figura \ref{fig:figure28} refleja claramente la influencia del parámetro $\lambda$ en la partición que \acs{RDPM} proporciona como resultado del proceso de clustering que lleva a cabo. En el caso del conjunto de datos \textit{Iris Dataset}, bastan 3 décimas de diferencia en $\lambda$ para que el resultado degenere en una partición de dos clusters en lugar de 3.
+
+\clearpage
+
+\section{Resultados obtenidos con TVClust}
+
+La Tabla \ref{tab:tabla11} muestra los resultados obtenidos al aplicar el algoritmo \acf{TVClust} (Sección \ref{rdpmYtvc}) a los conjuntos de datos presentados en la Sección \ref{datasets}. Especificamos el número de restricciones como un $25\%$ del total de ejemplos disponibles para cada conjunto de datos, tal y como hicimos en los casos anteriores.
+
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{10pt}
+	\renewcommand{\arraystretch}{0.9}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{3}{c}{\bf \color{white}{Resultados obtenidos con TVClust}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{RandIndex} & \textbf{Tiempo}  \\
+		Iris & $0.532$ & $0.342$  \\
+		Wine & $0.176$ & $0.5$  \\
+		Glass & $0.26$ & $3.332$  \\
+		Breast Cancer & $0$ & $1.3$  \\
+		Digits & $0.680$ & $78.46$  \\
+		Rand & $0.941$ & $0.83$  \\
+		Spirals & $0.042$ & $0.3$  \\
+		Circles & $0.075$ & $1.7$  \\
+		Moons & $0.576$ & $5.59$  \\
+		\hline
+		
+	\end{tabular}
+	\caption{Resultados obtenidos con \acs{TVClust}}
+	\label{tab:tabla12}
+\end{table}
+
+Destaca el resultado obtenido para el conjunto de datos \textit{Breast Cancer Dataser}, para el que \acs{TVClust} no es capaz de encontrar una partición mínimamente acertada. Esto puede deberse a la alta dimensionalidad del conjunto de datos. La Figura \ref{fig:figure28} muestra los resultados obtenidos con \acs{TVClust} para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}. 
+
+
+\begin{figure}[bth]
+	\myfloatalign
+	\subfloat[Resultados para \textit{Iris Dataset}]
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/TVClust/TVIris}}
+	\subfloat[Resultados para \textit{Rand Dataset}]
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/TVClust/TVRand}}
+	\caption{Visualización de los resultados de \acs{TVClust}}\label{fig:figure29}
+\end{figure}
+
+\clearpage
+
+\section{Comparativa general de resultados}
+
+La Tabla \ref{tab:tabla13} muestra los resultados obtenidos por cada algoritmo para cada conjunto de datos, en lo que a precisión en las predicciones se refiere. Salvo algunas excepciones, todos los algoritmos se comportan de manera similar bajo las condiciones descritas al inicio de la Sección \ref{ch:Experimentación}. Destaca la precisión en las predicciones sobre el conjunto de datos \textit{Rand Dataset}, así como la pobreza de las mismas sobre el conjunto \textit{Circles Dataset}.
+
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{9pt}
+	\renewcommand{\arraystretch}{0.8}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{1.1cm}>{\centering\arraybackslash}m{1.1cm}>{\centering\arraybackslash}m{1.1cm}>{\centering\arraybackslash}m{1.3cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{6}{c}{\bf \color{white}{Comparativa General de Resultados (RandIndex)}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{COPKM} & \textbf{CEKM} & \textbf{LCVQE} & \textbf{RDPM} & \textbf{TVClust}  \\
+		Iris & $0.489$  & $0.554 $ & $0.663 $ & $0.479 $ & $0.532 $ \\
+		Wine & $0.337$  & $0.395 $ & $0.390 $ & $0.342 $ & $0.176 $ \\
+		Glass & $0.175$  & NA & $0.197 $ & $0.255 $ & $0.26 $ \\
+		Breast Cancer & $0.45$ & $0.491 $ & $0.616 $ & $0.501 $ & $0 $ \\
+		Digits & $0.582$ & NA & $0.680 $ & $0.665 $ & $0.680 $ \\
+		Rand & $1.0$ & $0.950 $ & $0.989 $ & $0.98 $ & $0.941 $ \\
+		Spirals & $-0.0028$ & $0.061 $ & $0.057 $ & $0.0147 $ & $0.042 $ \\
+		Circles & $0.091$  & $-0.003 $ & $-0.003 $ & $-0.003 $ & $0.075 $ \\
+		Moons & $0.126$  & $0.247 $ & $0.215$ & $0.234 $ & $0.576 $ \\
+		\hline
+		
+	\end{tabular}
+	\caption{Comparativa general de resultados (RandIndex)}
+	\label{tab:tabla13}
+\end{table}
+
+En lo que a tiempo de ejecución se refiere, la Tabla \ref{tab:tabla14} muestra las marcas obtenidas por cada algoritmo. Cabe destacar que, en los casos en los que un método toma menos de 1 segundo en proporcionar resultado, cualquier otro proceso ejecutando en la máquina puede perturbar las mediciones, por tanto no han de tomarse como medidas exactas, simplemente como indicadores generales.
+
+\begin{table}[!h]
+	\centering
+	\setlength{\arrayrulewidth}{1mm}
+	\setlength{\tabcolsep}{9pt}
+	\renewcommand{\arraystretch}{0.8}
+	
+	\rowcolors{2}{gray!25}{white}
+	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{1.1cm}>{\centering\arraybackslash}m{1.1cm}>{\centering\arraybackslash}m{1.1cm}>{\centering\arraybackslash}m{1.3cm}}
+		\hline
+		\rowcolor{black}
+		\multicolumn{6}{c}{\bf \color{white}{Comparativa General de Resultados (Tiempo)}}\\
+		\hline
+		\rowcolor{gray!50}
+		\textbf{Dataset} & \textbf{COPKM} & \textbf{CEKM} & \textbf{LCVQE} & \textbf{RDPM} & \textbf{TVClust}  \\
+		Iris & $0.0423 $  & $9.567 $ & $0.141 $ & $0.508 $ & $0.683 $ \\
+		Wine & $0.0762 $  & $14.48 $ & $0.002 $ & $0.598 $ & $0.691 $ \\
+		Glass & $0.112 $  & NA & $0.002 $ & $0.785 $ & $0.505 $ \\
+		Breast Cancer & $0.556 $ & $64.22 $ & $0.003 $ & $14.096 $ & $11.236 $\\
+		Digits & $10.847 $ & NA & $0.062 $ & $177.12 $ & $144.96 $ \\
+		Rand & $0.031 $ & $9.411 $ & $0.001 $ & $0.365 $ & $0.26 $ \\
+		Spirals & $0.1302 $ & $9.839 $ & $0.002 $ & $2.683 $ & $0.969 $ \\
+		Circles & $0.1301 $ & $12.588 $ & $0.005  $ & $1.27 $ & $0.965 $ \\
+		Moons & $0.116 $ & $11.191 $ & $0.002 $ & $1.563 $ & $0.97 $ \\
+		\hline
+		
+	\end{tabular}
+	\caption{Comparativa general de resultados (Tiempo)}
+	\label{tab:tabla14}
+\end{table}
 
