@@ -2,11 +2,9 @@ import numpy as np
 from numpy import matlib
 
 
-def set_distances(x, F, g, m, alpha):
+def set_distances(x, F, g):
     n, nb_att = np.shape(x)
     nb_foc, K = np.shape(F)
-
-    beta = 2
 
     gplus = np.zeros((nb_foc - 1, nb_att))
 

@@ -1,20 +1,14 @@
 from __future__ import division, print_function
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from sklearn import datasets
-from CECM.CECM import CEKM
-from CKmeans.CKmeans import CKmeans
 from LCVQE.LCVQE import LCVQE
-from RDPmeans.RDPmeans import RDPM
-from TVClust.TVClust import TVClust
-from COPKmeans.COPKmeans import COPKM
-from functions import generate_data_2D, draw_data_2D, draw_data_2DNC, draw_const, gen_rand_const, twospirals
+from functions import generate_data_2D, draw_data_2DNC, gen_rand_const, twospirals
 from sklearn.datasets import fetch_mldata
 from sklearn.cluster import KMeans
 import gc
-import pickle
 from sklearn.metrics import adjusted_rand_score
+import time
 
 def get_lcvqe_input(m):
     constraint_number = np.count_nonzero(m - np.identity(np.shape(m)[0])) / 2 + np.shape(m)[0]
@@ -62,7 +56,7 @@ def main():
     digits = []
     gc.collect()
 
-    rand_set, rand_labels = generate_data_2D([[4, 2], [1, 7], [5, 6]], [[0.8, 0.3], [0.3, 0.5], [1.1, 0.7]], 100)
+    rand_set, rand_labels = generate_data_2D([[4, 2], [1, 7], [5, 6]], [[0.8, 0.3], [0.3, 0.5], [1.1, 0.7]], 50)
     spiral_set, spiral_labels = twospirals(150)
     spiral_set += 15
     moons_set, moons_labels = datasets.make_moons(300, .5, .05, random_state)
@@ -84,15 +78,13 @@ def main():
     glass_const = gen_rand_const(glass_set, glass_labels, glass_const, int(len(glass_labels) * const_percent), 0, 1)
 
     digits_const = np.identity(len(digits_labels))
-    digits_const = gen_rand_const(digits_set, digits_labels, digits_const, int(len(digits_labels) * const_percent), 0,
-                                  1)
+    digits_const = gen_rand_const(digits_set, digits_labels, digits_const, int(len(digits_labels) * const_percent), 0, 1)
 
     rand_const = np.identity(len(rand_labels))
     rand_const = gen_rand_const(rand_set, rand_labels, rand_const, int(len(rand_labels) * const_percent), 0, 1)
 
     spiral_const = np.identity(len(spiral_labels))
-    spiral_const = gen_rand_const(spiral_set, spiral_labels, spiral_const, int(len(spiral_labels) * const_percent), 0,
-                                  1)
+    spiral_const = gen_rand_const(spiral_set, spiral_labels, spiral_const, int(len(spiral_labels) * const_percent), 0, 1)
 
     moons_const = np.identity(len(moons_labels))
     moons_const = gen_rand_const(moons_set, moons_labels, moons_const, int(len(moons_labels) * const_percent), 0, 1)
@@ -100,46 +92,71 @@ def main():
     circles_const = np.identity(len(circles_labels))
     circles_const = gen_rand_const(circles_set, circles_labels, circles_const, int(len(circles_labels) * const_percent), 0, 1)
 
-    iris_centroid = []
-    wine_centroid = []
-    breast_cancer_centroid = []
-    glass_centroid = []
-    digits_centroid = []
-    rand_centroid = []
-    spiral_centroid = []
-    moons_centroid = []
-    circles_centroid = []
-
+    print("Calculando centroides")
+    iris_centroid = KMeans(init="random", n_clusters=3).fit(iris_set).cluster_centers_
+    wine_centroid = KMeans(init="random", n_clusters=3).fit(wine_set).cluster_centers_
+    breast_cancer_centroid = KMeans(init="random", n_clusters=2).fit(breast_cancer_set).cluster_centers_
+    glass_centroid = KMeans(init="random", n_clusters=6).fit(glass_set).cluster_centers_
+    digits_centroid = KMeans(init="random", n_clusters=10).fit(digits_set).cluster_centers_
+    rand_centroid = KMeans(init="random", n_clusters=3).fit(rand_set).cluster_centers_
+    spiral_centroid = KMeans(init="random", n_clusters=2).fit(spiral_set).cluster_centers_
+    moons_centroid = KMeans(init="random", n_clusters=2).fit(moons_set).cluster_centers_
+    circles_centroid = KMeans(init="random", n_clusters=2).fit(circles_set).cluster_centers_
+    
     iris_const_list = get_lcvqe_input(iris_const)
     wine_const_list = get_lcvqe_input(wine_const)
     breast_cancer_const_list = get_lcvqe_input(breast_cancer_const)
     glass_const_list = get_lcvqe_input(glass_const)
     digits_const_list = get_lcvqe_input(digits_const)
-
-    print("Calculando Iris")
-    iris_lcvqe_assignment = LCVQE(iris_set, 3, iris_const_list, iris_centroid)
-    print("Calculando Wine")
-    wine_lcvqe_assignment = LCVQE(wine_set, 3, wine_const_list, wine_centroid)
-    print("Calculando Brast Cancer")
-    breast_cancer_lcvqe_assignment = LCVQE(breast_cancer_set, 2, breast_cancer_const_list, breast_cancer_centroid)
-    print("Calculando Glass")
-    glass_lcvqe_assignment = LCVQE(glass_set, 6, glass_const_list, glass_centroid)
-    print("Calculando Digits")
-    digits_lcvqe_assignment = LCVQE(digits_set, 10, digits_const_list, digits_centroid)
-
-    print("Calculando Rand")
     rand_const_list = get_lcvqe_input(rand_const)
-    print("Calculando Spirals")
     spiral_const_list = get_lcvqe_input(spiral_const)
-    print("Calculando Moons")
     moons_const_list = get_lcvqe_input(moons_const)
-    print("Calculando Circles")
     circles_const_list = get_lcvqe_input(circles_const)
 
-    rand_lcvqe_assignment = LCVQE(rand_set, 3, rand_const_list, rand_centroid)
-    spiral_lcvqe_assignment = LCVQE(spiral_set, 2, spiral_const_list, spiral_centroid)
-    moons_lcvqe_assignment = LCVQE(moons_set, 2, moons_const_list, moons_centroid)
-    circles_lcvqe_assignment = LCVQE(circles_set, 2, circles_const_list, circles_centroid)
+    print("Calculando Iris")
+    iris_start = time.time()
+    iris_lcvqe_assignment = LCVQE(iris_set, 3, iris_const_list, centroids=iris_centroid)[0]
+    iris_end = time.time()
+
+    print("Calculando Wine")
+    wine_start = time.time()
+    wine_lcvqe_assignment = LCVQE(wine_set, 3, wine_const_list, centroids=wine_centroid)[0]
+    wine_end = time.time()
+
+    print("Calculando Glass")
+    glass_start = time.time()
+    glass_lcvqe_assignment = LCVQE(glass_set, 6, glass_const_list, centroids=glass_centroid)[0]
+    glass_end = time.time()
+
+    print("Calculando Breast Cancer")
+    breast_cancer_start = time.time()
+    breast_cancer_lcvqe_assignment = LCVQE(breast_cancer_set, 2, breast_cancer_const_list, centroids=breast_cancer_centroid)[0]
+    breast_cancer_end = time.time()
+
+    print("Calculando Digits")
+    digits_start = time.time()
+    digits_lcvqe_assignment = LCVQE(digits_set, 10, digits_const_list, centroids=digits_centroid)[0]
+    digits_end = time.time()
+
+    print("Calculando Rand")
+    rand_start = time.time()
+    rand_lcvqe_assignment = LCVQE(rand_set, 3, rand_const_list, centroids=rand_centroid)[0]
+    rand_end = time.time()
+
+    print("Calculando Spiral")
+    spiral_start = time.time()
+    spiral_lcvqe_assignment = LCVQE(spiral_set, 2, spiral_const_list, centroids=spiral_centroid)[0]
+    spiral_end = time.time()
+
+    print("Calculando Moons")
+    moons_start = time.time()
+    moons_lcvqe_assignment = LCVQE(moons_set, 2, moons_const_list, centroids=moons_centroid)[0]
+    moons_end = time.time()
+
+    print("Calculando Circles")
+    circles_start = time.time()
+    circles_lcvqe_assignment = LCVQE(circles_set, 2, circles_const_list, centroids=circles_centroid)[0]
+    circles_end = time.time()
 
     iris_lcvqe_rand_score = adjusted_rand_score(iris_labels, iris_lcvqe_assignment)
     wine_lcvqe_rand_score = adjusted_rand_score(wine_labels, wine_lcvqe_assignment)
@@ -150,6 +167,16 @@ def main():
     spiral_lcvqe_rand_score = adjusted_rand_score(spiral_labels, spiral_lcvqe_assignment)
     moons_lcvqe_rand_score = adjusted_rand_score(moons_labels, moons_lcvqe_assignment)
     circles_lcvqe_rand_score = adjusted_rand_score(circles_labels, circles_lcvqe_assignment)
+
+    iris_elapsed_time = iris_end - iris_start
+    wine_elapsed_time = wine_end - wine_start
+    breast_cancer_elapsed_time = breast_cancer_end - breast_cancer_start
+    glass_elapsed_time = glass_end - glass_start
+    digits_elapsed_time = digits_end - digits_start
+    rand_elapsed_time = rand_end - rand_start
+    spiral_elapsed_time = spiral_end - spiral_start
+    moons_elapsed_time = moons_end - moons_start
+    circles_elapsed_time = circles_end - circles_start
 
     ############################### Get scores for LCVQE ###############################
     print("########################## LCVQE-means ##########################")
@@ -162,6 +189,17 @@ def main():
           "\nSpiral: " + str(spiral_lcvqe_rand_score) +
           "\nMoons: " + str(moons_lcvqe_rand_score) +
           "\nCircles: " + str(circles_lcvqe_rand_score))
+
+    print("########################## LCVQE Time ##########################")
+    print("Iris: " + str(iris_elapsed_time) +
+          "\nWine: " + str(wine_elapsed_time) +
+          "\nBreast: " + str(breast_cancer_elapsed_time) +
+          "\nGlass: " + str(glass_elapsed_time) +
+          "\nDigits: " + str(digits_elapsed_time) +
+          "\nRand: " + str(rand_elapsed_time) +
+          "\nSpiral: " + str(spiral_elapsed_time) +
+          "\nMoons: " + str(moons_elapsed_time) +
+          "\nCircles: " + str(circles_elapsed_time))
 
     ############################### Draw Drawable Results ###############################
     alg = "LCVQE "

@@ -61,11 +61,13 @@ def CKmeans(x, k, const_mat, max_iter = 20000, threshold = 0):
                         curr_assignment = c
                         min_diff = diff2c
 
-
             if curr_assignment == -1:
+
                 print ("No feasible assignation")
                 return centroid, points_in_cluster, assignment
+
             else:
+
                 assignment = np.append(assignment, [curr_assignment])
 
         old_positions = centroid

@@ -1,20 +1,13 @@
 from __future__ import division, print_function
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from sklearn import datasets
-from CECM.CECM import CEKM
-from CKmeans.CKmeans import CKmeans
-from LCVQE.LCVQE import LCVQE
-from RDPmeans.RDPmeans import RDPM
 from TVClust.TVClust import TVClust
-from COPKmeans.COPKmeans import COPKM
-from functions import generate_data_2D, draw_data_2D, draw_data_2DNC, draw_const, gen_rand_const, twospirals
+from functions import generate_data_2D, draw_data_2DNC, gen_rand_const, twospirals
 from sklearn.datasets import fetch_mldata
-from sklearn.cluster import KMeans
 import gc
-import pickle
 from sklearn.metrics import adjusted_rand_score
+import time
 
 
 def get_tvlust_input(m):
@@ -29,7 +22,7 @@ def get_tvlust_input(m):
 
 def main():
 
-    np.random.seed(43)
+    np.random.seed(11)
     random_state = 43
     const_percent = 0.25
 
@@ -60,7 +53,7 @@ def main():
     digits = []
     gc.collect()
 
-    rand_set, rand_labels = generate_data_2D([[4, 2], [1, 7], [5, 6]], [[0.8, 0.3], [0.3, 0.5], [1.1, 0.7]], 100)
+    rand_set, rand_labels = generate_data_2D([[4, 2], [1, 7], [5, 6]], [[0.8, 0.3], [0.3, 0.5], [1.1, 0.7]], 50)
     spiral_set, spiral_labels = twospirals(150)
     spiral_set += 15
     moons_set, moons_labels = datasets.make_moons(300, .5, .05, random_state)
@@ -96,37 +89,61 @@ def main():
     circles_const = np.identity(len(circles_labels))
     circles_const = gen_rand_const(circles_set, circles_labels, circles_const, int(len(circles_labels) * const_percent), 0, 1)
 
-    iris_centroid = []
-    wine_centroid = []
-    breast_cancer_centroid = []
-    glass_centroid = []
-    digits_centroid = []
-    rand_centroid = []
-    spiral_centroid = []
-    moons_centroid = []
-    circles_centroid = []
-
     iris_const2, iris_checked = get_tvlust_input(iris_const)
     wine_const2, wine_checked = get_tvlust_input(wine_const)
     breast_cancer_const2, breast_cancer_checked = get_tvlust_input(breast_cancer_const)
     glass_const2, glass_checked = get_tvlust_input(glass_const)
     digits_const2, digits_checked = get_tvlust_input(digits_const)
-
-    iris_tvclust_assignment = TVClust(iris_set, 3, iris_const2)
-    wine_tvclust_assignment = TVClust(wine_set, 3, wine_const2)
-    breast_cancer_tvclust_assignment = TVClust(breast_cancer_set, 2, breast_cancer_const2)
-    glass_tvclust_assignment = TVClust(glass_set, 6, glass_const2)
-    digits_tvclust_assignment = TVClust(digits_set, 10, digits_const2)
-
     rand_const2, rand_checked = get_tvlust_input(rand_const)
     spiral_const2, spiral_checked = get_tvlust_input(spiral_const)
     moons_const2, moons_checked = get_tvlust_input(moons_const)
     circles_const2, circles_checked = get_tvlust_input(circles_const)
 
+    print("Calculando Iris")
+    iris_start = time.time()
+    iris_tvclust_assignment = TVClust(iris_set, 3, iris_const2)
+    iris_end = time.time()
+
+    print("Calculando Wine")
+    wine_start = time.time()
+    wine_tvclust_assignment = TVClust(wine_set, 3, wine_const2)
+    wine_end = time.time()
+
+    print("Calculando Glass")
+    glass_start = time.time()
+    glass_tvclust_assignment = TVClust(glass_set, 6, glass_const2)
+    glass_end = time.time()
+
+    print("Calculando Breast Cancer")
+    breast_cancer_start = time.time()
+    breast_cancer_tvclust_assignment = TVClust(breast_cancer_set, 2, breast_cancer_const2)
+    breast_cancer_end = time.time()
+
+    print("Calculando Digits")
+    digits_start = time.time()
+    digits_tvclust_assignment = TVClust(digits_set, 10, digits_const2)
+    digits_end = time.time()
+
+    print("Calculando Rand")
+    rand_start = time.time()
     rand_tvclust_assignment = TVClust(rand_set, 3, rand_const2)
+    rand_end = time.time()
+
+    print("Calculando Spiral")
+    spiral_start = time.time()
     spiral_tvclust_assignment = TVClust(spiral_set, 2, spiral_const2)
+    spiral_end = time.time()
+
+    print("Calculando Moons")
+    moons_start = time.time()
     moons_tvclust_assignment = TVClust(moons_set, 2, moons_const2)
+    moons_end = time.time()
+
+    print("Calculando Circles")
+    circles_start = time.time()
     circles_tvclust_assignment = TVClust(circles_set, 2, circles_const2)
+    circles_end = time.time()
+
 
     iris_tvclust_rand_score = adjusted_rand_score(iris_labels, iris_tvclust_assignment)
     wine_tvclust_rand_score = adjusted_rand_score(wine_labels, wine_tvclust_assignment)
@@ -138,8 +155,18 @@ def main():
     moons_tvclust_rand_score = adjusted_rand_score(moons_labels, moons_tvclust_assignment)
     circles_tvclust_rand_score = adjusted_rand_score(circles_labels, circles_tvclust_assignment)
 
+    iris_elapsed_time = iris_end - iris_start
+    wine_elapsed_time = wine_end - wine_start
+    breast_cancer_elapsed_time = breast_cancer_end - breast_cancer_start
+    glass_elapsed_time = glass_end - glass_start
+    digits_elapsed_time = digits_end - digits_start
+    rand_elapsed_time = rand_end - rand_start
+    spiral_elapsed_time = spiral_end - spiral_start
+    moons_elapsed_time = moons_end - moons_start
+    circles_elapsed_time = circles_end - circles_start
+
     ############################### Get scores for TVClust ###############################
-    print("########################## COPK-means ##########################")
+    print("########################## TVClust ##########################")
     print("Iris: " + str(iris_tvclust_rand_score) +
           "\nWine: " + str(wine_tvclust_rand_score) +
           "\nBreast: " + str(breast_cancer_tvclust_rand_score) +
@@ -149,6 +176,17 @@ def main():
           "\nSpiral: " + str(spiral_tvclust_rand_score) +
           "\nMoons: " + str(moons_tvclust_rand_score) +
           "\nCircles: " + str(circles_tvclust_rand_score))
+
+    print("########################## TVClust Time ##########################")
+    print("Iris: " + str(iris_elapsed_time) +
+          "\nWine: " + str(wine_elapsed_time) +
+          "\nBreast: " + str(breast_cancer_elapsed_time) +
+          "\nGlass: " + str(glass_elapsed_time) +
+          "\nDigits: " + str(digits_elapsed_time) +
+          "\nRand: " + str(rand_elapsed_time) +
+          "\nSpiral: " + str(spiral_elapsed_time) +
+          "\nMoons: " + str(moons_elapsed_time) +
+          "\nCircles: " + str(circles_elapsed_time))
 
     ############################### Draw Drawable Results ###############################
     alg = "TVClust "

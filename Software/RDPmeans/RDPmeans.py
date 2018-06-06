@@ -27,11 +27,8 @@ def objective(x, assignment, centroid, mat_const, xi, lamb):
 
     return obj
 
-#Suponemos que escogemos una funcion cuadratica para la divergencia de Bregman, de
-#esta forma la divergencia de bregamn es igual a la distancia euclidea.
 
-
-def RDPM(X, lamb, constraints, max_iter = 300, xi_0 = 0.1, xi_rate = 1):
+def RDPM(X, lamb, constraints, max_iter = 300, xi_0 = 0.001, xi_rate = 2):
 
     num, dim = np.shape(X)
 
@@ -64,8 +61,8 @@ def RDPM(X, lamb, constraints, max_iter = 300, xi_0 = 0.1, xi_rate = 1):
 
         iter += 1
 
-        #for d in np.random.permutation(num):
-        for d in range(num):
+        for d in np.random.permutation(num):
+        #for d in range(num):
             min_diff = float("inf")
             curr_assignment = -1
 
@@ -88,7 +85,7 @@ def RDPM(X, lamb, constraints, max_iter = 300, xi_0 = 0.1, xi_rate = 1):
 
                 diff2c = sdist.distance.euclidean(X[d, :], centroid[c, :])
                 #Apply penlaty to difference
-                diff2c = diff2c - xi * (friends - strangers)
+                diff2c -= xi * (friends - strangers)
 
                 if min_diff >= diff2c:
 
@@ -137,10 +134,6 @@ def RDPM(X, lamb, constraints, max_iter = 300, xi_0 = 0.1, xi_rate = 1):
         else:
 
             pos_diff = np.sum(np.power(centroid - old_positions, 2))
-
-        if pos_diff <= 0:
-            pass
-            #print ("Terminated by reaching the while threshold")
 
         xi = xi_0 * (xi_rate ** iter)
 

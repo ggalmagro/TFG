@@ -1,20 +1,13 @@
 from __future__ import division, print_function
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from sklearn import datasets
-from CECM.CECM import CEKM
-from CKmeans.CKmeans import CKmeans
-from LCVQE.LCVQE import LCVQE
 from RDPmeans.RDPmeans import RDPM
-from TVClust.TVClust import TVClust
-from COPKmeans.COPKmeans import COPKM
-from functions import generate_data_2D, draw_data_2D, draw_data_2DNC, draw_const, gen_rand_const, twospirals
+from functions import generate_data_2D, draw_data_2DNC, gen_rand_const, twospirals
 from sklearn.datasets import fetch_mldata
-from sklearn.cluster import KMeans
 import gc
-import pickle
 from sklearn.metrics import adjusted_rand_score
+import time
 
 
 def main():
@@ -50,7 +43,7 @@ def main():
     digits = []
     gc.collect()
 
-    rand_set, rand_labels = generate_data_2D([[4, 2], [1, 7], [5, 6]], [[0.8, 0.3], [0.3, 0.5], [1.1, 0.7]], 100)
+    rand_set, rand_labels = generate_data_2D([[4, 2], [1, 7], [5, 6]], [[0.8, 0.3], [0.3, 0.5], [1.1, 0.7]], 50)
     spiral_set, spiral_labels = twospirals(150)
     spiral_set += 15
     moons_set, moons_labels = datasets.make_moons(300, .5, .05, random_state)
@@ -88,51 +81,70 @@ def main():
     circles_const = np.identity(len(circles_labels))
     circles_const = gen_rand_const(circles_set, circles_labels, circles_const, int(len(circles_labels) * const_percent), 0, 1)
 
-    iris_centroid = []
-    wine_centroid = []
-    breast_cancer_centroid = []
-    glass_centroid = []
-    digits_centroid = []
-    rand_centroid = []
-    spiral_centroid = []
-    moons_centroid = []
-    circles_centroid = []
-
-
+    print("Calculando Iris")
+    iris_start = time.time()
     iris_rdpm_assignment, iris_rdpm_nbc = RDPM(iris_set, 1.7, iris_const, 20000, 0.1, 1)
+    iris_end = time.time()
+
+    print("Calculando Wine")
     T = np.mean(wine_set, 0)
     lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(wine_set)[0], 1) - wine_set) ** 2, 1)))
-    lamb_arr[::-1].sort()
+    wine_start = time.time()
     wine_rdpm_assignment, wine_rdpm_nbc = RDPM(wine_set, lamb_arr[2], wine_const, 20000, 0.1, 1)
-    T = np.mean(breast_cancer_set, 0)
-    lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(breast_cancer_set)[0], 1) - breast_cancer_set) ** 2, 1)))
-    lamb_arr[::-1].sort()
-    breast_cancer_rdpm_assignment, breast_cancer_rdpm_nbc = RDPM(breast_cancer_set, lamb_arr[1], breast_cancer_const, 20000, 0.1, 1)
+    wine_end = time.time()
+    print("Wine Lambda = " + str(lamb_arr[2]))
+
+    print("Calculando Glass")
     T = np.mean(glass_set, 0)
     lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(glass_set)[0], 1) - glass_set) ** 2, 1)))
     lamb_arr[::-1].sort()
+    glass_start = time.time()
     glass_rdpm_assignment, glass_rdpm_nbc = RDPM(glass_set, lamb_arr[5], glass_const, 20000, 0.1, 1)
+    glass_end = time.time()
+    print("Glass Lambda = " + str(lamb_arr[5]))
+
+    print("Calculando Breast Cancer")
+    T = np.mean(breast_cancer_set, 0)
+    lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(breast_cancer_set)[0], 1) - breast_cancer_set) ** 2, 1)))
+    lamb_arr[::-1].sort()
+    breast_cancer_start = time.time()
+    breast_cancer_rdpm_assignment, breast_cancer_rdpm_nbc = RDPM(breast_cancer_set, lamb_arr[1], breast_cancer_const, 20000, 0.1, 1)
+    breast_cancer_end = time.time()
+    print("Breast Lambda = " + str(lamb_arr[1]))
+
+    print("Calculando Digits")
     T = np.mean(digits_set, 0)
     lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(digits_set)[0], 1) - digits_set) ** 2, 1)))
     lamb_arr[::-1].sort()
+    digits_start = time.time()
     digits_rdpm_assignment, digits_rdpm_nbc = RDPM(digits_set, lamb_arr[9], digits_const, 20000, 0.1, 1)
+    digits_end = time.time()
+    print("Digits Lambda = " + str(lamb_arr[9]))
 
-    T = np.mean(rand_set, 0)
-    lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(rand_set)[0], 1) - rand_set) ** 2, 1)))
-    lamb_arr[::-1].sort()
+    print("Calculando Rand")
+    rand_start = time.time()
     rand_rdpm_assignment,  rand_rdpm_nbc = RDPM(rand_set, 4, rand_const, 20000, 0.1, 1)
+    rand_end = time.time()
+
+    print("Calculando Spiral")
     T = np.mean(spiral_set, 0)
     lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(spiral_set)[0], 1) - spiral_set) ** 2, 1)))
     lamb_arr[::-1].sort()
+    spiral_start = time.time()
     spiral_rdpm_assignment, spiral_rdpm_nbc = RDPM(spiral_set, lamb_arr[1], spiral_const, 20000, 0.1, 1)
-    T = np.mean(moons_set, 0)
-    lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(moons_set)[0], 1) - moons_set) ** 2, 1)))
-    lamb_arr[::-1].sort()
+    spiral_end = time.time()
+    print("Spiral Lambda = " + str(lamb_arr[1]))
+
+    print("Calculando Moons")
+    moons_start = time.time()
     moons_rdpm_assignment, moons_rdpm_nbc = RDPM(moons_set, 2, moons_const, 20000, 0.1, 1)
-    T = np.mean(circles_set, 0)
-    lamb_arr = np.array(np.sqrt(np.sum((np.matlib.repmat(T, np.shape(circles_set)[0], 1) - circles_set) ** 2, 1)))
-    lamb_arr[::-1].sort()
+    moons_end = time.time()
+
+    print("Calculando Circles")
+    circles_start = time.time()
     circles_rdpm_assignment, circles_rdpm_nbc = RDPM(circles_set, 1.5, circles_const, 20000, 0.1, 1)
+    circles_end = time.time()
+
 
     iris_rdpm_rand_score = adjusted_rand_score(iris_labels, iris_rdpm_assignment)
     wine_rdpm_rand_score = adjusted_rand_score(wine_labels, wine_rdpm_assignment)
@@ -143,6 +155,16 @@ def main():
     spiral_rdpm_rand_score = adjusted_rand_score(spiral_labels, spiral_rdpm_assignment)
     moons_rdpm_rand_score = adjusted_rand_score(moons_labels, moons_rdpm_assignment)
     circles_rdpm_rand_score = adjusted_rand_score(circles_labels, circles_rdpm_assignment)
+
+    iris_elapsed_time = iris_end - iris_start
+    wine_elapsed_time = wine_end - wine_start
+    breast_cancer_elapsed_time = breast_cancer_end - breast_cancer_start
+    glass_elapsed_time = glass_end - glass_start
+    digits_elapsed_time = digits_end - digits_start
+    rand_elapsed_time = rand_end - rand_start
+    spiral_elapsed_time = spiral_end - spiral_start
+    moons_elapsed_time = moons_end - moons_start
+    circles_elapsed_time = circles_end - circles_start
 
     ############################### Get scores for RDPM ###############################
     print("########################## RDPM ##########################")
@@ -155,6 +177,28 @@ def main():
           "\nSpiral: " + str(spiral_rdpm_rand_score) +
           "\nMoons: " + str(moons_rdpm_rand_score) +
           "\nCircles: " + str(circles_rdpm_rand_score))
+
+    print("########################## RDPM Time ##########################")
+    print("Iris: " + str(iris_elapsed_time) +
+          "\nWine: " + str(wine_elapsed_time) +
+          "\nBreast: " + str(breast_cancer_elapsed_time) +
+          "\nGlass: " + str(glass_elapsed_time) +
+          "\nDigits: " + str(digits_elapsed_time) +
+          "\nRand: " + str(rand_elapsed_time) +
+          "\nSpiral: " + str(spiral_elapsed_time) +
+          "\nMoons: " + str(moons_elapsed_time) +
+          "\nCircles: " + str(circles_elapsed_time))
+
+    print("########################## RDPM NBC ##########################")
+    print("Iris: " + str(iris_rdpm_nbc) +
+          "\nWine: " + str(wine_rdpm_nbc) +
+          "\nBreast: " + str(breast_cancer_rdpm_nbc) +
+          "\nGlass: " + str(glass_rdpm_nbc) +
+          "\nDigits: " + str(digits_rdpm_nbc) +
+          "\nRand: " + str(rand_rdpm_nbc) +
+          "\nSpiral: " + str(spiral_rdpm_nbc) +
+          "\nMoons: " + str(moons_rdpm_nbc) +
+          "\nCircles: " + str(circles_rdpm_nbc))
 
     ############################### Draw Drawable Results ###############################
     alg = "RDPM "

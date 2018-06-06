@@ -5,6 +5,7 @@ import math
 
 colors = ['b', 'orange', 'g', 'r', 'Brown', 'm', 'y', 'k', 'Brown', 'ForestGreen']
 
+
 def draw_const(data, mat_const, ax1, ax2):
 
     if np.shape(mat_const)[0] != np.shape(mat_const)[1]:
@@ -51,29 +52,6 @@ def generate_data_2D(centers, sigmas, numb_data):
 
     return X, y
 
-
-def draw_data_2D(data, labels, numb_labels, centroid, is_result = False):
-
-    fig0, ax0 = plt.subplots()
-    fig1, (ax1, ax2) = plt.subplots(1, 2)
-
-    if is_result:
-        first_text = 'Result clustering: '
-    else:
-        first_text = 'Initial clustering: '
-
-    for label in range(numb_labels):
-        ax0.plot(data[:, 0][labels == label], data[:, 1][labels == label], '.', color=colors[label])
-        ax1.plot(data[:, 0][labels == label], data[:, 1][labels == label], '.', color=colors[label])
-        ax2.plot(data[:, 0][labels == label], data[:, 1][labels == label], '.', color=colors[label])
-
-    for cent in range(len(centroid)):
-        ax0.plot(centroid[cent][0], centroid[cent][1], color = 'black', marker = '8')
-
-    title = first_text + str(len(labels)) + ' points x' + str(numb_labels) + ' clusters'
-    ax0.set_title(title)
-
-    return ax0, ax1, ax2
 
 def draw_data_2DNC(data, labels, numb_labels, title):
 
@@ -158,6 +136,7 @@ def gen_rand_const(X, y, mat_const, nb_const, noise = 0, prop = False):
         result_matrix = ml - cl
 
     return result_matrix
+
 
 def twospirals(n_points, noise=.5):
     n = np.sqrt(np.random.rand(n_points,1)) * 780 * (2*np.pi)/360

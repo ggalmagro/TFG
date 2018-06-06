@@ -11,7 +11,7 @@ def get_bit(numb, K, ind):
     return int((''.join(str(1 & int(numb) >> i) for i in range(K)))[ind])
 
 
-def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init='rand', alpha=1):
+def CEKM(X, K, constraints, max_iter=300, rho=100, xi=0.5, stop_thr=1e-3, init='rand', alpha=1):
 
     if alpha < 1:
         alpha = 1
@@ -19,8 +19,8 @@ def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init=
     if rho < 0:
         rho = 100
 
-    if bal < 0 or bal > 1:
-        bal = 0.5
+    if xi < 0 or xi > 1:
+        xi = 0.5
 
     rows, cols = np.shape(X)
     ident_matrix = np.identity(rows)
@@ -84,7 +84,7 @@ def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init=
 
     masses = np.concatenate((np.abs(np.ones((rows, 1)) - np.matrix(np.sum(masses, 1)).T), np.abs(masses)), 1)
     x0 = masses.conj().T.reshape(rows * nb_foc, 1)
-    D, S, Smeans = set_distances(X, F, g, masses[:, 1:nb_foc], alpha)
+    D, S, Smeans = set_distances(X, F, g)
 
     # Setting f matrix
     aux = mat_contraintes - np.identity(rows)
@@ -109,8 +109,8 @@ def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init=
     ml_mat = np.power(((np.sign(np.power(np.dot(F, np.ones((K, 1))) - 1, 2))) - 1), 2)
     ml_mat = np.dot(ml_mat, ml_mat.conj().T) * np.dot(F, F.conj().T)
     cl_mat = np.sign(np.dot(F, F.conj().T))
-    ml_mat = ml_mat * -np.sign(bal) / (2 * nb_ml)
-    cl_mat = cl_mat * np.sign(bal) / (2 * nb_cl)
+    ml_mat = ml_mat * -np.sign(xi) / (2 * nb_ml)
+    cl_mat = cl_mat * np.sign(xi) / (2 * nb_cl)
 
     # contraints matrix with respect to the constraints give in parameters
     aux = np.tril(mat_contraintes, -1)
@@ -133,8 +133,8 @@ def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init=
     card[0] = 1
     card = np.matlib.repmat(card ** alpha, 1, rows)
 
-    if (bal > 0):
-        H = (1 - bal) * np.diag(vect_dist * card / (rows * nb_foc)) + bal * contraintes_mat
+    if (xi > 0):
+        H = (1 - xi) * np.diag(vect_dist * card / (rows * nb_foc)) + xi * contraintes_mat
     else:
         H = np.diag(vect_dist.T * card / (rows * nb_foc)) + contraintes_mat
 
@@ -152,7 +152,7 @@ def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init=
 
         # calculation of centers
         g = set_centers_ecm(X, m, F, Smeans, alpha, beta)
-        D, S, Smeans = set_distances(X, F, g, masses, alpha)
+        D, S, Smeans = set_distances(X, F, g)
 
         # Setting H matrix
         aux = np.dot(D, np.concatenate((np.zeros((nb_foc - 1, 1)), np.identity(nb_foc - 1)), 1))
@@ -164,9 +164,9 @@ def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init=
         card[0] = 1
         card = np.matlib.repmat(card ** alpha, 1, rows)
 
-        H = (1 - bal) * np.diag(vect_dist * card / (rows * nb_foc)) + bal * contraintes_mat
+        H = (1 - xi) * np.diag(vect_dist * card / (rows * nb_foc)) + xi * contraintes_mat
 
-        J = np.dot(np.dot(mass.conj().T, H), mass) + bal
+        J = np.dot(np.dot(mass.conj().T, H), mass) + xi
 
         diff = np.abs(g - gold)
         grater_than_threshold = diff > stop_thr
@@ -202,5 +202,4 @@ def CEKM(X, K, constraints, max_iter=300, rho=100, bal=0.5, stop_thr=1e-3, init=
 
     predicted = np.array([np.argmax(bet_p[i, :]) for i in range(np.shape(bet_p)[0])], dtype=np.uint8)
 
-    return predicted
-    #return bet_p, m, g, J
+    return predicted, bet_p, m, g, J

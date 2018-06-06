@@ -28,8 +28,9 @@ def LCVQE(X, K, constraints, max_iter=300, centroids=None):
 
     MLs = np.where(constraints[:, 2] == 1)[0]
     CLs = np.where(constraints[:, 2] == -1)[0]
+    lcvqe = 0
 
-    while iter <= max_iter and not np.all(old_idx == idx):
+    while iter <= max_iter and not np.array_equal(old_idx, idx):
 
         GMLV = [[] for i in range(K)]
         GCLV = [[] for i in range(K)]
@@ -139,8 +140,7 @@ def LCVQE(X, K, constraints, max_iter=300, centroids=None):
 
         iter += 1
 
-    return idx
-    #return idx, centroids, iter, lcvqe
+    return idx, centroids, iter, lcvqe
 
 
 

@@ -141,7 +141,6 @@ def TVClust(X, K, constraints, max_iter=100, is_keep_l=1, alpha0=1.2, stop_thr=0
                     term72 = term72 + tmp
                     term73 = term73 + (alpha0 - 1) * (sps.digamma(gammaQ[k, 1]) - sps.digamma(np.sum(gammaQ[k, :])))
 
-
                 tmp2 = (-p * beta0 / betaQ[k] - beta0 * nuQ[k] * np.dot(np.dot((muQ[k, :, :].T - mu0), WQ[k, :, :]), (((muQ[k, :,:].T - mu0).T) ))) / 2
                 tmp3 = nuQ[k] * sum(np.diag(np.dot(np.linalg.inv(W0), WQ[k, :, :]))) / 2
                 term74 = term74 + E_ln_lambda_k * (nu0 - p) / 2 + tmp2 - tmp3
@@ -151,7 +150,6 @@ def TVClust(X, K, constraints, max_iter=100, is_keep_l=1, alpha0=1.2, stop_thr=0
 
                 term77 = term77 + E_ln_lambda_k / 2 + p / 2 * m.log(betaQ[k]) - H(WQ[k, :, :], nuQ[k])
 
-            #Los valores de las cuatro siguientes variables no coinciden con R
             ElnP = sps.digamma(alpha_p) - sps.digamma(alpha_p + beta_p)
             ElnMinusP = sps.digamma(beta_p) - sps.digamma(alpha_p + beta_p)
             ElnQ = sps.digamma(alpha_q) - sps.digamma(alpha_q + beta_q)
@@ -166,7 +164,6 @@ def TVClust(X, K, constraints, max_iter=100, is_keep_l=1, alpha0=1.2, stop_thr=0
             if iter > 0:
                 pImprove = (L[iter] - L[iter - 1]) / np.absolute(L[iter - 1])
 
-        #print("Iter: " + str(iter) + " L: " + str(L[iter]) + " improvement: " + str(pImprove*100))
         if pImprove < stop_thr:
             nRun = iter
             iter = max_iter + 1
@@ -174,4 +171,5 @@ def TVClust(X, K, constraints, max_iter=100, is_keep_l=1, alpha0=1.2, stop_thr=0
         iter += 1
 
     membership_vector = np.array([np.argmax(rQ[i, :]) for i in range(np.shape(rQ)[0])], dtype=np.uint8)
+
     return membership_vector

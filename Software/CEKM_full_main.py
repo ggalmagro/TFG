@@ -1,27 +1,20 @@
 from __future__ import division, print_function
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from sklearn import datasets
-from CECM.CECM import CEKM
-from CKmeans.CKmeans import CKmeans
-from LCVQE.LCVQE import LCVQE
-from RDPmeans.RDPmeans import RDPM
-from TVClust.TVClust import TVClust
-from COPKmeans.COPKmeans import COPKM
-from functions import generate_data_2D, draw_data_2D, draw_data_2DNC, draw_const, gen_rand_const, twospirals
+from CEKM.CEKM import CEKM
+from functions import generate_data_2D, draw_data_2DNC, gen_rand_const, twospirals
 from sklearn.datasets import fetch_mldata
-from sklearn.cluster import KMeans
 import gc
-import pickle
 from sklearn.metrics import adjusted_rand_score
+import time
 
 
 def main():
 
     np.random.seed(43)
     random_state = 43
-    const_percent = 0.3
+    const_percent = 0.6
 
     iris = datasets.load_iris()
     iris_set = iris.data[:, :2]
@@ -88,32 +81,51 @@ def main():
     circles_const = np.identity(len(circles_labels))
     circles_const = gen_rand_const(circles_set, circles_labels, circles_const, int(len(circles_labels) * const_percent), 0, 1)
 
-    iris_centroid = []
-    wine_centroid = []
-    breast_cancer_centroid = []
-    glass_centroid = []
-    digits_centroid = []
-    rand_centroid = []
-    spiral_centroid = []
-    moons_centroid = []
-    circles_centroid = []
-
     print("Calculando Iris")
-    iris_cekm_assignment = CEKM(iris_set, 3, iris_const, alpha=1, rho=15)
+    iris_start = time.time()
+    iris_cekm_assignment = CEKM(iris_set, 3, iris_const)[0]
+    iris_end = time.time()
+
     print("Calculando Wine")
-    wine_cekm_assignment = CEKM(wine_set, 3, wine_const, rho=1000, stop_thr=0.5, alpha=1)
+    wine_start = time.time()
+    wine_cekm_assignment = CEKM(wine_set, 3, wine_const)[0]
+    wine_end = time.time()
+
+    print("Calculando Glass")
+    glass_start = time.time()
+    #glass_cekm_assignment = CEKM(glass_set, 2, glass_const)[0]
+    glass_end = time.time()
+
     print("Calculando Breast Cancer")
-    breast_cancer_cekm_assignment = CEKM(breast_cancer_set, 2, breast_cancer_const, 300, rho=1000, bal=0, stop_thr=0.1, alpha=1)
-    # glass_cekm_assignment = CEKM(glass_set, 2, glass_const, 300, rho=1000, bal=0, stop_thr=0.5, alpha=1)
-    # digits_cekm_assignment = CEKM(digits_set, 10, digits_const, 300, rho=1000, bal=0, stop_thr=0.5, alpha=1)
+    breast_cancer_start = time.time()
+    breast_cancer_cekm_assignment = CEKM(breast_cancer_set, 2, breast_cancer_const, stop_thr=0.1)[0]
+    breast_cancer_end = time.time()
+
+    print("Calculando Digits")
+    digits_start = time.time()
+    #digits_cekm_assignment = CEKM(digits_set, 10, digits_const)[0]
+    digits_end = time.time()
+
     print("Calculando Rand")
-    rand_cekm_assignment = CEKM(rand_set, 3, rand_const, alpha=1, rho=1000)
-    print("Calculando Spirals")
-    spiral_cekm_assignment = CEKM(spiral_set, 2, spiral_const, alpha=1, rho=1000)
+    rand_start = time.time()
+    rand_cekm_assignment = CEKM(rand_set, 3, rand_const)[0]
+    rand_end = time.time()
+
+    print("Calculando Spiral")
+    spiral_start = time.time()
+    spiral_cekm_assignment = CEKM(spiral_set, 2, spiral_const)[0]
+    spiral_end = time.time()
+
     print("Calculando Moons")
-    moons_cekm_assignment = CEKM(moons_set, 2, moons_const, alpha=1, rho=1000)
+    moons_start = time.time()
+    moons_cekm_assignment = CEKM(moons_set, 2, moons_const)[0]
+    moons_end = time.time()
+
     print("Calculando Circles")
-    circles_cekm_assignment = CEKM(circles_set, 2, circles_const, alpha=1, rho=1000)
+    circles_start = time.time()
+    circles_cekm_assignment = CEKM(circles_set, 2, circles_const)[0]
+    circles_end = time.time()
+
 
     iris_cekm_rand_score = adjusted_rand_score(iris_labels, iris_cekm_assignment)
     wine_cekm_rand_score = adjusted_rand_score(wine_labels, wine_cekm_assignment)
@@ -124,6 +136,16 @@ def main():
     spiral_cekm_rand_score = adjusted_rand_score(spiral_labels, spiral_cekm_assignment)
     moons_cekm_rand_score = adjusted_rand_score(moons_labels, moons_cekm_assignment)
     circles_cekm_rand_score = adjusted_rand_score(circles_labels, circles_cekm_assignment)
+
+    iris_elapsed_time = iris_end - iris_start
+    wine_elapsed_time = wine_end - wine_start
+    breast_cancer_elapsed_time = breast_cancer_end - breast_cancer_start
+    glass_elapsed_time = glass_end - glass_start
+    digits_elapsed_time = digits_end - digits_start
+    rand_elapsed_time = rand_end - rand_start
+    spiral_elapsed_time = spiral_end - spiral_start
+    moons_elapsed_time = moons_end - moons_start
+    circles_elapsed_time = circles_end - circles_start
 
     ############################### Get scores for CEKM ###############################
     print("########################## CEKM ##########################")
@@ -136,6 +158,17 @@ def main():
           "\nSpiral: " + str(spiral_cekm_rand_score) +
           "\nMoons: " + str(moons_cekm_rand_score) +
           "\nCircles: " + str(circles_cekm_rand_score))
+
+    print("########################## CEKM Time ##########################")
+    print("Iris: " + str(iris_elapsed_time) +
+          "\nWine: " + str(wine_elapsed_time) +
+          "\nBreast: " + str(breast_cancer_elapsed_time) +
+          "\nGlass: " + str(glass_elapsed_time) +
+          "\nDigits: " + str(digits_elapsed_time) +
+          "\nRand: " + str(rand_elapsed_time) +
+          "\nSpiral: " + str(spiral_elapsed_time) +
+          "\nMoons: " + str(moons_elapsed_time) +
+          "\nCircles: " + str(circles_elapsed_time))
 
     ############################### Draw Drawable Results ###############################
     alg = "CEKM "

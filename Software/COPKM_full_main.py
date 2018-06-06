@@ -1,19 +1,11 @@
 from __future__ import division, print_function
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from sklearn import datasets
-from CECM.CECM import CEKM
-from CKmeans.CKmeans import CKmeans
-from LCVQE.LCVQE import LCVQE
-from RDPmeans.RDPmeans import RDPM
-from TVClust.TVClust import TVClust
 from COPKmeans.COPKmeans import COPKM
-from functions import generate_data_2D, draw_data_2D, draw_data_2DNC, draw_const, gen_rand_const, twospirals
+from functions import generate_data_2D, draw_data_2DNC, gen_rand_const, twospirals
 from sklearn.datasets import fetch_mldata
-from sklearn.cluster import KMeans
 import gc
-import pickle
 from sklearn.metrics import adjusted_rand_score
 import time
 
@@ -24,6 +16,7 @@ def main():
     np.random.seed(113)
     random_state = 43
     const_percent = 0.1
+    only_ml = True
 
     iris = datasets.load_iris()
     iris_set = iris.data[:, :2]
@@ -90,25 +83,16 @@ def main():
     circles_const = np.identity(len(circles_labels))
     circles_const = gen_rand_const(circles_set, circles_labels, circles_const, int(len(circles_labels) * const_percent), 0, 1)
 
-    iris_centroid = []
-    wine_centroid = []
-    breast_cancer_centroid = []
-    glass_centroid = []
-    digits_centroid = []
-    rand_centroid = []
-    spiral_centroid = []
-    moons_centroid = []
-    circles_centroid = []
-
-    # iris_const[iris_const == -1] = 0
-    # wine_const[wine_const == -1] = 0
-    # glass_const[glass_const == -1] = 0
-    # breast_cancer_const[breast_cancer_const == -1] = 0
-    # digits_const[digits_const == -1] = 0
-    # rand_const[rand_const == -1] = 0
-    # spiral_const[spiral_const == -1] = 0
-    # moons_const[moons_const == -1] = 0
-    # circles_const[circles_const == -1] = 0
+    if only_ml:
+        iris_const[iris_const == -1] = 0
+        wine_const[wine_const == -1] = 0
+        glass_const[glass_const == -1] = 0
+        breast_cancer_const[breast_cancer_const == -1] = 0
+        digits_const[digits_const == -1] = 0
+        rand_const[rand_const == -1] = 0
+        spiral_const[spiral_const == -1] = 0
+        moons_const[moons_const == -1] = 0
+        circles_const[circles_const == -1] = 0
 
 
     ml_iris_const = len(np.where(iris_const - np.identity(len(iris_labels)) == 1)[0]) / (len(iris_labels)*2)
