@@ -1,10 +1,10 @@
 \chapter{Algoritmos de clustering con restricciones}\label{ch:Algoritmos}
 
-Una vez introducido el problema del clustering con restricciones, pasamos a profundizar en los métodos para su aplicación. La siguiente sección presenta 5 algoritmos de clustering con restricciones, cuyos resultados serán expuestos más tarde, en la Sección \ref{ch:Experimentación}.
+Una vez introducido el problema del clustering con restricciones, pasamos a profundizar en los métodos para su aplicación. La siguiente sección presenta 5 algoritmos de clustering con restricciones, cuyos resultados serán expuestos más tarde, en el Capítulo \ref{ch:Experimentación}.
 
 \section{Formalización del problema}
 
-Definido ya el problema del clustering con restricciones en la Sección \ref{ch:Clustering con restricciones}, especificamos la manera de notar sus elementos, de forma que sea sencillo referirse a ellos.
+Definido ya el problema del clustering con restricciones en el Capítulo \ref{ch:Clustering con restricciones}, especificamos la manera de notar sus elementos, de forma que sea sencillo referirse a ellos.
 
 \begin{itemize}
 	
@@ -23,7 +23,7 @@ Definido ya el problema del clustering con restricciones en la Sección \ref{ch:
 \end{itemize}
 Cabe destacar que los elementos y parámetros particulares de cada algoritmo serán definidos en la sección correspondiente al mismo, así como que no todos los elementos expuestos anteriormente son comunes a todos los algoritmos; si bien sí que lo son a la mayoría de ellos.
 
-\section{COP-K-means (Constrained K-means)} \label{copkm}
+\section{Constrained K-means} \label{copkm}
 
 El algoritmo K-medias (\acs{KM}, Apéndice \ref{ap:kmeans}) es uno de los más básicos para aplicar clustering. Así, el algoritmo COP-K-medias (\textit{COP-K-means}) es la adaptación inmediata de \acs{KM} al clustering con restricciones. Para realizar un estudio detallado sobre el mismo tomaremos como base el trabajo de Wagstaff et al. (2001) \cite{Wagstaff:2001b}.
 
@@ -61,7 +61,7 @@ El cambio más notable que supone COP-K-medias respecto al tradicional K-medias,
 
 Existen multitud de criterios de convergencia estandarizados, aunque es común emplear uno adaptado al problema particular que queramos solucionar. El más extendido consiste en calcular la diferencia de la posición de los centroides entre dos iteraciones sucesivas, de forma que cuando ésta sea menor que un umbral dado detenemos el proceso de iteración.
 
-\section{CEKM (Constrained Evidential K-means)} \label{cekm}
+\section{Constrained Evidential K-means} \label{cekm}
 
 Tal y como indican Violaine et al. (2012) \cite{CECM:2012}, cuyo trabajo es el fundamento de la siguiente sección, para comprender el algoritmo  \acf{CEKM}, primero es necesario realizar una introducción al algoritmo K-medias difuso (\textit{Fuzzy K-means}, \acs{FKM}). En él, cada instancia puede pertenecer a uno o más clusters, con diferentes grados de pertenencia. La matriz que almacena esta información, es decir, la partición difusa, se nota con $U$, y se calcula minimizando la siguiente función:
 
@@ -130,17 +130,17 @@ J_{FKM}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{K} u_{ij}^\beta d_{ij}^2
 
 Donde $d_{ij}$ representa la distancia Euclídea entre el objeto $x_i$ y el centroide $v_j$, y donde $\beta > 1$ es el exponente que controla el grado de difusión de la partición. La función objetivo se minimiza mediante un algoritmo iterativo que optimiza los centroides y los grados de pertenencia de manera alterna. El algoritmo empieza con una asignación inicial sobre la que realiza modificaciones hasta que converge.
 
-Para detectar datos ruidosos u outliers empleamos el algoritmo \acs{NC} \textit{Noise-Clustering}. Este método consiste en añadir a los $K$ clusters iniciales uno adicional llamado ``cluster ruidoso'', asociado a una distancia fija $\rho$ respecto a todos los objetos. El parámetro $\rho$ controla la cantidad de datos que serán considerados como outliers. La pertenencia $u_{i*}$ de un objeto $i$ al cluster ruidoso se calcula como:
+Para detectar datos ruidosos u outliers empleamos el algoritmo \acf{NC}. Este método consiste en añadir a los $K$ clusters iniciales uno adicional llamado ``cluster ruidoso'', asociado a una distancia fija $\rho$ respecto a todos los objetos. El parámetro $\rho$ controla la cantidad de datos que serán considerados como outliers. La pertenencia $u_{i*}$ de un objeto $i$ al cluster ruidoso se calcula como:
 
 \begin{equation}
-u_{i*} = 1 - \sum_{j=1}^{K} u_{i,j} \;\;\; i = {1,\cdots,n}
+u_{i*} = 1 - \sum_{j=1}^{K} u_{i,j} \;\;\; i = 1,n
 \label{eqn9}
 \end{equation}
 
 Por tanto, la función objetivo que minimiza el algoritmo \acs{NC} no es más que una combinación del cálculo de pertenencia de objetos al cluster ruidoso y de la que minimizaba el algoritmo \acs{FKM}:
 
 \begin{equation}
-J_{NC}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{K} u_{ij}^\beta d_{ij}^2 + \sum_{i=1}^{K} \rho^2 u_{i*}^\beta
+J_{NC}(U,V) = \sum_{i=1}^{n}\sum_{j=i}^{K} u_{ij}^\beta d_{ij}^2 + \sum_{i=n}^{K} \rho^2 u_{i*}^\beta
 \label{eqn10}
 \end{equation}
 
@@ -247,7 +247,7 @@ H_{lt} = \sum_{i} \sum_{A_j \supseteq \{c_t,c_l\}} |A_j|^{\alpha - 2} m_{ij}^\be
 \label{eqn20}
 \end{equation}
 
-de forma que $V$ es la solución del sistema de ecuaciones lineal $H\times V = B$, que puede ser resuelto mediante técnicas estándar.
+de forma que $V$ es la solución del sistema de ecuaciones lineal $H\times V = B$, que puede ser resuelto mediante técnicas estándar. El proceso de cálculo que deriva en estas ecuaciones viene detallado en el trabajo de Violaine et al. (2012). \cite{CECM:2012}
 
 \subsection{Incorporación de restricciones a EKM}
 
@@ -272,6 +272,8 @@ pl_{i\times j}(\bar{\theta}) &= 1 - m_{i\times j}(\emptyset) - \sum_{l=1}^{K} m_
 \end{split}
 \label{eqn23}
 \end{equation}
+
+Los cálculos y simplificaciones de los que se obtienen estas ecuaciones se encuentran en el trabajo de Violaine et al. (2012). \cite{CECM:2012}
 
 \subsection{Función objetivo de CEKM}
 
@@ -321,7 +323,7 @@ Otra manera de extraer información de la partición de creencia es asignar cada
 
 \clearpage
 
-\section{Linear Constrained Vector Quantization Error (LCVQE)} \label{lcvqe}
+\section{Linear Constrained Vector Quantization Error} \label{lcvqe}
 
 Tomando como base el trabajo de Pelleg y Dorit (2007) \cite{LCVQE:2007}, es necesario realizar una introducción al algoritmo \acf{CVQE} antes de detallar el algoritmo \acs{LCVQE}, puesto que este último consiste en una modificación sobre el primero para mejorar, principalmente, su orden de complejidad.
 
@@ -411,7 +413,7 @@ Para ejemplificar esto consideramos la Figura \ref{fig:figure19}. En ella, el pa
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.3]{imagenes/c4/Fig1}
+	\includegraphics[scale=0.4]{imagenes/c4/Fig1}
 	\caption[Ejemplo de CVQE.]{Ejemplo de CVQE. \cite{LCVQE:2007}}\label{fig:figure19}
 \end{figure}
 
@@ -428,7 +430,7 @@ Para mostrar el problema que esto supone tomamos la Figura \ref{fig:figure20}, e
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.3]{imagenes/c4/Fig2}
+	\includegraphics[scale=0.4]{imagenes/c4/Fig2}
 	\caption[Ejemplo de CVQE.]{Ejemplo de CVQE. \cite{LCVQE:2007}}\label{fig:figure20}
 \end{figure}
 
@@ -448,8 +450,8 @@ La Tabla \ref{tab:tabla3} recoge las asignaciones posibles en cada caso, así co
 		\hline
 		\rowcolor{gray!50}
 		\textbf{Restricción} & \textbf{$y \in c_1, x_i \in c_2$} & \textbf{$x_i,y \in c_1$} & \textbf{$x_i,y \in c_2$}  \\
-		$ML(x_1, y)$ & $R^2 + R^2 + f^2$ & $R^2 + f^2 $ & $R^2 + d^2 $  \\
-		$ML(x_2, y)$ & $R^2 + R^2 + f^2$ & $R^2 + f^2 $ & $R^2 + d^2 $  \\
+		$ML(x_1, y)$ & $r^2 + r^2 + f^2$ & $r^2 + f^2 $ & $r^2 + d^2 $  \\
+		$ML(x_2, y)$ & $r^2 + r^2 + f^2$ & $r^2 + f^2 $ & $r^2 + d^2 $  \\
 		\hline
 		
 	\end{tabular}
@@ -472,14 +474,20 @@ Intuitivamente, las restricciones \acs{ML} violadas modifican la actualización 
 Para formalizar la regla de actualización es necesario definir nuevas funciones. $L_j(i)$ devuelve la instancia de entre $x_1(i)$ y $x_2(i)$ que más lejos se encuentre del centroide $v_j$. $MM(x)$ devuelve el centroide más cercano a $x$ distinto de $v_{M(x)}$. Con esto la regla de actualización queda definida como:
 
 \begin{equation}
+v_j = \frac{1}{N_j} \left[ \sum_{x_i \in c_j} x_i + 
+\frac{1}{2} S_1 + \frac{1}{2} S_2 + S_3 \right]
+\label{eqn38}
+\end{equation}
+
+quedando los términos $S_1$, $S_2$ y $S_3$ como sigue:
+
+\begin{equation}
 \begin{split}
-v_j &= \frac{1}{N_j} \left[ \sum_{x_i \in c_j} x_i + 
-\frac{1}{2} S_1 + \frac{1}{2} S_2 + S_3 \right]\\
 S_1 &= \sum_{l=1,g(l) = j}^{ml} vl(l) \cdot x_2(l) \\
 S_2 &= \sum_{l=1,g^\prime(l) = j}^{ml} vl(l) \cdot x_1(l) \\
 S_3 &= \sum_{l=ml+1, j = MM(L_{M(x_1(l))}(l))}^{ml + cl} vl(l) \cdot L_{M(x_1(l))}(l)
 \end{split}
-\label{eqn38}
+\label{eqn80}
 \end{equation}
 
 donde $N_j$ en este caso se calcula como:
@@ -505,7 +513,7 @@ E_j = & \frac{1}{2} \sum_{x_i \in c_j} T_{j,1} +
 \label{eqn42}
 \end{equation}
 
-quedando definidos los términos $T$ como:
+quedando definidos los términos $T_{j,1}$, $T_{j,2}$, $T_{j,3}$ y $T_{j,4}$ como:
 
 \begin{equation}
 \begin{split}
@@ -602,7 +610,7 @@ Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de 
 
 
 
-\section{Relational Dirichlet Process - Means (RDP - Means)} \label{rdpmYtvc}
+\section{Relational Dirichlet Process - Means} \label{rdpmYtvc}
 
 Tomamos como referencia principal el trabajo de Daniel Khashabi et al. (2015) \cite{RDPM:2015}. En él, los autores incorporan las restricciones desde una perspectiva distinta a las anteriores. Así, modelan el conjunto de instancias y el conjunto de restricciones de manera diferente; es por ello que llaman \acf{TVClust} al método base para \acf{RDPM}.
 
@@ -610,7 +618,7 @@ Para ser más específicos, \acs{TVClust} combina una mezcla de Procesos de Diri
 
 \subsection{El modelo Bayesiano no paramétrico}
 
-Introducimos las particularidades relacionadas con el modelo de datos sobre el que aplicaremos clustering. El conjunto de instancias $X$ viene definido tal y como se especifica al inicio de la Sección \ref{ch:Algoritmos}, y el conjunto de restricciones $R$ como una matriz simétrica de $n \times n$. En $R$ se encuentran almacenadas todas las posibles restricciones que involucran a parejas de instancias. Así, tomando $x_i$ y $x_j$ como dos instancias, basta con obtener el valor $R_{i,j}$ en la matriz para saber la relación que existe entre ellas. Si $R_{i,j} = 1$, entonces existe una restricción de tipo \acf{ML} entre $x_i$ y $x_j$, si $R_{i,j} = 0$ la restricción será de tipo \acf{CL}, y no existirá relación entre las instancias en cualquier otro caso.
+Introducimos las particularidades relacionadas con el modelo de datos sobre el que aplicaremos clustering. El conjunto de instancias $X$ viene definido tal y como se especifica al inicio del Capítulo \ref{ch:Algoritmos}, y el conjunto de restricciones $R$ como una matriz simétrica de $n \times n$. En $R$ se encuentran almacenadas todas las posibles restricciones que involucran a parejas de instancias. Así, tomando $x_i$ y $x_j$ como dos instancias, basta con obtener el valor $R_{i,j}$ en la matriz para saber la relación que existe entre ellas. Si $R_{i,j} = 1$, entonces existe una restricción de tipo \acf{ML} entre $x_i$ y $x_j$, si $R_{i,j} = 0$ la restricción será de tipo \acf{CL}, y no existirá relación entre las instancias en cualquier otro caso.
 
 Consideramos los dos conjuntos de datos de los que disponemos, $X$ y $R$, como dos formas distintas de ver la estructura de clusters subyacente. Cabe destacar que cualquiera de estas dos estructuras es suficiente para llevar a cabo procesos de clustering clásicos, ya sean métodos como \acf{KM} (Sección \ref{ap:kmeans}), en el caso de $X$, o \textit{normalized graph-cut} en el caso de $R$.
 
@@ -635,7 +643,7 @@ p(\theta_{i}|\theta_{\backslash i}) \varpropto \sum_{k = 1}^{K} n_{-i,k} \delta_
 \label{eqn45}
 \end{equation}
 
-donde asumimos que existen $K$ \footnote{La interpretación de $K$ en esta sección es distinta a la propuesta al inicio de la Sección \ref{ch:Algoritmos}, en la introducción a la notación.} valores únicos entre $\theta_{\backslash i}$ notados como $\{\theta_{1}^*, \cdots, \theta_{K}^*\}$, $\delta_{\theta_{k}^*}(\cdot)$ es la función delta de Kronecker, y $n_{-i,k}$ es el número de instancias agrupadas en el cluster $c_k$ excluyendo la instancia $i$. Así, la Ecuación \ref{eqn45} puede entenderse dentro de los métodos de clustering tradicionales en el sentido de que con una probabilidad positiva, $\theta_i$ tomará uno de los valores del conjunto $\{\theta_{1}^*, \cdots, \theta_{K}^*\}$, esto es, la instancia asociada se incluirá en uno de los clusters presentes. Para simplificar este concepto podemos emplear la Metáfora del Restaurante Chino, propuesta por Aldous (1983), en la que asignar $\theta_i$ a un cluster es análogo a sentar un cliente en una mesa del restaurante. El cliente puede sentarse en una mesa ya ocupada o en una que estaba vacía.
+donde asumimos que existen $K$ \footnote{La interpretación de $K$ en esta sección es distinta a la propuesta al inicio del Capítulo \ref{ch:Algoritmos}, en la introducción a la notación.} valores únicos entre $\theta_{\backslash i}$ notados como $\{\theta_{1}^*, \cdots, \theta_{K}^*\}$, $\delta_{\theta_{k}^*}(\cdot)$ es la función delta de Kronecker, y $n_{-i,k}$ es el número de instancias agrupadas en el cluster $c_k$ excluyendo la instancia $i$. Así, la Ecuación \ref{eqn45} puede entenderse dentro de los métodos de clustering tradicionales en el sentido de que con una probabilidad positiva, $\theta_i$ tomará uno de los valores del conjunto $\{\theta_{1}^*, \cdots, \theta_{K}^*\}$, esto es, la instancia asociada se incluirá en uno de los clusters presentes. Para simplificar este concepto podemos emplear la Metáfora del Restaurante Chino, propuesta por Aldous (1983), en la que asignar $\theta_i$ a un cluster es análogo a sentar un cliente en una mesa del restaurante. El cliente puede sentarse en una mesa ya ocupada o en una que estaba vacía.
 
 Dado $\theta_i$, utilizamos una familia de funciones paramétricas $p(x_i|\theta_i)$ para modelar la instancia $x_i$, en concreto tomaremos las familia de las exponenciales:
 

@@ -1,8 +1,8 @@
 \chapter{Experimentación}\label{ch:Experimentación}
 
-Esta sección tiene como objetivo mostrar el correcto funcionamiento las funciones documentadas en la Sección \ref{ch:Impl}. Para ello las aplicaremos sobre conjuntos de datos correspondientes a casos de aplicación reales, así como a conjuntos artificiales.
+Esta sección tiene como objetivo mostrar el correcto funcionamiento las funciones documentadas en el Capítulo \ref{ch:Impl}. Para ello las aplicaremos sobre conjuntos de datos correspondientes a casos de aplicación reales, así como a conjuntos artificiales.
 
-Cabe destacar que los parámetros dados como argumento a las funciones son los especificados por defecto en la Sección \ref{ch:Impl} a no ser que se especifique lo contrario, es decir, no se han optimizado para los datos concretos a los que se aplican en cada ocasión. La optimización de parámetros queda a cargo del usuario, que deberá realizar un estudio sobre los mismos para adaptarlos al problema concreto que intenta resolver.
+Cabe destacar que los parámetros dados como argumento a las funciones son los especificados por defecto en el Capítulo \ref{ch:Impl} a no ser que se especifique lo contrario, es decir, no se han optimizado para los datos concretos a los que se aplican en cada ocasión. La optimización de parámetros queda a cargo del usuario, que deberá realizar un estudio sobre los mismos para adaptarlos al problema concreto que intenta resolver.
 
 \section{Conjuntos de datos considerados} \label{datasets}
 
@@ -14,15 +14,15 @@ Consideraremos 4 conjuntos de datos correspondientes a casos reales de aplicaci�
 
 \begin{itemize}
 	
-	\item \textbf{Conjunto de datos \textit{Iris}}: el conjunto de datos Iris (\textit{Iris dataset}) es uno de los más empleados en \acs{AA}. Famoso por ser objeto del primer intento de aplicación de métodos de clustering por el biólogo Ronald Fisher en 1936, quien intentaba obtener un método para clasificar flores de la especie Iris en sus tres subespecies: \textit{iris setosa}, \textit{iris virginica} e \textit{iris versicolor}. Compuesto por un total de 150 muestras de 3 clases distintas, caracterizadas cada una por 4 atributos en el dominio de los números reales positivos, a saber: altura del sépalo, anchura del sépalo, altura del pétalo y anchura del pétalo. Por facilidad de representación solo consideraremos las dos primeras características, la figura \ref{fig:figure27} muestra la distribución de las mismas.
+	\item \textbf{Conjunto de datos \textit{Iris}}: el conjunto de datos Iris (\textit{Iris Dataset}) es uno de los más empleados en \acs{AA}. Famoso por ser objeto del primer intento de aplicación de métodos de clustering por el biólogo Ronald Fisher en 1936, quien intentaba obtener un método para clasificar flores de la especie Iris en sus tres subespecies: \textit{iris setosa}, \textit{iris virginica} e \textit{iris versicolor}. Compuesto por un total de 150 muestras de 3 clases distintas, caracterizadas cada una por 4 atributos en el dominio de los números reales positivos, a saber: altura del sépalo, anchura del sépalo, altura del pétalo y anchura del pétalo. Por facilidad de representación solo consideraremos las dos primeras características, la figura \ref{fig:figure27} muestra la distribución de las mismas.
 	
-	\item \textbf{Conjunto de datos \textit{Wine}}: el conjunto de datos Wine (\textit{Wine dataset}) recoge 178 muestras de 3 clases de vinos distintas, caracterizadas cada una por 13 atributos en el dominio de los números reales positivos. Algunos de estos atributos son: contenido de alcohol, contenido de ácido málico, contenido de magnesio, etc.
+	\item \textbf{Conjunto de datos \textit{Wine}}: el conjunto de datos Wine (\textit{Wine Dataset}) recoge 178 muestras de 3 clases de vinos distintas, caracterizadas cada una por 13 atributos en el dominio de los números reales positivos. Algunos de estos atributos son: contenido de alcohol, contenido de ácido málico, contenido de magnesio, etc.
 	
-	\item \textbf{Conjunto de datos \textit{Breast Cancer}}: el conjunto de datos Breast Cancer (\textit{Breast Cancer dataset}) recoge 569 asociadas cada una a una paciente que padecía o no de cáncer de mama (2 clases), cada muestra viene caracterizada por 30 atributos en el dominio de los números reales positivos. Algunos de los atributos son: edad de la paciente, tamaño del tumor, mama afectada, etc.
+	\item \textbf{Conjunto de datos \textit{Breast Cancer}}: el conjunto de datos Breast Cancer (\textit{Breast Cancer Dataset}) recoge 569 asociadas cada una a una paciente que padecía o no de cáncer de mama (2 clases), cada muestra viene caracterizada por 30 atributos en el dominio de los números reales positivos. Algunos de los atributos son: edad de la paciente, tamaño del tumor, mama afectada, etc.
 	
-	\item \textbf{Conjunto de datos \textit{Glass}}: el conjunto de datos Glass (\textit{Glass dataset}) recoge 214 muestras de 6 clases de cristal distintas, caracterizadas cada una por 10 atributos en multitud de dominios. Algunos de estos atributos son: indice reactivo, contenido en magnesio, contenido en aluminio, finalidad de uso, etc.
+	\item \textbf{Conjunto de datos \textit{Glass}}: el conjunto de datos Glass (\textit{Glass Dataset}) recoge 214 muestras de 6 clases de cristal distintas, caracterizadas cada una por 10 atributos en multitud de dominios. Algunos de estos atributos son: indice reactivo, contenido en magnesio, contenido en aluminio, finalidad de uso, etc.
 	
-	\item \textbf{Conjunto de datos \textit{Digits}}: el conjunto de datos Digits (\textit{Digits dataset}) recoge 1797 muestras de 10 clases de distintas, correspondientes a los dígitos manuscritos del 0 al 9. Cada muestra viene caracterizada por 64 atributos en el dominio de los enteros del 1 al 16.
+	\item \textbf{Conjunto de datos \textit{Digits}}: el conjunto de datos Digits (\textit{Digits Dataset}) recoge 1797 muestras de 10 clases de distintas, correspondientes a los dígitos manuscritos del 0 al 9. Cada muestra viene caracterizada por 64 atributos en el dominio de los enteros del 1 al 16.
 	
 \end{itemize}
 
@@ -45,7 +45,7 @@ La tabla \ref{tab:tabla7} muestra de manera resumida las características de los
 		Iris & $150$ & $4$ & $3$ & $\mathbb{R}^+$ \\
 		Wine & $178$ & $13$ & $3$ & $\mathbb{R}^+$ \\
 		Breast Cancer & $569$ & $30$ & $2$ & $\mathbb{R}^+$ \\
-		Glass & $214$ & $10$ & $6$ & Variados \\
+		Glass & $214$ & $10$ & $6$ & Varios \\
 		Digits & $1797$ & $64$ & $10$ & $\{0-16\}$ \\
 		\hline
 		
@@ -64,7 +64,7 @@ La tabla \ref{tab:tabla7} muestra de manera resumida las características de los
 
 En el caso de los conjuntos de datos artificiales el objetivo es generar clusters con una geometría concreta, para ello sólo son necesarios dos atributos ($x$ e $y$) y un número de muestras arbitrario.
 
-La Figura \ref{fig:figure22} muestran los 4 conjuntos de datos generados de manera artificial. Por simplicidad nos referiremos a cada uno de ellos por su identificador en ingles, que aparece en la anotación bajo cada imagen.
+La Figura \ref{fig:figure22} muestra los 4 conjuntos de datos generados de manera artificial. Por simplicidad nos referiremos a cada uno de ellos por su identificador en ingles, que aparece en la anotación bajo cada imagen.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -147,11 +147,11 @@ La Tabla \ref{tab:tabla5} muestra los resultados obtenidos al aplicar el algorit
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con COP-K-Medias empleado restricciones \acs{CL} y \acs{ML}}
+	\caption{Resultados obtenidos con COP-K-Medias empleando restricciones \acs{CL} y \acs{ML}}
 	\label{tab:tabla5}
 \end{table}
 
-De entre los resultados obtenidos destacan los asociados a los conjuntos de datos \textit{Glass Dataset} y \textit{Moons Dataset}. Encontramos que en ninguno de los dos casos el algoritmo COP-K-Medias es capaz de encontrar una solución factible, a pesar de que es seguro que esta existe, ya que las restricciones se generan en base a las etiquetas verdaderas. Esto es consecuencia directa de lo expuesto en la Observación \ref{ob:observacion34}, puesto que en la resolución del problema se emplean tanto restricciones de tipo \acs{ML} como \acs{CL}. Para obtener resultados para \textit{Glass Dataset} y \textit{Moons Dataset} podemos aplicar la solución más simple propuesta en la sección \ref{problemaFactib}, esto es, suprimir las restricciones de tipo \acs{CL} y aumentar las de tipo \acs{ML}. La Tabla \ref{tab:tabla6} muestra los resultados con esta nueva configuración.
+De entre los resultados obtenidos destacan los asociados a los conjuntos de datos \textit{Glass Dataset} y \textit{Moons Dataset}. Encontramos que en ninguno de los dos casos el algoritmo COP-K-Medias es capaz de encontrar una solución factible, a pesar de que es seguro que esta existe, ya que las restricciones se generan en base a las etiquetas verdaderas. Esto es consecuencia directa de lo expuesto en la Observación \ref{ob:observacion34}, puesto que en la resolución del problema se emplean tanto restricciones de tipo \acs{ML} como \acs{CL}. Para obtener resultados para \textit{Glass Dataset} y \textit{Moons Dataset} podemos aplicar transformaciones a las restricciones para hacer el problema más simple (tratable), esto es, suprimir las restricciones de tipo \acs{CL} y aumentar las de tipo \acs{ML}, tal y como especificamos en la Sección \ref{Problemas}. La Tabla \ref{tab:tabla6} muestra los resultados con esta nueva configuración.
 
 \begin{table}[!h]
 	\centering
@@ -179,7 +179,7 @@ De entre los resultados obtenidos destacan los asociados a los conjuntos de dato
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con COP-K-Medias empleado solo restricciones \acs{ML}}
+	\caption{Resultados obtenidos con COP-K-Medias empleando solo restricciones \acs{ML}}
 	\label{tab:tabla6}
 \end{table}
 
@@ -190,13 +190,13 @@ Además de obtener los resultados numéricos podemos representar algunas de las 
 \begin{figure}[bth]
 	\myfloatalign
 	\subfloat[]
-	{\includegraphics[width=.45\linewidth]{imagenes/c6/COPKM/Iris01}}
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/COPKM/Iris01}}
 	\subfloat[]
-	{\includegraphics[width=.45\linewidth]{imagenes/c6/COPKM/Rand01}}\\
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/COPKM/Rand01}}\\
 	\subfloat[]
-	{\includegraphics[width=.45\linewidth]{imagenes/c6/COPKM/IrisSoloML}}
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/COPKM/IrisSoloML}}
 	\subfloat[]
-	{\includegraphics[width=.45\linewidth]{imagenes/c6/COPKM/RandSoloMl}}\\
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/COPKM/RandSoloMl}}\\
 	\caption{Visualización de los resultados de COP-K-Medias}\label{fig:figure24}
 \end{figure}
 
@@ -206,7 +206,7 @@ En la Figura \ref{fig:figure24} destacan las instancias del conjunto de datos \t
 
 \section{Resultados obtenidos con CEKM}
 
-La Tabla \ref{tab:tabla8} muestra los resultados obtenidos al aplicar el algoritmo \acf{CEKM} (Sección \ref{cekm}) a los conjuntos de datos presentados en la Sección \ref{datasets}. Emplearemos un número de restricciones igual al $25\%$ del total de ejemplos disponibles para cada conjunto de datos.
+La Tabla \ref{tab:tabla8} muestra los resultados obtenidos al aplicar el algoritmo \acf{CEKM} (Sección \ref{cekm}) a los conjuntos de datos presentados en la Sección \ref{datasets}. Emplearemos un número de restricciones igual al $25\%$ del total de ejemplos disponibles para cada conjunto de datos. \footnote{Para obtener resultados con \acs{CEKM} para \textit{Breast Cancer Dataset} es necesario modificar el parámetro \texttt{stop\_thr}, y establecerlo a $0.1$ }
 
 \begin{table}[!h]
 	\centering
@@ -238,7 +238,7 @@ La Tabla \ref{tab:tabla8} muestra los resultados obtenidos al aplicar el algorit
 	\label{tab:tabla8}
 \end{table}
 
-En ella destacan los resultados obtenidos para los conjuntos de datos \textit{Glass Dataset} y \textit{Breast Cancer Dataset}. El algoritmo \acs{CEKM} no es capaz de dar resultado para estos dos conjuntos de datos, debido a que las estructuras de memoria que lo soportan crecen de manera exponencial con $K$. La figura \ref{fig:figure25} muestra los resultados obtenidos con \acs{CEKM} para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}.
+En ella destacan los resultados obtenidos para los conjuntos de datos \textit{Glass Dataset} y \textit{Digits Dataset}. El algoritmo \acs{CEKM} no es capaz de dar resultado para estos dos conjuntos de datos, debido a que las estructuras de memoria que lo soportan crecen de manera exponencial con $K$. La figura \ref{fig:figure25} muestra los resultados obtenidos con \acs{CEKM} para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -345,7 +345,7 @@ En la Tabla \ref{tab:tabla10} la columna $K_{out}$ representa el número de clas
 	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.8cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1cm}>{\centering\arraybackslash}m{1cm}}
 		\hline
 		\rowcolor{black}
-		\multicolumn{5}{c}{\bf \color{white}{Resultados obtenidos con RDPM}}\\
+		\multicolumn{5}{c}{\bf \color{white}{Resultados obtenidos con RDPM para un mayor $\lambda$}}\\
 		\hline
 		\rowcolor{gray!50}
 		\textbf{Dataset} & \textbf{RandIndex} & \textbf{Tiempo} & \textbf{$\lambda_{mayor}$} & \textbf{$K_{out}$}  \\
@@ -361,7 +361,7 @@ En la Tabla \ref{tab:tabla10} la columna $K_{out}$ representa el número de clas
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con \acs{RDPM} especificando un mayor para $\lambda$}
+	\caption{Resultados obtenidos con \acs{RDPM} especificando un mayor $\lambda$}
 	\label{tab:tabla11}
 \end{table}
 
@@ -424,9 +424,9 @@ Destaca el resultado obtenido para el conjunto de datos \textit{Breast Cancer Da
 \begin{figure}[bth]
 	\myfloatalign
 	\subfloat[Resultados para \textit{Iris Dataset}]
-	{\includegraphics[width=.4\linewidth]{imagenes/c6/TVClust/TVIris}}
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/TVClust/TVIris}}
 	\subfloat[Resultados para \textit{Rand Dataset}]
-	{\includegraphics[width=.4\linewidth]{imagenes/c6/TVClust/TVRand}}
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/TVClust/TVRand}}
 	\caption{Visualización de los resultados de \acs{TVClust}}\label{fig:figure29}
 \end{figure}
 
@@ -434,7 +434,7 @@ Destaca el resultado obtenido para el conjunto de datos \textit{Breast Cancer Da
 
 \section{Comparativa general de resultados}
 
-La Tabla \ref{tab:tabla13} muestra los resultados obtenidos por cada algoritmo para cada conjunto de datos, en lo que a precisión en las predicciones se refiere. Salvo algunas excepciones, todos los algoritmos se comportan de manera similar bajo las condiciones descritas al inicio de la Sección \ref{ch:Experimentación}. Destaca la precisión en las predicciones sobre el conjunto de datos \textit{Rand Dataset}, así como la pobreza de las mismas sobre el conjunto \textit{Circles Dataset}.
+La Tabla \ref{tab:tabla13} muestra los resultados obtenidos por cada algoritmo para cada conjunto de datos, en lo que a precisión en las predicciones se refiere. Salvo algunas excepciones, todos los algoritmos se comportan de manera similar bajo las condiciones descritas al inicio del Capítulo \ref{ch:Experimentación}. Destaca la precisión en las predicciones sobre el conjunto de datos \textit{Rand Dataset}, así como la pobreza de las mismas sobre el conjunto \textit{Circles Dataset}.
 
 \begin{table}[!h]
 	\centering

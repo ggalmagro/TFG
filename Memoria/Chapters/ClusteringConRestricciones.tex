@@ -4,7 +4,7 @@ Realizada la introducción sobre los conceptos básicos del clustering, el objet
 
 \section{Motivación para el clustering con restricciones}
 
-Tal y como hemos estudiado en la Sección \ref{ch:Breve introducción al Clustering}, los métodos de clustering no supervisado son útiles para dotar de estructura a datos referentes a un área concreta. Un ejemplo de ello lo encontramos en la clasificación de textos; Cohn et al. (2003) \cite{Cohn:2003} afrontan un problema propuesto por Yahoo!, que consiste en, dada una gran cantidad de documentos de texto, agruparlos según una taxonomía en la que los documentos con temáticas similares se encuentren cercanos. Para ello, los métodos de clustering no supervisado resultan de utilidad, ya que la información sobre el problema de la que se dispone inicialmente es limitada. Sin embargo, Wagstaff et al. (2001) mostraron que aplicando clustering no supervisado a ciertos problemas, como el de agrupar datos de GPS de forma que los clusters definan los carriles de una vía, no se obtienen resultados significativos, pues los clusters obtenidos distan mucho de la forma alargada que se esperaría como resultado. Para atajar el problema, introdujeron en el clustering un nuevo elemento, las restricciones a nivel de instancia, que permitían incluir conocimiento sobre los clusters que guiarían los métodos de clustering para obtener los resultados esperados. Bastaba con indicar que los carriles de la vía por la que circulan los vehículos miden cuatro metros de ancho, y por tanto cualquier vehículo que se encuentre a una distancia mayor de 4 metros de otro, en dirección perpendicular a la del desplazamiento, debe ser ubicado en un cluster diferente.
+Tal y como hemos estudiado en el Capítulo \ref{ch:Breve introducción al Clustering}, los métodos de clustering no supervisado son útiles para dotar de estructura a datos referentes a un área concreta. Un ejemplo de ello lo encontramos en la clasificación de textos; Cohn et al. (2003) \cite{Cohn:2003} afrontan un problema propuesto por Yahoo!, que consiste en, dada una gran cantidad de documentos de texto, agruparlos según una taxonomía en la que los documentos con temáticas similares se encuentren cercanos. Para ello, los métodos de clustering no supervisado resultan de utilidad, ya que la información sobre el problema de la que se dispone inicialmente es limitada. Sin embargo, Wagstaff et al. (2001) mostraron que aplicando clustering no supervisado a ciertos problemas, como el de agrupar datos de GPS de forma que los clusters definan los carriles de una vía, no se obtienen resultados significativos, pues los clusters obtenidos distan mucho de la forma alargada que se esperaría como resultado. Para atajar el problema, introdujeron en el clustering un nuevo elemento, las restricciones a nivel de instancia, que permitían incluir conocimiento sobre los clusters que guiarían los métodos de clustering para obtener los resultados esperados. Bastaba con indicar que los carriles de la vía por la que circulan los vehículos miden cuatro metros de ancho, y por tanto cualquier vehículo que se encuentre a una distancia mayor de 4 metros de otro, en dirección perpendicular a la del desplazamiento, debe ser ubicado en un cluster diferente.
 
 Nos situamos entonces en un nuevo escenario: es posible incorporar información adicional al proceso de clustering, además de la contenida en el propio conjunto de datos, para guiarlo en la formación de la partición y obtener resultados más precisos. Esto sitúa al clustering con restricciones en el marco del aprendizaje semisupervisado, a diferencia de los métodos de clustering tradicionales que se enmarcan en el área del clustering no supervisado. 
 
@@ -30,13 +30,13 @@ De manera similar, si queremos que el diámetro de los clusters sea como mucho $
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.45]{imagenes/c3/RestriccionesDeltaEpsilo.png} 
-	\caption[Restricciones de tipo delta y epsilon.]{Restricciones de tipo \textit{delta} y \textit{epsilon}. \cite{Survey:2007}}\label{fig:figure4}
+	\caption[Restricciones de tipo \textit{delta} y \textit{épsilon}.]{Restricciones de tipo \textit{delta} y \textit{épsilon}. \cite{Survey:2007}}\label{fig:figure4}
 \end{figure}
 
 
 \section{Uso de las restricciones}
 
-Mientras que el aprendizaje completamente supervisado implica conocer la etiqueta asociada a cada instancia, en el aprendizaje semisupervisado sólo se dispone de un subconjunto de instancias etiquetadas. Por otra parte, en gran cantidad de dominios la información disponible se refiere a relaciones entre instancias, y no a la clase concreta a la que pertenecen las mismas. Es más, en montajes de clustering interactivo, un usuario no experto en el dominio del problema podrá, probablemente, aportar información en forma de restricciones de tipo \acf{ML} y \acf{CL} \cite{Cohn:2003}\cite{DavidsonRavi:2007}, antes que aportar información sobre a qué clase concreta pertenecen ciertas instancias.
+Mientras que el aprendizaje completamente supervisado implica conocer la etiqueta asociada a cada instancia, en el aprendizaje semisupervisado sólo se dispone de un subconjunto de instancias etiquetadas. Por otra parte, en gran cantidad de dominios la información disponible se refiere a relaciones entre instancias, y no a la clase concreta a la que pertenecen las mismas. Es más, en sistemas de clustering interactivo, un usuario no experto en el dominio del problema podrá, probablemente, aportar información en forma de restricciones de tipo \acf{ML} y \acf{CL} \cite{Cohn:2003}\cite{DavidsonRavi:2007}, antes que aportar información sobre a qué clase concreta pertenecen ciertas instancias.
 
 Habitualmente, las restricciones se incluyen en los problemas de clustering de dos maneras. Pueden ser empleadas para modificar la regla de asignación de instancias a clusters del método en cuestión, de forma que la solución satisfaga el máximo número de restricciones posible. Alternativamente, cabe la posibilidad de entrenar la función de distancia empleada por el método en base a las restricciones, ya sea antes o durante la aplicación del mismo. En cualquier caso, la fase de inicialización puede tomar en consideración las restricciones, de forma que las instancias asociadas con restricciones \acf{ML} serán situadas en el mismo cluster, y aquellas entre las que exista una restricción \acf{CL}, quedarán en clusters diferentes. Basándonos en esta distinción, identificamos dos maneras de aproximar el problema, las basadas en restricciones (\textit{constraint-based}), y las basadas en distancias (\textit{distance-based}).
 
@@ -54,7 +54,7 @@ Existen dos modelos de métodos basados en restricciones: (1) aquellos que fuerz
 	
 	\item Forzar el cumplimiento de todas las restricciones modificando la regla de asignación del método. \cite{Wagstaff:2001b}
 	
-	\item Inicializando los clusters en base a restricciones inferidas del conjunto de instancias etiquetadas.\cite{Basu:2002}
+	\item Inicializar los clusters en base a restricciones inferidas del conjunto de instancias etiquetadas.\cite{Basu:2002}
 	
 \end{itemize}
 
@@ -72,7 +72,7 @@ La Figura \ref{fig:figure5} muestra un conjunto de datos junto a sus restriccion
 
 \subsection{Métodos basados en distancia}
 
-En las aproximaciones basadas en distancias, se emplean métodos de clustering clásicos que hagan uso de una medida de distancia, de forma que dicha medida se modifica para que tenga en consideración las restricciones. En este contexto, satisfacer las restricciones significa que las instancias relacionadas con restricciones \acf{ML} se sitúan juntas en el espacio, y las relacionadas mediante \acf{CL} se encuentran separadas.
+En las aproximaciones basadas en distancias se emplean métodos de clustering clásicos que hacen uso de una medida de distancia, de forma que dicha medida se modifica para que tenga en consideración las restricciones. En este contexto, satisfacer las restricciones significa que las instancias relacionadas con restricciones \acf{ML} se sitúan juntas en el espacio, y las relacionadas mediante \acf{CL} se encuentran separadas.
 
 La Figura \ref{fig:figure8} muestra un posible agrupamiento basado en una métrica aprendida a partir de las restricciones especificadas en la Figura \ref{fig:figure7}. Cabe destacar que en la Figura \ref{fig:figure8} el espacio en el que se encuentran los datos ha sido comprimido en el eje vertical y ensanchado en el eje horizontal para ajustarlo a la métrica de distancia aprendida.
 
@@ -116,7 +116,7 @@ El método empleado para extraer las restricciones es uno de los más populares 
 	\caption[Restricciones de tipo \ac{CL} entre caras de la misma persona.]{Restricciones de tipo \ac{CL} entre caras de la misma persona.  \cite{Survey:2007}}\label{fig:figure10}
 \end{figure}
 
-En la Figura \ref{fig:figure11} se muestra otro conjunto de datos de imágenes sobre el que se aplican técnicas de clustering con restricciones. En este caso, la tarea es realizar reconocimiento de objetos para incorporar el método al sistema de navegación del robot Aibo \cite{DavidsonRavi:2005a}. Para ello se emplean restricciones de distancia de tipo $\delta$ y $\epsilon$ como las descritas en la Figura \ref{fig:figure4}, De esta manera se consiguen clusters bien diferenciados y por tanto útiles para las tareas de búsqueda de caminos que el robot realiza durante la navegación.
+En la Figura \ref{fig:figure11} se muestra otro conjunto de datos de imágenes sobre el que se aplican técnicas de clustering con restricciones. En este caso, la tarea es realizar reconocimiento de objetos para incorporar el método al sistema de navegación del robot Aibo \cite{DavidsonRavi:2005a}. Para ello se emplean restricciones de distancia de tipo $\delta$ y $\epsilon$ como las descritas en la Figura \ref{fig:figure4}. De esta manera se consiguen clusters bien diferenciados y por tanto útiles para las tareas de búsqueda de caminos que el robot realiza durante la navegación.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -176,7 +176,7 @@ En ciertas tareas de análisis de audio, es posible que no se conozca el número
 
 \subsection{Aplicaciones en datos de GPS} \label{EjemploGPS}
 
-Tal y como se indicó en el inicio de este capítulo, el clustering con restricciones sobre datos \acs{GPS} se utiliza para identificar el carril por el que circula cada vehículo, como se muestra en la Figura \ref{fig:figure14}. Cada instancia viene representada por la posición que ocupa en la vía en coordenadas cartesianas bidimensionales $(x,y)$, obtenidas en base a los datos \acs{GPS}. La Figura \ref{fig:figure15} muestra de manera gráfica esta representación de los datos (cabe destacar que múltiples instancias pueden referirse al mismo vehículo en distintos momentos en el tiempo).
+Tal y como se indicó en el inicio del Capítulo \ref{ch:Clustering con restricciones}, el clustering con restricciones sobre datos \acs{GPS} se utiliza para identificar el carril por el que circula cada vehículo, como se muestra en la Figura \ref{fig:figure14}. Cada instancia viene representada por la posición que ocupa en la vía en coordenadas cartesianas bidimensionales $(x,y)$, obtenidas en base a los datos \acs{GPS}. La Figura \ref{fig:figure15} muestra de manera gráfica esta representación de los datos (cabe destacar que múltiples instancias pueden referirse al mismo vehículo en distintos momentos en el tiempo).
 
 \begin{figure}[!h]
 	\centering
@@ -185,7 +185,7 @@ Tal y como se indicó en el inicio de este capítulo, el clustering con restricc
 \end{figure}
 
 
-En este dominio, los clusters reales tiene forma alargada en el eje horizontal y se encuentran alineados perpendicularmente a la dirección de desplazamiento. Para lograr que los clusters resultantes tengan esta forma, podemos hacer uso de las restricciones. Estableceremos una restricción de tipo \acf{CL} entre aquellas instancias separadas más de 4 metros en dirección perpendicular a la del desplazamiento (ya que los carriles tiene una anchura máxima de 4 metros), y \acf{ML} entre aquellas instancias que presenten continuidad en el eje horizontal, puesto que es probable que los vehículos que representan se encuentren en el mismo carril. Este modelo de clustering ha probado ser muy útil en navegación a tiempo real \cite{Wagstaff:2001b}, permitiendo notificar al usuario cuando debe cambiar de carril, o cuando no debe abandonarlo.
+En este dominio, los clusters reales tiene forma alargada en el eje horizontal y se encuentran alineados perpendicularmente a la dirección de desplazamiento. Para lograr que los clusters resultantes tengan esta forma, podemos hacer uso de las restricciones. Estableceremos una restricción de tipo \acf{CL} entre aquellas instancias separadas más de 4 metros en dirección perpendicular a la del desplazamiento (ya que los carriles tiene una anchura máxima de 4 metros), y \acf{ML} entre aquellas instancias que presenten continuidad en el eje horizontal, puesto que es probable que los vehículos que representan se encuentren en el mismo carril. Este modelo de clustering ha probado ser muy útil en navegación en tiempo real \cite{Wagstaff:2001b}, permitiendo notificar al usuario cuando debe cambiar de carril, o cuando no debe abandonarlo.
 
 \begin{figure}[!h]
 	\centering
@@ -207,7 +207,7 @@ Encontramos dos beneficios principales en el uso de restricciones:
 
 A continuación se analizan estos dos beneficios:
 
-Dado $X = \{x_1 \cdots x_u\}$, un gran conjunto de instancias no etiquetadas, y $L = \{(x_{u+1}, y_{u+1})\cdots (x_{u+l}, y_{u+l})\}$, un pequeño conjunto de instancias etiquetadas, es común escoger dos elementos de $L$ (con reemplazamiento) y establecer una restricción \acs{ML} entre ellos si pertenecen a la misma clase o, en caso contrario, una de tipo \acs{CL}. Un método apropiado para evaluar los resultados ofrecidos por un método de clustering es medir el nivel de exactitud de éste a la hora de predecir las etiquetas del conjunto $X$. Esto normalmente requiere que se especifique el número de clusters deseados igual al número de clases conocidas en $X$ ($K = K*$). Para medir la exactitud se emplean métodos como \textit{Rand index} \cite{Rand:1971}.
+Dado $X = \{x_1 \cdots x_u\}$, un gran conjunto de instancias no etiquetadas, y $L = \{(x_{u+1}, y_{u+1})\cdots (x_{u+l}, y_{u+l})\}$, un pequeño conjunto de instancias etiquetadas, es común escoger dos elementos de $L$ (con reemplazamiento) y establecer una restricción \acs{ML} entre ellos si pertenecen a la misma clase o, en caso contrario, una de tipo \acs{CL}. Un método apropiado para evaluar los resultados ofrecidos por un método de clustering es medir el nivel de exactitud de éste a la hora de predecir las etiquetas del conjunto $X$. Esto normalmente requiere que se especifique el número de clusters deseados igual al número de clases conocidas en $X$ ($K = K^*$). Para medir la exactitud se emplean métodos como \textit{Rand Index} \cite{Rand:1971}.
 
 El trabajo de Wagstaff y Cardie \cite{WagstaffCardie:2000}, en el que generaban las restricciones de la manera descrita anteriormente, demostraba que, cuando se realiza un promedio de la exactitud de las predicciones obtenidas con algoritmos de clustering con restricciones, variando estas últimas entre experimentos, se obtienen resultados hasta un 20\% mejores que con las técnicas clásicas.
 
@@ -219,7 +219,7 @@ El trabajo de Wagstaff y Cardie \cite{WagstaffCardie:2000}, en el que generaban 
 	
 \end{observacion}
 
-Esta regla, sin embargo, no es cierta en todos los casos, pues en conjuntos de datos como \textit{Tic-Tac-Toe Endgame}, no se consigue ningún incremento en las predicciones sea cual sea el número de restricciones empleadas. La explicación dada por los autores citados para estas excepciones se basa en que establecer $K = K*$ no es apropiado en este caso.
+Esta regla, sin embargo, no es cierta en todos los casos, pues en conjuntos de datos como \textit{Tic-Tac-Toe Endgame}, no se consigue ningún incremento en las predicciones sea cual sea el número de restricciones empleadas. La explicación dada por los autores citados para estas excepciones se basa en que establecer $K = K^*$ no es apropiado en este caso.
 
 El otro beneficio que reporta el uso de restricciones es la posibilidad de obtener clusters con la geometría deseada, como el ejemplo de aplicar clustering a datos \acs{GPS}, analizado en la Sección \ref{EjemploGPS} de este trabajo.
 
@@ -279,7 +279,7 @@ Los autores Wagstaff \cite{Wagstaff:2002} y Davidson y Ravi \cite{DavidsonRavi:2
 
 \subsection{El problema de la utilidad de conjuntos de restricciones} \label{ProbRestr}
 
-En el clustering con restricciones se asume que éstas son indicaciones que guían al algoritmo para encontrar la partición de los datos deseada. Entonces, está justificado pensar que, de cuanta más información adicional (restricciones) dispongamos, más cercano estará el resultado que obtengamos al que buscamos, tal y como la Observación \ref{ob:observacion33} afirmaba. Sin embargo, y a pesar de lo dispuesto en dicha observación, existen casos en los que, aun generando las restricciones sin ruido y en base a las etiquetas verdaderas, existen conjuntos de restricciones que, lejos de mejorar los resultados, los empeoran considerablemente \cite{DavidsonRaviWagstaff:2006}. Esto parece estar en desacuerdo con la Observación \ref{ob:observacion33}, sin embargo, recordemos que en ella se hace referencia al caso medio, y no a casos particulares.
+En el clustering con restricciones se asume que éstas son indicaciones que guían al algoritmo para encontrar la partición de los datos deseada. Entonces, está justificado pensar que, de cuanta más información adicional (restricciones) dispongamos, más cercano estará el resultado que obtengamos al que buscamos, tal y como la Observación \ref{ob:observacion33} afirmaba. Sin embargo, y a pesar de lo dispuesto en dicha observación, encontramos casos en los que, aun generando las restricciones sin ruido y en base a las etiquetas verdaderas, existen conjuntos de restricciones que, lejos de mejorar los resultados, los empeoran considerablemente \cite{DavidsonRaviWagstaff:2006}. Esto parece estar en desacuerdo con la Observación \ref{ob:observacion33}, sin embargo, recordemos que en ella se hace referencia al caso medio, y no a casos particulares.
 
 \begin{observacion}
 	
@@ -349,9 +349,9 @@ Entonces, la medida de coherencia viene dada por el grado de solapamiento que pr
 
 \section{Resumen}
 
-El clustering con restricciones incorpora nueva información al problema del clustering original, las restricciones. Dicha información viene dada en forma de restricciones, ya sean \acf{ML}, \acf{CL}, o restricciones de distancia, y es utilizada para guiar al método que apliquemos, al conjunto de datos en cuestión, en la búsqueda de la partición resultado.
+El clustering con restricciones incorpora nueva información al problema del clustering original, esta viene dada en forma de especificaciones de pertenencia al mismo o a diferentes clusters sobre parejas de instancias. Las restricciones, ya sean \acf{ML}, \acf{CL}, o restricciones de distancia, son utilizadas para guiar al método de clustering que apliquemos al conjunto de datos en cuestión, en la búsqueda de la partición resultado.
 
-Los método de clustering derivados de este concepto han demostrado ser de gran utilidad en múltiples ámbitos, así como también presenta problemas que pueden ser subsanados estudiando en profundidad las restricciones a emplear para resolver cada problema.
+Los método de clustering derivados de este concepto han demostrado ser de gran utilidad en múltiples ámbitos, así como presenta problemas que pueden ser subsanados estudiando en profundidad las restricciones a emplear para resolver cada problema.
 
 
 
