@@ -1,6 +1,6 @@
 \chapter{Clustering con restricciones}\label{ch:Clustering con restricciones}
 
-Realizada la introducción sobre los conceptos básicos del clustering, el objetivo de esta sección es definir los conceptos relacionados con el clustering con restricciones, así como dar ejemplos de su aplicación y destacar los beneficios y problemas que presenta su uso. A tal fin tomamos como referencia principal el trabajo de Ian Davidson y Sugato Basu (2007) \cite{Survey:2007} entre otros.
+Realizada la introducción sobre los conceptos básicos del clustering, el objetivo de este capítulo es definir los conceptos relacionados con el clustering con restricciones, así como dar ejemplos de su aplicación y destacar los beneficios y problemas que presenta su uso. A tal fin tomamos como referencia principal el trabajo de Ian Davidson y Sugato Basu (2007) \cite{Survey:2007} entre otros.
 
 \section{Motivación para el clustering con restricciones}
 
@@ -12,7 +12,7 @@ Nos situamos entonces en un nuevo escenario: es posible incorporar información 
 
 El nuevo tipo de  información que incorporamos al clustering viene dado en forma de restricciones a nivel de instancia, esto es, especificar si dos instancias del conjunto de datos deben estar en el mismo cluster o, por el contrario, deben estar en clusters separados.
 
-A las restricciones que indican que dos puntos deben ser situados en el mismo cluster se las denomina \textit{Must-link}, y se notan por $ML(x,y)$, donde $x$ e $y$ son dos instancias del conjunto de datos. De manera similar, a las restricciones que especifican lo contrario se las denomina \textit{Cannot-link}, y se notan por $CL(x,y)$. \cite{WagstaffCardie:2000}
+A las restricciones que indican que dos puntos deben ser situados en el mismo cluster se las denomina \textit{Must-link}, y se notan con $ML(x,y)$, donde $x$ e $y$ son dos instancias del conjunto de datos. De manera similar, a las restricciones que especifican lo contrario se las denomina \textit{Cannot-link}, y se notan con $CL(x,y)$. \cite{WagstaffCardie:2000}
 
 Aunque pueden parecer simples, las restricciones definidas de la anterior forma poseen propiedades interesantes. Las Restricciones de tipo Must-link son un ejemplo de relación de equivalencia, y por tanto son simétricas, reflexivas y transitivas, formalizando:
 
@@ -21,7 +21,7 @@ Aunque pueden parecer simples, las restricciones definidas de la anterior forma 
 \end{observacion}
 
 \begin{observacion}
-	\textbf{Las restricciones de tipo CL pueden ser (encadenadas).} Sean $CC_i$ y $CC_j$ componentes conexas, conectadas mediante restricciones $ML$, y sean $x$ e $y$ dos instancias en $CC_i$ y $CC_j$ respectivamente. Entonces $CL(x,y): x \in CC_i, y \in CC_j \rightarrow CL(a,b) \forall a,b: a\in CC_i, b \in CC_j$. \cite{Survey:2007}
+	\textbf{Las restricciones de tipo CL pueden ser deducidas.} Sean $CC_i$ y $CC_j$ componentes conexas, conectadas mediante restricciones $ML$, y sean $x$ e $y$ dos instancias en $CC_i$ y $CC_j$ respectivamente. Entonces $CL(x,y): x \in CC_i, y \in CC_j \rightarrow CL(a,b) \forall a,b: a\in CC_i, b \in CC_j$. \cite{Survey:2007}
 \end{observacion}
 
 Un claro ejemplo de uso de las restricciones lo encontramos en casos de aplicación de clustering en los que existen limitaciones en cuanto a las medidas de distancia, como sucedía en el supuesto de los datos GPS. Así, si queremos que las instancias que forman dos clusters estén separadas por una distancia mayor o igual a $\delta$, basta con establecer restricciones de tipo ML entre todas aquellas instancias cuya distancia sea menor que $\delta$. 
@@ -86,7 +86,7 @@ La Figura \ref{fig:figure8} muestra un posible agrupamiento basado en una métri
 	}
 \end{figure}
 
-\section{Aplicaciones del clustering con restricciones} 
+\section{Aplicaciones del clustering con restricciones} \label{aplicacion}
 
 Esta sección muestra algunos casos de aplicación en los que el clustering con restricciones ha resultado ser una herramienta más útil que el clustering no supervisado. Para cada caso analizaremos cómo se obtuvieron las restricciones y cómo éstas mejoran los resultados en el clustering resultante. 
 
@@ -262,7 +262,7 @@ La complejidad teórica del problema dependerá del tipo de restricciones que se
 		\hline
 		
 	\end{tabular}
-	\caption[Complejidad del problema del clustering en función del tipo de restricciones]{Complejidad del problema del clustering en función del tipo de restricciones \cite{Survey:2007}}
+	\caption[Complejidad del problema del clustering en función del tipo de restricciones]{Complejidad del problema del clustering en función del tipo de restricciones. \cite{Survey:2007}}
 	\label{tab:tabla1}
 \end{table}
 

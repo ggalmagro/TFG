@@ -1,6 +1,6 @@
 \chapter{Algoritmos de clustering con restricciones}\label{ch:Algoritmos}
 
-Una vez introducido el problema del clustering con restricciones, pasamos a profundizar en los métodos para su aplicación. La siguiente sección presenta 5 algoritmos de clustering con restricciones, cuyos resultados serán expuestos más tarde, en el Capítulo \ref{ch:Experimentación}.
+Una vez introducido el problema del clustering con restricciones, pasamos a profundizar en los métodos para su aplicación. Este capítulo presenta 5 algoritmos de clustering con restricciones, cuyos resultados serán expuestos más tarde, en el Capítulo \ref{ch:Experimentación}.
 
 \section{Formalización del problema}
 
@@ -36,7 +36,7 @@ El cambio más notable que supone COP-K-medias respecto al tradicional K-medias,
 	\KwIn{Conjunto de datos $X$, conjunto de restricciones $R$, número de clusters $K$.}
 	\KwOut{Partición $P$ del conjunto de datos $X$.}
 	\BlankLine
-	\textbf{función} COP-K-medias($X$, $R$, $K$) \Begin{
+	\textbf{función} COPKM($X$, $R$, $K$) \Begin{
 		\BlankLine
 		1. Sean $V = \{v_1,\cdots ,v_K\}$ los centroides iniciales\\
 		2. Asignar cada instancia $x_i \in X$, al cluster $c_j$ asociado al centroide más cercano $v_j$ tal que ViolaRestriccion($x_i$, $c_j$, $R$) = falso. Si no existe $c \in C \;\;\; t.q.$ ViolaRestriccion($x_i$, $c_j$, $R$) = falso, \KwRet $\emptyset$.\\
@@ -301,10 +301,10 @@ De igual forma que en \acs{FKM}, \acs{NC} y \acs{EKM}, el modelo de optimizació
 \begin{algorithm}
 	
 	\BlankLine
-	\KwIn{Conjunto de datos $X$, conjunto de restricciones $R$, número de clusters resultantes $K$}
-	\KwOut{Partición de creencia $M$, centroides $V$}
+	\KwIn{Conjunto de datos $X$, conjunto de restricciones $R$, número de clusters resultantes $K$, los parámetros $\alpha$, $\rho$ y $\xi$.}
+	\KwOut{Partición de creencia $M$, centroides $V$.}
 	\BlankLine
-	\textbf{función} CEKM($X$, $R$, $K$) \Begin{
+	\textbf{función} CEKM($X$, $R$, $K$, $\alpha$, $\rho$, $\xi$) \Begin{
 		\BlankLine
 		1. Sean $V = \{v_1,\cdots ,v_K\}$ los centroides iniciales.\\
 		2. Actualizar las masas ($M$) resolviendo el problema de programación cuadrática definido por \ref{eqn26} sujeto a \ref{eqn15}\\
@@ -455,7 +455,7 @@ La Tabla \ref{tab:tabla3} recoge las asignaciones posibles en cada caso, así co
 		\hline
 		
 	\end{tabular}
-	\caption[Valores de CVQE para el ejemplo]{Valores de CVQE para el ejemplo \cite{CECM:2012}}
+	\caption[Valores de CVQE para el ejemplo]{Valores de CVQE para el ejemplo. \cite{CECM:2012}}
 	\label{tab:tabla3}
 \end{table}
 
@@ -479,7 +479,7 @@ v_j = \frac{1}{N_j} \left[ \sum_{x_i \in c_j} x_i +
 \label{eqn38}
 \end{equation}
 
-quedando los términos $S_1$, $S_2$ y $S_3$ como sigue:
+quedando los términos $S_1$, $S_2$ y $S_3$ definidos como sigue:
 
 \begin{equation}
 \begin{split}
@@ -564,15 +564,15 @@ Finalmente, podemos estudiar como se comporta el algoritmo frente al ejemplo de 
 		\hline
 		
 	\end{tabular}
-	\caption[Valores de LCVQE para el ejemplo]{Valores de LCVQE para el ejemplo \cite{CECM:2012}}
+	\caption[Valores de LCVQE para el ejemplo]{Valores de LCVQE para el ejemplo. \cite{CECM:2012}}
 	\label{tab:tabla4}
 \end{table}
 
 \begin{algorithm}
 	
 	\BlankLine
-	\KwIn{Conjunto de datos $X$, conjunto de restricciones $R$, centroides iniciales $V$, número de clusters $K$}
-	\KwOut{Partición $P$ del conjunto de datos $X$, centroides $V$}
+	\KwIn{Conjunto de datos $X$, conjunto de restricciones $R$, centroides iniciales $V$, número de clusters $K$.}
+	\KwOut{Partición $P$ del conjunto de datos $X$, centroides $V$.}
 	\BlankLine
 	\textbf{función} LCVQE($X$, $R$, $K$) \Begin{
 		\BlankLine
@@ -875,11 +875,11 @@ Tomando $\xi_1, \xi_2 \rightarrow 0$, el algoritmo \acs{RDPM} se comporta de man
 A pesar del control que $\xi_1$ y $\xi_2$ permiten sobre el proceso de clustering, la función objetivo de \acs{RDPM} (Ecuación \ref{eqn60}) posee un gran número de mínimos locales y, dado que el algoritmo la minimiza con un proceso \textit{greedy}, corremos el riesgo de caer en un mínimo local. Los autores Daniel Khashabi et al. (2015) \cite{RDPM:2015} muestran experimentalmente que establecer $\xi_1 = \xi_2 = \xi$, con un valor pequeño para $\xi_0$, que se incrementará con el paso de las iteraciones en función de un ratio dado, proporciona mejores resultados que un esquema de libre configuración para $\xi_1$ y $\xi_2$.
 
 \begin{algorithm}
-	\KwIn{Conjunto de datos $X$, matriz de restricciones $R$, parámetro de la divergencia de Bregman $\psi*$, los parámetros $\lambda$, $\xi_0$, y el ratio de incremento $\xi_{rate}$}
+	\KwIn{Conjunto de datos $X$, matriz de restricciones $R$, los parámetros $\lambda$, $\xi_0$, y el ratio de incremento $\xi_{rate}$.}
 	\BlankLine
-	\KwOut{La asignación $z = [z_1, z_1, \cdots, z_n]$}
+	\KwOut{La asignación $z = [z_1, z_1, \cdots, z_n]$.}
 	\BlankLine
-	\textbf{función} RDPM($X$, $R$, $\psi*$, $\lambda$, $\xi_0$, $\xi_{rate}$) \Begin{
+	\textbf{función} RDPM($X$, $R$, $\lambda$, $\xi_0$, $\xi_{rate}$) \Begin{
 		\BlankLine
 		
 		1. Inicializar $\xi \leftarrow \xi_0$ y asignar todas las instancias a un mismo cluster\\

@@ -1,7 +1,7 @@
 
 \chapter{Breve introducción al Clustering}\label{ch:Breve introducción al Clustering}
 
-En primer lugar, será necesario realizar una introducción, siquiera sea breve, al clustering y sus aplicaciones, que facilite la comprensión de las siguientes secciones. A tal fin se seguirá el estudio realizado por Brian S. Everitt et al. (2011) \cite{ClusterAnalysis}.
+En primer lugar, será necesario realizar una introducción, siquiera sea breve, al clustering y sus aplicaciones, que facilite la comprensión de los siguientes capítulos. A tal fin se seguirá el estudio realizado por Brian S. Everitt et al. (2011) \cite{ClusterAnalysis}.
 
 \section{Motivación para la clasificación}
 
@@ -62,7 +62,7 @@ No queda completamente clara la manera en que las personas reconocen diferentes 
 	{\includegraphics[width=.3\linewidth]{imagenes/c2/TwoBasicsClusters}}
 	{\includegraphics[width=.3\linewidth]{imagenes/c2/MoonsBasics}}
 	{\includegraphics[width=.3\linewidth]{imagenes/c2/ThreeBasicClusters}}
-	\caption[Clusters con cohesión interna y/o aislamiento externo]{Clusters con cohesión interna y/o aislamiento externo}\label{fig:figure1}
+	\caption[Clusters con cohesión interna y/o aislamiento externo]{Clusters con cohesión interna y/o aislamiento externo.}\label{fig:figure1}
 \end{figure}
 
 Por otra parte, como ya mencionamos anteriormente en esta sección, puede darse el caso de que en un conjunto de datos no exista una partición justificada. En la Figura \ref{fig:figure2} se muestra un conjunto de datos para el que la mayoría de observadores llegaría a la conclusión de que no existen grupos diferenciados, simplemente una nube de puntos uniformemente distribuidos. Idealmente, es de esperar que un método de clustering aplicado a este mismo conjunto de datos llegue a la misma conclusión.
@@ -70,7 +70,7 @@ Por otra parte, como ya mencionamos anteriormente en esta sección, puede darse 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.2]{imagenes/c2/rand.png} 
-	\caption{Distribución uniforme de puntos}\label{fig:figure2}
+	\caption{Distribución uniforme de puntos.}\label{fig:figure2}
 \end{figure}
 
 Sin embargo, la mayoría de métodos de aprendizaje no supervisado darán como resultado un particionamiento uniforme como el que se muestra en la Figura \ref{fig:figure3}. El número de particiones encontradas dependerá del método aplicado, si bien en cualquier caso obtendremos un particionamiento uniforme.
@@ -78,7 +78,7 @@ Sin embargo, la mayoría de métodos de aprendizaje no supervisado darán como r
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.2]{imagenes/c2/randClasif.png} 
-	\caption{Distribución uniforme de puntos clasificados}\label{fig:figure3}
+	\caption{Distribución uniforme de puntos clasificados.}\label{fig:figure3}
 \end{figure}
 
 El proceso de dividir una distribución homogénea de datos en diferentes grupos se conoce como disección, y tal proceso puede ser útil en ciertas circunstancias. Sin embargo, dado que en la mayoría de las ocasiones de aplicación real de métodos de clusters, no se conoce a priori la estructura de los datos, existe el riesgo de interpretar todas las soluciones en términos de existencia de subgrupos, lo que conllevaría la imposición de una estructura ficticia en datos en los que no hay estructura presente.

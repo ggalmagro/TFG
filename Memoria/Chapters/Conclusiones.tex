@@ -1,7 +1,21 @@
 \chapter{Conclusiones}\label{ch:Conclusiones}
 
+En este breve capítulo presentamos las conclusiones basadas en la materia estudiada, así como en los experimentos realizados. También definimos las líneas de trabajo futuro que sería interesante cubrir para completar el análisis de la materia.
+
+Como ya hemos estudiado en capítulos anteriores, las restricciones son un tipo de información verdaderamente útil a la hora de aplicar clustering; sin embargo, no existe un consenso en cuanto a su inclusión en dicho proceso. Esto favorece la aparición de métodos con estrategias de inclusión de restricciones muy variadas, lo que, por una parte, aporta gran diversidad a este campo, mientras que por otra, pone a los investigadores en jaque a la hora de unificar los conceptos comunes a las técnicas que desarrollan, y ofrecer a la comunidad un marco de trabajo unificado y bien definido.
+
+En la Sección \ref{aplicacion} estudiamos algunos de los campos más significativos de aplicación del clustering con restricciones, y comprobamos la eficacia del mismo a la hora de resolver problemas que con otras técnicas sería imposible abordar. Sin embargo, en el Capítulo \ref{ch:Experimentación} vimos cómo los resultados obtenidos mediante estas técnicas pueden estar en contradicción con las características que hacen de su aplicación una herramienta de utilidad. 
+
+Para ilustrarlo podemos tomar como ejemplo algunos de los conjuntos de datos artificiales expuestos en la Sección \ref{ArtifDataset}, en ellos los clusters presentan una geometría verdaderamente complicada de aprender para una máquina. El clustering con restricciones debería ser capaz de proporcionar solución a este problema, ya que una de sus ventajas es que permite controlar la geometría de los clusters que obtiene. No obstante los resultados obtenidos están lejos de ser los deseados en la mayoría de los casos, aunque recordemos que la metodología seguida consiste en tomar los parámetros por defecto propuestos por los autores y generar las restricciones de manera aleatoria.
+
+En base a cuanto antecede es lógico concluir que el clustering con restricciones, lejos de ser una herramienta de aplicación básica o general, es una herramienta de precisión, que requiere de un estudio profundo del dominio del problema para generar las restricciones necesarias, así como de un proceso de optimización de parámetros, que dependerá del método de aplicación, y que nos permitirá obtener de este modelo el máximo rendimiento.
+
+
+
 \section{Trabajo Futuro}
 
-Los cinco métodos de clustering con restricciones expuestos en este trabajo no son los únicos que existen para incorporar las restricciones al proceso de clústering. Incluir algoritmos como \acf{MPCKM}, \acf{CSP} o \acf{CEVCLUS} en el marco unificado que propone este trabajo será la tarea a abordar en la investigación futura de este trabajo.
+Los cinco métodos de clustering con restricciones expuestos en este trabajo no son los únicos que existen para incorporar las restricciones al proceso de clústering. Incluir algoritmos como \acf{MPCKM}, \acf{CSP} o \acf{CEVCLUS} en el marco unificado que propone este trabajo será la tarea a abordar en la investigación futura del mismo.
 
 Por otra parte, sería interesante realizar un estudio de la influencia de los parámetros propios de cada método en los resultados que este proporciona; así como aplicar técnicas de optimización sobre los mismos. Además, desarrollar nuevos métodos de extracción de restricciones daría pié a una comparativa de los mismos y a un estudio de la influencia del esquema de extracción de restricciones en los resultados proporcionados por los distintos métodos.
+
+En lo que a mejoras en el tiempo de ejecución se refiere, notamos que algunos de los métodos de aplicación de clustering con restricciones, presentados en el Capítulo \ref{ch:Algoritmos}, requieren cálculos que involucran matrices de tamaño considerable. Una posible mejora consiste en desarrollar código paralelo que permita realizar operaciones matriciales de manera más eficiente.

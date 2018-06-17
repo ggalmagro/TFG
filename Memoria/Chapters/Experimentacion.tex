@@ -1,6 +1,6 @@
 \chapter{Experimentación}\label{ch:Experimentación}
 
-Esta sección tiene como objetivo mostrar el correcto funcionamiento las funciones documentadas en el Capítulo \ref{ch:Impl}. Para ello las aplicaremos sobre conjuntos de datos correspondientes a casos de aplicación reales, así como a conjuntos artificiales.
+Este capítulo tiene como objetivo mostrar el correcto funcionamiento las funciones documentadas en el Capítulo \ref{ch:Impl}. Para ello las aplicaremos sobre conjuntos de datos correspondientes a casos de aplicación reales, así como a conjuntos artificiales.
 
 Cabe destacar que los parámetros dados como argumento a las funciones son los especificados por defecto en el Capítulo \ref{ch:Impl} a no ser que se especifique lo contrario, es decir, no se han optimizado para los datos concretos a los que se aplican en cada ocasión. La optimización de parámetros queda a cargo del usuario, que deberá realizar un estudio sobre los mismos para adaptarlos al problema concreto que intenta resolver.
 
@@ -14,11 +14,11 @@ Consideraremos 4 conjuntos de datos correspondientes a casos reales de aplicaci�
 
 \begin{itemize}
 	
-	\item \textbf{Conjunto de datos \textit{Iris}}: el conjunto de datos Iris (\textit{Iris Dataset}) es uno de los más empleados en \acs{AA}. Famoso por ser objeto del primer intento de aplicación de métodos de clustering por el biólogo Ronald Fisher en 1936, quien intentaba obtener un método para clasificar flores de la especie Iris en sus tres subespecies: \textit{iris setosa}, \textit{iris virginica} e \textit{iris versicolor}. Compuesto por un total de 150 muestras de 3 clases distintas, caracterizadas cada una por 4 atributos en el dominio de los números reales positivos, a saber: altura del sépalo, anchura del sépalo, altura del pétalo y anchura del pétalo. Por facilidad de representación solo consideraremos las dos primeras características, la figura \ref{fig:figure27} muestra la distribución de las mismas.
+	\item \textbf{Conjunto de datos \textit{Iris}}: el conjunto de datos Iris (\textit{Iris Dataset}) es uno de los más empleados en \acs{AA}. Famoso por ser objeto del primer intento de aplicación de métodos de clustering por el biólogo Ronald Fisher en 1936, quien intentaba obtener un método para clasificar flores de la especie Iris en sus tres subespecies: \textit{iris setosa}, \textit{iris virginica} e \textit{iris versicolor}. Compuesto por un total de 150 muestras de 3 clases distintas, caracterizadas cada una por 4 atributos en el dominio de los números reales positivos, a saber: altura del sépalo, anchura del sépalo, altura del pétalo y anchura del pétalo. Por facilidad de representación solo consideraremos las dos primeras características. La figura \ref{fig:figure27} muestra la distribución de las mismas.
 	
 	\item \textbf{Conjunto de datos \textit{Wine}}: el conjunto de datos Wine (\textit{Wine Dataset}) recoge 178 muestras de 3 clases de vinos distintas, caracterizadas cada una por 13 atributos en el dominio de los números reales positivos. Algunos de estos atributos son: contenido de alcohol, contenido de ácido málico, contenido de magnesio, etc.
 	
-	\item \textbf{Conjunto de datos \textit{Breast Cancer}}: el conjunto de datos Breast Cancer (\textit{Breast Cancer Dataset}) recoge 569 asociadas cada una a una paciente que padecía o no de cáncer de mama (2 clases), cada muestra viene caracterizada por 30 atributos en el dominio de los números reales positivos. Algunos de los atributos son: edad de la paciente, tamaño del tumor, mama afectada, etc.
+	\item \textbf{Conjunto de datos \textit{Breast Cancer}}: el conjunto de datos Breast Cancer (\textit{Breast Cancer Dataset}) recoge 569 instancias asociadas cada una a una paciente que padecía o no de cáncer de mama (2 clases); cada muestra viene caracterizada por 30 atributos en el dominio de los números reales positivos. Algunos de los atributos son: edad de la paciente, tamaño del tumor, mama afectada, etc.
 	
 	\item \textbf{Conjunto de datos \textit{Glass}}: el conjunto de datos Glass (\textit{Glass Dataset}) recoge 214 muestras de 6 clases de cristal distintas, caracterizadas cada una por 10 atributos en multitud de dominios. Algunos de estos atributos son: indice reactivo, contenido en magnesio, contenido en aluminio, finalidad de uso, etc.
 	
@@ -26,13 +26,13 @@ Consideraremos 4 conjuntos de datos correspondientes a casos reales de aplicaci�
 	
 \end{itemize}
 
-La tabla \ref{tab:tabla7} muestra de manera resumida las características de los estos 5 conjuntos de datos.
+La tabla \ref{tab:tabla7} muestra de manera resumida las características de estos 5 conjuntos de datos.
 
 \begin{table}[h]
 	\centering
 	\setlength{\arrayrulewidth}{1mm}
 	\setlength{\tabcolsep}{10pt}
-	\renewcommand{\arraystretch}{0.8}
+	\renewcommand{\arraystretch}{0.75}
 	
 	\rowcolors{2}{gray!25}{white}
 	\begin{tabular}{ >{\centering\arraybackslash}m{2.5cm}  >{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.5cm}}
@@ -50,21 +50,21 @@ La tabla \ref{tab:tabla7} muestra de manera resumida las características de los
 		\hline
 		
 	\end{tabular}
-	\caption{Características de los conjuntos de datos reales considerados}
+	\caption{Características de los conjuntos de datos reales considerados.}
 	\label{tab:tabla7}
 \end{table}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.32]{imagenes/c6/IrisSet}
-	\caption{Distribución de las dos primeras características de \textit{Iris Dataset}}\label{fig:figure27}
+	\caption{Distribución de las dos primeras características de \textit{Iris Dataset}.}\label{fig:figure27}
 \end{figure}
 
-\subsection{Conjuntos de datos artificiales}
+\subsection{Conjuntos de datos artificiales} \label{ArtifDataset}
 
-En el caso de los conjuntos de datos artificiales el objetivo es generar clusters con una geometría concreta, para ello sólo son necesarios dos atributos ($x$ e $y$) y un número de muestras arbitrario.
+En el caso de los conjuntos de datos artificiales el objetivo es generar clusters con una geometría concreta. Para ello sólo son necesarios dos atributos ($x$ e $y$) y un número de muestras arbitrario.
 
-La Figura \ref{fig:figure22} muestra los 4 conjuntos de datos generados de manera artificial. Por simplicidad nos referiremos a cada uno de ellos por su identificador en ingles, que aparece en la anotación bajo cada imagen.
+La Figura \ref{fig:figure22} muestra los 4 conjuntos de datos generados de manera artificial. Por simplicidad nos referiremos a cada uno de ellos por su identificador en inglés, que aparece en la anotación bajo cada imagen.
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -94,26 +94,22 @@ Rand(P_1, P_2) = \frac{a + b}{n (n-1) / 2}
 \label{eqn70}
 \end{equation}
 
-Esta será la medida del error que emplearemos en todos los experimentos.
+Ésta será la medida del error que emplearemos en todos los experimentos.
 
 \section{Generación de las restricciones}
 
-Para generar las restricciones haremos uso de la función propuesta para ello en la Sección \ref{genConst}. La cantidad de restricciones viene definida como un porcentaje aplicado sobre el cardinal de conjunto de datos. Dicho porcentaje se especificará en la sección correspondiente al análisis de cada algoritmo. No obstante, podemos obtener una representación gráfica de las restricciones haciendo uso de las funcionalidades de la biblioteca Matplotlib, la Figura \ref{fig:figure23} muestra las restricciones generadas sobre los conjuntos de datos \textit{Rand Dataset} e \textit{Rand Dataset}, especificando que el número de restricciones debe ser un $30\%$ del total de los datos disponibles en cada caso.
+Para generar las restricciones haremos uso de la función propuesta para ello en la Sección \ref{genConst}. La cantidad de restricciones viene definida como un porcentaje aplicado sobre el cardinal del conjunto de datos. Dicho porcentaje se especificará en la sección correspondiente al análisis de cada algoritmo. No obstante, podemos obtener una representación gráfica de las restricciones haciendo uso de las funcionalidades de la biblioteca Matplotlib. La Figura \ref{fig:figure23} muestra las restricciones generadas sobre los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}, especificando que el número de restricciones debe ser un $30\%$ del total de los datos disponibles en cada caso.
 
 \begin{figure}[bth]
 	\myfloatalign
-	\subfloat[\textit{Iris Dataset}]
-	{\includegraphics[width=.3\linewidth]{imagenes/c6/IrisSet}}
 	\subfloat[Restricciones \acs{ML}]
-	{\includegraphics[width=.3\linewidth]{imagenes/c6/Restr/IrisML}}
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/Restr/IrisML}}
 	\subfloat[Restricciones \acs{CL}]
-	{\includegraphics[width=.3\linewidth]{imagenes/c6/Restr/IrisCL}}\\
-	\subfloat[\textit{Rand Dataset}]
-	{\includegraphics[width=.3\linewidth]{imagenes/c6/ArtifSets/RandSet}}
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/Restr/IrisCL}}\\
 	\subfloat[Restricciones \acs{ML}]
-	{\includegraphics[width=.3\linewidth]{imagenes/c6/Restr/RandML}}
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/Restr/RandML}}
 	\subfloat[Restricciones \acs{CL}]
-	{\includegraphics[width=.3\linewidth]{imagenes/c6/Restr/RandCL}}\\
+	{\includegraphics[width=.5\linewidth]{imagenes/c6/Restr/RandCL}}\\
 	\caption{Visualización de las restricciones.}\label{fig:figure23}
 \end{figure} 
 
@@ -147,11 +143,11 @@ La Tabla \ref{tab:tabla5} muestra los resultados obtenidos al aplicar el algorit
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con COP-K-Medias empleando restricciones \acs{CL} y \acs{ML}}
+	\caption{Resultados obtenidos con COP-K-Medias empleando restricciones \acs{CL} y \acs{ML}.}
 	\label{tab:tabla5}
 \end{table}
 
-De entre los resultados obtenidos destacan los asociados a los conjuntos de datos \textit{Glass Dataset} y \textit{Moons Dataset}. Encontramos que en ninguno de los dos casos el algoritmo COP-K-Medias es capaz de encontrar una solución factible, a pesar de que es seguro que esta existe, ya que las restricciones se generan en base a las etiquetas verdaderas. Esto es consecuencia directa de lo expuesto en la Observación \ref{ob:observacion34}, puesto que en la resolución del problema se emplean tanto restricciones de tipo \acs{ML} como \acs{CL}. Para obtener resultados para \textit{Glass Dataset} y \textit{Moons Dataset} podemos aplicar transformaciones a las restricciones para hacer el problema más simple (tratable), esto es, suprimir las restricciones de tipo \acs{CL} y aumentar las de tipo \acs{ML}, tal y como especificamos en la Sección \ref{Problemas}. La Tabla \ref{tab:tabla6} muestra los resultados con esta nueva configuración.
+De entre los resultados obtenidos destacan los asociados a los conjuntos de datos \textit{Glass Dataset} y \textit{Moons Dataset}. Encontramos que en ninguno de los dos casos el algoritmo COP-K-Medias es capaz de encontrar una solución factible, a pesar de que es seguro que ésta existe, ya que las restricciones se generan en base a las etiquetas verdaderas. Esto es consecuencia directa de lo expuesto en la Observación \ref{ob:observacion34}, puesto que en la resolución del problema se emplean tanto restricciones de tipo \acs{ML} como \acs{CL}. Para obtener resultados para \textit{Glass Dataset} y \textit{Moons Dataset} podemos aplicar transformaciones a las restricciones para hacer el problema más simple (tratable), esto es, suprimir las restricciones de tipo \acs{CL} y aumentar las de tipo \acs{ML}, tal y como especificamos en la Sección \ref{Problemas}. La Tabla \ref{tab:tabla6} muestra los resultados con esta nueva configuración.
 
 \begin{table}[!h]
 	\centering
@@ -179,28 +175,30 @@ De entre los resultados obtenidos destacan los asociados a los conjuntos de dato
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con COP-K-Medias empleando solo restricciones \acs{ML}}
+	\caption{Resultados obtenidos con COP-K-Medias empleando sólo restricciones \acs{ML}.}
 	\label{tab:tabla6}
 \end{table}
 
-Como cabía esperar, los resultados de la Tabla \ref{tab:tabla6} muestran que empleado solo restricciones de tipo \acs{ML} el algoritmo COP-K-Medias es capaz de dar una partición para todos los conjuntos de datos. Sin embargo la precisión de las predicciones decrece en algunos casos, esto se debe la pérdida de la información que proporcionaban las restricciones \acs{CL}. 
+Como cabía esperar, los nuevos resultados muestran que, empleando sólo restricciones de tipo \acs{ML}, el algoritmo COP-K-Medias es capaz de dar una partición para todos los conjuntos de datos. Sin embargo, la precisión de las predicciones decrece en algunos casos; esto se debe la pérdida de la información que proporcionaban las restricciones \acs{CL}. 
 
-Además de obtener los resultados numéricos podemos representar algunas de las particiones obtenidas con COP-K-Medias para obtener una mejor idea del comportamiento del algoritmo. En la Figura \ref{fig:figure24} se muestran los resultados obtenidos para \textit{Iris Dataset} y \textit{Rand Dataset}, los cuadros (a) y (b) muestran los resultados considerando restricciones ML y CL, mientras que los (c) y (d) solo consideran restricciones ML.
+Además de obtener los resultados numéricos, podemos representar algunas de las particiones obtenidas con COP-K-Medias para obtener una mejor idea del comportamiento del algoritmo. 
+
+En la Figura \ref{fig:figure24} se muestran los resultados obtenidos para \textit{Iris Dataset} y \textit{Rand Dataset}; los cuadros (a) y (b) muestran los resultados considerando restricciones ML y CL, mientras que los (c) y (d) sólo consideran restricciones ML.
 
 \begin{figure}[bth]
 	\myfloatalign
 	\subfloat[]
-	{\includegraphics[width=.5\linewidth]{imagenes/c6/COPKM/Iris01}}
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/Iris01}}
 	\subfloat[]
-	{\includegraphics[width=.5\linewidth]{imagenes/c6/COPKM/Rand01}}\\
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/Rand01}}\\
 	\subfloat[]
-	{\includegraphics[width=.5\linewidth]{imagenes/c6/COPKM/IrisSoloML}}
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/IrisSoloML}}
 	\subfloat[]
-	{\includegraphics[width=.5\linewidth]{imagenes/c6/COPKM/RandSoloMl}}\\
-	\caption{Visualización de los resultados de COP-K-Medias}\label{fig:figure24}
+	{\includegraphics[width=.4\linewidth]{imagenes/c6/COPKM/RandSoloMl}}\\
+	\caption{Visualización de los resultados de COP-K-Medias.}\label{fig:figure24}
 \end{figure}
 
-En la Figura \ref{fig:figure24} destacan las instancias del conjunto de datos \textit{Iris Dataset} que parecen estar dentro de un cluster distinto al que pertenecen. Es en estos casos en los que destaca la influencia de las restricciones en el proceso de asignación de instancias a clusters, el algoritmo K-Medias (Apéndice \ref{ap:kmeans}) nunca proporcionaría esta partición como resultado.
+En la Figura \ref{fig:figure24} destacan las instancias del conjunto de datos \textit{Iris Dataset} que parecen estar dentro de un cluster distinto al que pertenecen. Es en estos casos en los que destaca la influencia de las restricciones en el proceso de asignación de instancias a clusters, ya que el algoritmo K-Medias (Apéndice \ref{ap:kmeans}) nunca proporcionaría esta partición como resultado.
 
 \clearpage
 
@@ -234,7 +232,7 @@ La Tabla \ref{tab:tabla8} muestra los resultados obtenidos al aplicar el algorit
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con \acs{CEKM}}
+	\caption{Resultados obtenidos con \acs{CEKM}.}
 	\label{tab:tabla8}
 \end{table}
 
@@ -246,7 +244,7 @@ En ella destacan los resultados obtenidos para los conjuntos de datos \textit{Gl
 	{\includegraphics[width=.5\linewidth]{imagenes/c6/CEKM/CEKMIrisResult}}
 	\subfloat[Resultados para \textit{Rand Dataset}]
 	{\includegraphics[width=.5\linewidth]{imagenes/c6/CEKM/CEKMRandResult}}
-	\caption{Visualización de los resultados de \acs{CEKM}}\label{fig:figure25}
+	\caption{Visualización de los resultados de \acs{CEKM}.}\label{fig:figure25}
 \end{figure}
 
 \clearpage
@@ -281,7 +279,7 @@ La Tabla \ref{tab:tabla8} muestra los resultados obtenidos al aplicar el algorit
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con \acs{LCVQE}}
+	\caption{Resultados obtenidos con \acs{LCVQE}.}
 	\label{tab:tabla9}
 \end{table}
 
@@ -294,14 +292,14 @@ De nuevo, podemos obtener una representación de algunos de los mejores resultad
 	{\includegraphics[width=.5\linewidth]{imagenes/c6/LCVQE/LCVQEIris}}
 	\subfloat[Resultados para \textit{Rand Dataset}]
 	{\includegraphics[width=.5\linewidth]{imagenes/c6/LCVQE/LCVQERand}}
-	\caption{Visualización de los resultados de \acs{LCVQE}}\label{fig:figure26}
+	\caption{Visualización de los resultados de \acs{LCVQE}.}\label{fig:figure26}
 \end{figure}
 
 \clearpage
 
 \section{Resultados obtenidos con RDP-Means}
 
-La Tabla \ref{tab:tabla10} muestra los resultados obtenidos al aplicar el algoritmo \acf{RDPM} (Sección \ref{rdpmYtvc}) a los conjuntos de datos presentados en la Sección \ref{datasets}. Para aplicar \acs{RDPM} es necesario especificar el parámetro $\lambda$, en este caso este parámetro se calcula de manera experimental y en base a las distancia medias entre instancias dentro del conjunto de datos. De igual forma que en el caso anterior, especificaremos el número de restricciones como un $25\%$ del total de ejemplos disponibles para cada conjunto de datos.
+La Tabla \ref{tab:tabla10} muestra los resultados obtenidos al aplicar el algoritmo \acf{RDPM} (Sección \ref{rdpmYtvc}) a los conjuntos de datos presentados en la Sección \ref{datasets}. Para aplicar \acs{RDPM} es necesario especificar el parámetro $\lambda$; en este caso este parámetro se calcula de manera experimental y en base a las distancia medias entre instancias dentro del conjunto de datos. De igual forma que en el caso anterior, especificaremos el número de restricciones como un $25\%$ del total de ejemplos disponibles para cada conjunto de datos.
 
 \begin{table}[!h]
 	\centering
@@ -329,11 +327,11 @@ La Tabla \ref{tab:tabla10} muestra los resultados obtenidos al aplicar el algori
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con \acs{RDPM}}
+	\caption{Resultados obtenidos con \acs{RDPM}.}
 	\label{tab:tabla10}
 \end{table}
 
-En la Tabla \ref{tab:tabla10} la columna $K_{out}$ representa el número de clases de la partición de salida proporcionada por \acs{LCVQE}. Podemos estudiar la influencia del parámetro $\lambda$ sobre este resultado, para ello ejecutamos el algoritmo especificando en cada cas un $\lambda$ mayor. La Tabla \ref{tab:tabla11} muestra los resultados obtenidos con esta nueva configuración.
+En la Tabla \ref{tab:tabla10} la columna $K_{out}$ representa el número de clases de la partición de salida proporcionada por \acs{LCVQE}. Podemos estudiar la influencia del parámetro $\lambda$ sobre este resultado. Para ello, ejecutamos el algoritmo especificando en cada caso un $\lambda$ mayor. La Tabla \ref{tab:tabla11} muestra los resultados obtenidos con esta nueva configuración.
 
 \begin{table}[!h]
 	\centering
@@ -361,11 +359,11 @@ En la Tabla \ref{tab:tabla10} la columna $K_{out}$ representa el número de clas
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con \acs{RDPM} especificando un mayor $\lambda$}
+	\caption{Resultados obtenidos con \acs{RDPM} especificando un mayor $\lambda$.}
 	\label{tab:tabla11}
 \end{table}
 
-A la vista de los resultados expuestos en la Tabla \ref{tab:tabla11} podemos decir que escoger $\lambda$ es equivalente a escoger $K$ en los algoritmos que toman como parámetro el número de clusters de la partición de salida. Por tanto es crucial realizar un estudio sobre este parámetro para resolver el problema concreto al que nos enfrentemos. En la Figura \ref{fig:figure28} representamos los resultados obtenidos con las diferentes elecciones de $\lambda$ para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}. 
+A la vista de los resultados expuestos en la Tabla \ref{tab:tabla11} podemos decir que escoger $\lambda$ es equivalente a escoger $K$ en los algoritmos que toman como parámetro el número de clusters de la partición de salida. Por tanto, es crucial realizar un estudio sobre este parámetro para resolver el problema concreto al que nos enfrentemos. En la Figura \ref{fig:figure28} representamos los resultados obtenidos con las diferentes elecciones de $\lambda$ para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}. 
 
 \begin{figure}[bth]
 	\myfloatalign
@@ -377,7 +375,7 @@ A la vista de los resultados expuestos en la Tabla \ref{tab:tabla11} podemos dec
 	{\includegraphics[width=.5\linewidth]{imagenes/c6/RDPM/RDPMRand1}}
 	\subfloat[ \textit{Rand Dataset} con $\lambda = 7$]
 	{\includegraphics[width=.5\linewidth]{imagenes/c6/RDPM/RDPMRand2}}\\
-	\caption{Visualización de los resultados de RDPM con diferentes valores de $\lambda$}\label{fig:figure28}
+	\caption{Visualización de los resultados de RDPM con diferentes valores de $\lambda$.}\label{fig:figure28}
 \end{figure}
 
 La Figura \ref{fig:figure28} refleja claramente la influencia del parámetro $\lambda$ en la partición que \acs{RDPM} proporciona como resultado del proceso de clustering que lleva a cabo. En el caso del conjunto de datos \textit{Iris Dataset}, bastan 3 décimas de diferencia en $\lambda$ para que el resultado degenere en una partición de dos clusters en lugar de 3.
@@ -414,11 +412,11 @@ La Tabla \ref{tab:tabla11} muestra los resultados obtenidos al aplicar el algori
 		\hline
 		
 	\end{tabular}
-	\caption{Resultados obtenidos con \acs{TVClust}}
+	\caption{Resultados obtenidos con \acs{TVClust}.}
 	\label{tab:tabla12}
 \end{table}
 
-Destaca el resultado obtenido para el conjunto de datos \textit{Breast Cancer Dataser}, para el que \acs{TVClust} no es capaz de encontrar una partición mínimamente acertada. Esto puede deberse a la alta dimensionalidad del conjunto de datos. La Figura \ref{fig:figure28} muestra los resultados obtenidos con \acs{TVClust} para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}. 
+Destaca el resultado obtenido para el conjunto de datos \textit{Breast Cancer Dataset}, para el que \acs{TVClust} no es capaz de encontrar una partición mínimamente acertada. Esto puede deberse a la alta dimensionalidad del conjunto de datos. La Figura \ref{fig:figure28} muestra los resultados obtenidos con \acs{TVClust} para los conjuntos de datos \textit{Iris Dataset} y \textit{Rand Dataset}. 
 
 
 \begin{figure}[bth]
@@ -427,7 +425,7 @@ Destaca el resultado obtenido para el conjunto de datos \textit{Breast Cancer Da
 	{\includegraphics[width=.5\linewidth]{imagenes/c6/TVClust/TVIris}}
 	\subfloat[Resultados para \textit{Rand Dataset}]
 	{\includegraphics[width=.5\linewidth]{imagenes/c6/TVClust/TVRand}}
-	\caption{Visualización de los resultados de \acs{TVClust}}\label{fig:figure29}
+	\caption{Visualización de los resultados de \acs{TVClust}.}\label{fig:figure29}
 \end{figure}
 
 \clearpage
@@ -450,19 +448,19 @@ La Tabla \ref{tab:tabla13} muestra los resultados obtenidos por cada algoritmo p
 		\hline
 		\rowcolor{gray!50}
 		\textbf{Dataset} & \textbf{COPKM} & \textbf{CEKM} & \textbf{LCVQE} & \textbf{RDPM} & \textbf{TVClust}  \\
-		Iris & $0.489$  & $0.554 $ & $0.663 $ & $0.479 $ & $0.532 $ \\
-		Wine & $0.337$  & $0.395 $ & $0.390 $ & $0.342 $ & $0.176 $ \\
-		Glass & $0.175$  & NA & $0.197 $ & $0.255 $ & $0.26 $ \\
-		Breast Cancer & $0.45$ & $0.491 $ & $0.616 $ & $0.501 $ & $0 $ \\
-		Digits & $0.582$ & NA & $0.680 $ & $0.665 $ & $0.680 $ \\
-		Rand & $1.0$ & $0.950 $ & $0.989 $ & $0.98 $ & $0.941 $ \\
-		Spirals & $-0.0028$ & $0.061 $ & $0.057 $ & $0.0147 $ & $0.042 $ \\
-		Circles & $0.091$  & $-0.003 $ & $-0.003 $ & $-0.003 $ & $0.075 $ \\
-		Moons & $0.126$  & $0.247 $ & $0.215$ & $0.234 $ & $0.576 $ \\
+		Iris & $0.489$  & $0.554 $ & $\boldsymbol{0.663}$ & $0.479 $ & $0.532 $ \\
+		Wine & $0.337$  & $\boldsymbol{0.395}$ & $0.390$ & $0.342 $ & $0.176 $ \\
+		Glass & $0.175$  & NA & $0.197 $ & $\boldsymbol{0.255}$ & $0.26 $ \\
+		Breast Cancer & $0.45$ & $0.491 $ & $\boldsymbol{0.616}$ & $0.501 $ & $0 $ \\
+		Digits & $0.582$ & NA & $\boldsymbol{0.680}$ & $0.665 $ & $\boldsymbol{0.680}$ \\
+		Rand & $\boldsymbol{1.0}$ & $0.950 $ & $0.989 $ & $0.98 $ & $0.941 $ \\
+		Spirals & $-0.0028$ & $0.061 $ & $\boldsymbol{0.057}$  & $0.0147 $ & $0.042 $ \\
+		Circles & $\boldsymbol{0.091}$  & $-0.003 $ & $-0.003 $ & $-0.003 $ & $0.075 $ \\
+		Moons & $0.126$  & $0.247 $ & $0.215$ & $0.234 $ & $\boldsymbol{0.576}$ \\
 		\hline
 		
 	\end{tabular}
-	\caption{Comparativa general de resultados (RandIndex)}
+	\caption{Comparativa general de resultados (RandIndex).}
 	\label{tab:tabla13}
 \end{table}
 
@@ -482,19 +480,19 @@ En lo que a tiempo de ejecución se refiere, la Tabla \ref{tab:tabla14} muestra 
 		\hline
 		\rowcolor{gray!50}
 		\textbf{Dataset} & \textbf{COPKM} & \textbf{CEKM} & \textbf{LCVQE} & \textbf{RDPM} & \textbf{TVClust}  \\
-		Iris & $0.0423 $  & $9.567 $ & $0.141 $ & $0.508 $ & $0.683 $ \\
-		Wine & $0.0762 $  & $14.48 $ & $0.002 $ & $0.598 $ & $0.691 $ \\
-		Glass & $0.112 $  & NA & $0.002 $ & $0.785 $ & $0.505 $ \\
-		Breast Cancer & $0.556 $ & $64.22 $ & $0.003 $ & $14.096 $ & $11.236 $\\
-		Digits & $10.847 $ & NA & $0.062 $ & $177.12 $ & $144.96 $ \\
-		Rand & $0.031 $ & $9.411 $ & $0.001 $ & $0.365 $ & $0.26 $ \\
-		Spirals & $0.1302 $ & $9.839 $ & $0.002 $ & $2.683 $ & $0.969 $ \\
-		Circles & $0.1301 $ & $12.588 $ & $0.005  $ & $1.27 $ & $0.965 $ \\
-		Moons & $0.116 $ & $11.191 $ & $0.002 $ & $1.563 $ & $0.97 $ \\
+		Iris & $\boldsymbol{0.0423}$  & $9.567 $ & $0.141 $ & $0.508 $ & $0.683 $ \\
+		Wine & $0.0762 $  & $14.48 $ & $\boldsymbol{0.002}$ & $0.598 $ & $0.691 $ \\
+		Glass & $0.112 $  & NA & $\boldsymbol{0.002}$ & $0.785 $ & $0.505 $ \\
+		Breast Cancer & $0.556 $ & $64.22 $ & $\boldsymbol{0.003}$ & $14.096 $ & $11.236 $\\
+		Digits & $10.847 $ & NA & $\boldsymbol{0.062}$ & $177.12 $ & $144.96 $ \\
+		Rand & $0.031 $ & $9.411 $ & $\boldsymbol{0.001}$ & $0.365 $ & $0.26 $ \\
+		Spirals & $0.1302 $ & $9.839 $ & $\boldsymbol{0.002}$ & $2.683 $ & $0.969 $ \\
+		Circles & $0.1301 $ & $12.588 $ & $\boldsymbol{0.005}$ & $1.27 $ & $0.965 $ \\
+		Moons & $0.116 $ & $11.191 $ & $\boldsymbol{0.002}$ & $1.563 $ & $0.97 $ \\
 		\hline
 		
 	\end{tabular}
-	\caption{Comparativa general de resultados (Tiempo)}
+	\caption{Comparativa general de resultados (Tiempo).}
 	\label{tab:tabla14}
 \end{table}
 

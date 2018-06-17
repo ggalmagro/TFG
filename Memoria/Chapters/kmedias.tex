@@ -4,7 +4,7 @@
 
 El algoritmo \acf{KM} es uno de los métodos más básicos para aplicar clustering. Fue ideado por  Hugo Steinhaus en 1957, aunque no fue aplicado a un caso real hasta 1967, por James MacQueen \cite{KMEANS:1967}. 
 
-El procedimiento que aplica K-medias es simple: asignar cada instancia al cluster cuyo centroide se encuentre más cercano a ella, y calcular los centroides en base a las instancias asignadas al cluster asociado al mismo. De esta manera, siguiendo la notación introducida en la sección \ref{ch:Algoritmos}, la regla de actualización de los centroides es:
+El procedimiento que aplica K-medias es simple: asignar cada instancia al cluster cuyo centroide se encuentre más cercano a ella, y calcular los centroides en base a las instancias asignadas al cluster asociado al mismo. De esta manera, siguiendo la notación introducida en el Capítulo \ref{ch:Algoritmos}, la regla de actualización de los centroides es:
 
 \begin{equation}
 v_i = \frac{1}{|c_i|} \sum_{x_i \in c_i} x_i
@@ -33,7 +33,7 @@ donde $c^i$ representa el cluster seleccionado para la instancia $x_i$. Con todo
 	\KwIn{Conjunto de datos $X$, numero de cluster resultantes $k$.}
 	\KwOut{Partición $P$ del conjunto de datos $X$, centroides $V$.}
 	\BlankLine
-	\textbf{función} K-medias($X$, $k$) \Begin{
+	\textbf{función} KM($X$, $k$) \Begin{
 		\BlankLine
 		1. Inicalización aleatoria de los centroides $V = \{v_1, \cdots, v_k\}$.\\
 		2. Asignar cada instancia $x_i \in X$, al centroide más cercano $c_j$ siguiendo la ecuación \ref{a3}.\\
